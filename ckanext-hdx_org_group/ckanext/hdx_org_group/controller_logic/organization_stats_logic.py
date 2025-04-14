@@ -25,7 +25,7 @@ class OrganizationStatsLogic(object):
         self.org_meta_dao.fetch_group_message_topics()
         self.org_meta_dao.fetch_members()
         self.org_meta_dao.fetch_followers()
-        helper.org_add_last_updated_field([self.org_meta_dao.org_dict])
+        #helper.org_add_last_updated_field([self.org_meta_dao.org_dict])
 
     def is_custom(self):
         return self.org_meta_dao.is_custom

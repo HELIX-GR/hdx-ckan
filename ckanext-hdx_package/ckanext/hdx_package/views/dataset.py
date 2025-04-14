@@ -92,17 +92,17 @@ def read(id):
         # Needed because of showcase validation convert_package_name_or_id_to_id_for_type_dataset()
         current_pkg_type = pkg_dict.get('type')
 
-        if current_pkg_type == 'dataset':
-            context_showcase = {'model': model, 'session': model.Session,
-                       'user': g.user, 'for_view': True,
-                       'auth_user_obj': g.userobj}
-            _showcase_list = get_action('ckanext_package_showcase_list')(context_showcase,
-                                                                         {'package_id': pkg_dict['id']})
-            if _showcase_list:
-                showcase_list = sorted(_showcase_list, key=lambda i: i.get('metadata_modified'), reverse=True)
-            pkg_dict['showcase_count'] = len(_showcase_list)
-        else:
-            return abort(404, _('Package type is not dataset'))
+        #if current_pkg_type == 'dataset':
+        #    context_showcase = {'model': model, 'session': model.Session,
+        #               'user': g.user, 'for_view': True,
+        #               'auth_user_obj': g.userobj}
+        #    _showcase_list = get_action('ckanext_package_showcase_list')(context_showcase,
+        #                                                                 {'package_id': pkg_dict['id']})
+        #    if _showcase_list:
+        #        showcase_list = sorted(_showcase_list, key=lambda i: i.get('metadata_modified'), reverse=True)
+        #    pkg_dict['showcase_count'] = len(_showcase_list)
+        #else:
+        #    return abort(404, _('Package type is not dataset'))
     except (NotFound, NotAuthorized):
         return abort(404, _('Dataset not found'))
 

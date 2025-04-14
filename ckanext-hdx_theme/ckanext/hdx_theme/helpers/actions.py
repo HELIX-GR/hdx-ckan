@@ -127,14 +127,15 @@ def _refresh_pkg_count_on_org_list(orgs):
         'fq': 'private: false',
         'fl': 'id name',
         'facet': 'true',
-        'facet.pivot': ['organization,archived'],
+        #'facet.pivot': ['organization,archived'],
         'facet.limit': 2000,
     }
     # search_result = tk.get_action('package_search')({}, query_params)
     query = search.query_for(model.Package)
     query.run(query_params)
-    org_name_to_pkg_count = query.raw_response.get('facet_counts', {}).get('facet_pivot', {}).get(
-        'organization,archived', {})
+    #org_name_to_pkg_count = query.raw_response.get('facet_counts', {}).get('facet_pivot', {}).get(
+    #    'organization,archived', {})
+    org_name_to_pkg_count = {}
     org_name_to_pkg_count_dict = {}
     for org in org_name_to_pkg_count:
         org_name_to_pkg_count_dict[org.get('value')] = org

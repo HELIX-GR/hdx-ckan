@@ -8,13 +8,13 @@
       <div class="container">
         <div class="row">
           <div class="col-12 global-header-content">
-            <a href="#" data-bs-toggle="dropdown" class="ocha-services" aria-label="OCHA services">
+            <!--<a href="#" data-bs-toggle="dropdown" class="ocha-services" aria-label="OCHA services">
               <span class="ocha-logo"></span>
               <span class="ocha-services-text">OCHA Services</span>
 
               <svg class="icon-o-arrow-up" viewBox="0 0 48 48"><path d="M0,34a4,4,0,0,1,1.17-2.83l20-20a4,4,0,0,1,5.66,0l20,20a4,4,0,1,1-5.66,5.66L24,19.66,6.83,36.83A4,4,0,0,1,0,34Z"/></svg>
               <svg class="icon-o-arrow-down" viewBox="0 0 48 48"><path d="M48,14a4,4,0,0,1-1.17,2.83l-20,20a4,4,0,0,1-5.66,0l-20-20a4,4,0,0,1,5.66-5.66L24,28.34,41.17,11.17A4,4,0,0,1,48,14Z"/></svg>
-            </a>
+            </a> -->
             <div class="dropdown-menu ocha-services-menu" role="menu">
               <div class="container">
                 <div class="row">
@@ -152,13 +152,7 @@
                                     </li>
                                   {% endif %}
                                   {% if user_is_sysadmin or h.check_access('hdx_request_data_admin_list') %}
-                                    <li>
-                                      <a href="{{ h.url_for('requestdata_ckanadmin.requests_data') }}"
-                                         title="{{ _('HDX Connect Dashboard') }}">
-                                        <i class="icon-legal"></i>
-                                        <span>{{ _('HDX Connect Dashboard') }}</span>
-                                      </a>
-                                    </li>
+                                    
                                   {% endif %}
                                   {% if user_is_sysadmin or h.check_access('admin_page_list') %}
                                     <li>
@@ -174,7 +168,7 @@
                                     {{ h.build_nav_icon('hdx_package_links.show', _('Package Links')) }}
                                   {% endif %}
                                   {% if user_is_sysadmin %}
-                                    {{ h.build_nav_icon('requestdata_ckanadmin.email', _('Email')) }}
+                                    
                                     {{ h.build_nav_icon('admin.config', _('Config')) }}
                                   {% endif %}
                                 </ul>
@@ -199,7 +193,7 @@
                                 {{ h.build_nav_icon('hdx_user_dashboard.datasets', _('My Datasets'), class_='hdx-tab-button') }}
                                 {{ h.build_nav_icon('dashboard.organizations', _('My Organisations'), class_='hdx-tab-button') }}
                                 {{ h.build_nav_icon('dashboard.groups', _('My Locations'), class_='hdx-tab-button') }}
-                                {{ h.build_nav_icon('requestdata.my_requested_data', _('HDX Connect Requests'), id=c.userobj.name) }}
+                               {# {{ h.build_nav_icon('requestdata.my_requested_data', _('HDX Connect Requests'), id=c.userobj.name) }}#}
 {#                                {% if user_is_sysadmin %}#}
 {#                                  <li>#}
 {#                                    <a href="#" data-module="hdx_click_stopper" data-module-link_type="main nav">COD</a>#}

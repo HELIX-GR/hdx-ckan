@@ -73,8 +73,8 @@ def read(id):
             org_dict = read_logic.org_meta.org_dict
             org_dict.update({
                 'search_template_data': read_logic.search_template_data,
-                'datasets_num': read_logic.search_template_data.get('facets').get('extras_archived').get('fals'),
-                'archived_package_count': read_logic.search_template_data.get('facets').get('extras_archived').get('true'),
+                #'datasets_num': read_logic.search_template_data.get('facets').get('extras_archived').get('fals'),
+                #'archived_package_count': read_logic.search_template_data.get('facets').get('extras_archived').get('true'),
                 'allow_req_membership': read_logic.org_meta.allow_req_membership,
                 # 'group_message_info': read_logic.org_meta.group_message_info,
             })
@@ -348,7 +348,7 @@ def activity_offset(id, offset=0):
     org_dict = org_meta.org_dict
     # org_dict['group_message_info'] = org_meta.group_message_info
 
-    helper.org_add_last_updated_field([org_dict])
+    #helper.org_add_last_updated_field([org_dict])
 
     # Add the group's activity stream (already rendered to HTML) to the
     # template context for the group/read.html template to retrieve later.

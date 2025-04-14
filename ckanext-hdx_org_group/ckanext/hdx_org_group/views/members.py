@@ -275,7 +275,7 @@ def member_new(id):
                 org_obj = model.Group.get(id)
                 # self.notify_admin_users(org_obj, None if invited else [display_name],
                 #                         [email] if invited else None, data_dict['role'])
-                _send_membership_confirmation(org_obj.display_name, org_obj.id, data_dict['role'], user_obj)
+                #_send_membership_confirmation(org_obj.display_name, org_obj.id, data_dict['role'], user_obj)
 
                 h.flash_success(flash_message)
                 org_obj = model.Group.get(id)
@@ -374,7 +374,7 @@ def _add_existing_user_as_member(context, org_id, role, user_info, org_display_n
     }
     get_action('group_member_create')(context, user_data_dict)
 
-    _send_membership_confirmation(org_display_name, org_id, role, user_info)
+    #_send_membership_confirmation(org_display_name, org_id, role, user_info)
     return True
 
 

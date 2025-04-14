@@ -56,11 +56,11 @@ Example:
                             <input id="field-password" name="password" class="full-width required" type="password" required>
 {#                            <label for="field-password">Password</label>#}
                         </div>
-                        <div id="mfa-form-field" style="display: none;" class="mfa mTop10 control">
+                        {#<div id="mfa-form-field" style="display: none;" class="mfa mTop10 control">
                              <label for="field-mfa" class="form-label">One Time Password</label>
                             <input id="field-mfa" name="mfa" class="full-width required" type="number" min="0" max="999999" required>
-{#                            <label for="field-mfa">One Time Password</label>#}
-                        </div>
+{#                            <label for="field-mfa">One Time Password</label>
+                        </div>#}
                         <div class="error-message" style="{{ '' if error_message else 'display: none;' }}">
                           {{ error_message }}
                         </div>

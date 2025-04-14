@@ -6,14 +6,14 @@
   {% asset 'hdx_theme/dataset-styles' %}
   {% asset 'hdx_theme/dataset-read-styles' %}
   {% asset 'hdx_theme/dataset-quick-edit-styles' %}
-  {% if h.dcat_endpoints_enabled() %}
+  {#{% if h.dcat_endpoints_enabled() %}
       {% with endpoint=h.dcat_get_endpoint('dataset')  %}
           <link rel="alternate" type="application/ld+json" href="{{ h.url_for('dcat.read_dataset_jsonld', _id=pkg.id, profiles='schemaorg', qualified=True) }}"/>
           <link rel="alternate" type="text/n3" href="{{ h.url_for('dcat.read_dataset_n3', _id=pkg.id, qualified=True) }}"/>
           <link rel="alternate" type="text/turtle" href="{{ h.url_for('dcat.read_dataset_ttl', _id=pkg.id, qualified=True) }}"/>
           <link rel="alternate" type="application/rdf+xml" href="{{ h.url_for('dcat.read_dataset_xml', _id=pkg.id, qualified=True) }}"/>
       {% endwith %}
-  {% endif %}
+  {% endif %}#}
 {% endblock %}
 
 {% set pkg = pkg_dict %}
@@ -238,7 +238,7 @@
   {% asset 'hdx_theme/dataset-quick-edit-scripts' %}
   {% asset 'hdx_theme/hdx-autocomplete' %}
 {#  {% resource 'hdx_theme/confirm-ajax.js' %}#}
-  <script type="application/ld+json">
+  {#<script type="application/ld+json">
     {{ h.structured_data(pkg.id, ['schemaorg'])|safe }}
-  </script>
+  </script>#}
 {% endblock %}

@@ -253,7 +253,7 @@ search-scripts:
   contents:
     - search_/minisearch.min.js
     - search_/normalize.js
-    - search_/lunr/feature-index.js
+    #- search_/lunr/feature-index.js
     - highlight.js
     - order-by-dropdown.js
     - search_/search.js

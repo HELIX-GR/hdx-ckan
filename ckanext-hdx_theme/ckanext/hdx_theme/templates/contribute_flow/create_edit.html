@@ -36,8 +36,8 @@
 
 {% block page %}
 
-{{ h.snippet('widget/contribute/user_waiting.html', id="userWaitingPopup", initial_text=_('Please wait ...'), show_widget=True) }}
-
+{#{{ h.snippet('widget/contribute/user_waiting.html', id="userWaitingPopup", initial_text=_('Please wait ...'), show_widget=True) }}
+#}
 {% if data.resources %}
 <script id="resource-list-json" type="application/json">{{h.escaped_dump_json(data.resources)|safe}}</script>
 {% endif %}
@@ -435,9 +435,12 @@
                                           </div>
                                           <div class="col-9">
                                               <div data-module="hdx_form_element_manager" data-module-element_name="title" data-module-required="private,public,requestdata" data-module-broadcast_change="true">
-                                              {{ form.input('title', id='field_title', label=_('Title of dataset'), placeholder=_('eg. A descriptive title'), value=data.title, error=errors.title, classes=['mb-3', 'required'], attrs={'data-module': 'slug-preview-target'}) }}
+                                              {{ form.input('title', id='field_title', label=_('Title of dataset (English)'), placeholder=_('eg. A descriptive title'), value=data.title, error=errors.title, classes=['mb-3', 'required'], attrs={'data-module': 'slug-preview-target'}) }}
                                               </div>
 
+                                              <div data-module="hdx_form_element_manager" data-module-element_name="title_optional" data-module-required="private,public,requestdata" data-module-broadcast_change="true">
+                                                {{ form.input('title_optional', id='field_title_optional', label=_('Title of dataset (Greek)'), placeholder=_('eg. A descriptive title'), value=data.title_optional, error=errors.title_optional, classes=['mb-3']) }}
+                                                </div>
                                               {% set prefix = h.url_for('dataset.read', id='') %}
                                               {% set domain = h.url_for('dataset.read', id='', qualified=true) %}
                                               {% set domain = domain|replace("http://", "")|replace("https://", "") %}
@@ -451,7 +454,11 @@
                                               {{ form.markdown('notes', id='field_notes', label=_('Description'), placeholder=_('What type of data is included in this dataset ? For example, "This data is about an assessment in x region"'), value=data.notes, error=errors.notes, classes=['mb-3'], attrs={'style': 'height: 80px;'}) }}
                                               </div>
 
-                                              <div data-module="hdx_form_element_manager" data-module-element_name="subnational" data-module-required="public">
+                                              <div data-module="hdx_form_element_manager" data-module-element_name="notes_optional" data-module-required="public,requestdata">
+                                                {{ form.markdown('notes_optional', id='field_notes_optional', label=_('Description (Greek)'), placeholder=_('What type of data is included in this dataset ? For example, "This data is about an assessment in x region"'), value=data.notes_optional, error=errors.notes_optional, classes=['mb-3'], attrs={'style': 'height: 80px;'}) }}
+                                              </div>
+
+                                              <!--<div data-module="hdx_form_element_manager" data-module-element_name="subnational" data-module-required="public">
                                               {{ form.checkbox('subnational', id='field_subnational', label=_('Dataset contains sub-national data'), value='1', checked=data.subnational and data.subnational != '0', error=errors.subnational, classes=['mb-3'], attrs={}) }}
                                               </div>
 
@@ -464,6 +471,7 @@
                                                   {{ form.checkbox('quality', id='field_quality', label=_("Dataset\'s quality has been confirmed"), value='1', checked=data.quality, error=errors.quality, classes=['mb-3'], attrs={}, label_attrs=quality_attrs) }}
                                                   </div>
                                               {% endif %}
+                                                -->
                                           </div>
                                       </div>
                                     </div>
@@ -472,7 +480,7 @@
                                             <hr class="form-hr"/>
                                         </div>
                                     </div>
-                                    <span id="_dataset_preview">
+                                    <!--<span id="_dataset_preview">
                                         <div class="form-section">
                                           <div class="row">
                                               <div class="col-3">
@@ -498,7 +506,7 @@
                                                 <hr class="form-hr"/>
                                             </div>
                                         </div>
-                                    </span>
+                                    </span> 
                                   <div class="form-section">
                                     <div class="row">
                                       <div class="col-3">
@@ -547,7 +555,7 @@
                                         </div>
                                       </div>
                                     </div>
-                                  </div>
+                                  </div>-->
                                   <div class="row">
                                     <div class="col-12">
                                       <hr class="form-hr"/>
@@ -566,7 +574,7 @@
 
                                             {% set organisations = h.hdx_organisation_list() %}
                                             <div data-module="hdx_form_element_manager" data-module-element_name="owner_org" data-module-required="private,public,requestdata"  data-module-broadcast_change="true">
-                                            {{ form.select('owner_org', id='field_owner_org', label=_('Organisation'), options=organisations, selected=data.owner_org_name, error=errors.owner_org, classes=['mb-3'], attrs={'data-placeholder':_('Which organisation is contributing data?')}) }}
+                                            {{ form.select('owner_org', id='field_owner_org', label=_('Institution'), options=organisations, selected=data.owner_org_name, error=errors.owner_org, classes=['mb-3'], attrs={'data-placeholder':_('Which institution the dataset belongs to?')}) }}
                                             </div>
 
                                             {% set first_org = organisations[0].value if organisations[0] else None %}
@@ -581,7 +589,7 @@
                                             {{ form.input('maintainer', id='field_maintainer', label=_('Maintainer'), placeholder=_("Maintainer"), value=data.maintainer, error=errors.maintainer, classes=['mb-3', 'required'], attrs=maintainer_attrs) }}
                                             </div>
 
-                                            <div data-module="hdx_form_element_manager" data-module-element_name="dataset_date" data-module-required="public,requestdata">
+                                           <!-- <div data-module="hdx_form_element_manager" data-module-element_name="dataset_date" data-module-required="public,requestdata">
                                               <div class="mb-3 ">
   {#                                              <label class="control-label">{{_('Reference Period')}}</label>#}
                                                 <label class="control-label"
@@ -640,7 +648,7 @@
 
                                                 </div>
                                                 </div>
-                                            </div>
+                                            </div> 
 
                                             {% set frequencies = h.hdx_frequency_list(user_is_sysadmin, data.data_update_frequency) %}
                                             {% set frequency_attrs = {'data-module': 'bs_tooltip',  'data-module-placement': 'top',
@@ -652,12 +660,12 @@
                                                 {% if data.id and not data.get('update_status') == 'unknown' and not data.is_fresh %} <div class="overdue-title">Please check if the following field is up to date:</div>{% endif %}
                                                 {{ form.select('data_update_frequency', id='field_data_update_frequency', label=_('Expected Update Frequency [?]'), placeholder=_("How often does this data update?"), options=frequencies, selected=data.data_update_frequency, error=errors.data_update_frequency, classes=['mb-3 update-frequency-select'], attrs={}, label_attrs=frequency_attrs) }}
                                               </div>
-                                            </div>
+                                            </div> 
 
                                             {% set location_list = h.hdx_location_list() %}
                                             <div data-module="hdx_form_element_manager" data-module-element_name="groups_list" data-module-required="public,requestdata">
                                             {{ form.select('locations', id='field_locations', label=_('Location'), options=location_list, selected=data.locations, error=errors.locations, classes=['mb-3'], attrs={'multiple':'true'}) }}
-                                            </div>
+                                            </div> -->
 
 
                                             {% set licenses = h.hdx_license_list() %}
@@ -683,13 +691,13 @@
                                             {{ form.input('num_of_rows', id='num_of_rows', label=_('Number of rows'), value=data.num_of_rows, error=errors.num_of_rows, classes=['', 'mb-3', 'num-of-rows-select'], attrs={}) }}
                                             </div>
 
-                                            {% set methodologies = h.hdx_methodology_list() %}
+                                            <!--{% set methodologies = h.hdx_methodology_list() %}
                                             <div data-module="hdx_form_element_manager" data-module-element_name="methodology" data-module-required="public" data-module-broadcast_change="true">
                                                 {{ form.select('methodology', id='field_methodology', label=_('Methodology'), placeholder=_("Select methodology"), options=methodologies, selected=data.methodology, error=errors.methodology, classes=['mb-3 methodology-select'], attrs={}) }}
                                             </div>
                                             <div data-module="hdx_form_element_manager" data-module-element_name="methodology_other" id="methodology-other-define" {% if data.methodology != 'Other' %} style="display:none;" {% endif %}>
                                                 {{ form.markdown('methodology_other', id='field_method_other', label=_('Define Methodology'), placeholder=_('Describe how this data was collected'), value=data.methodology_other, error=errors.methodology_other, classes=['mb-3'], attrs={'style': 'height: 80px;'}) }}
-                                            </div>
+                                            </div> -->
 
                                             <div data-module="hdx_form_element_manager" data-module-element_name="caveats">
                                             {{ form.markdown('caveats', id='field_caveats', label=_('Caveats / Comments'),value=data.caveats, error=errors.caveats, classes=['mb-3'], attrs={'style': 'height: 80px;'}) }}

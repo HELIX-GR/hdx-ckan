@@ -75,11 +75,11 @@ class HDXTwoStep:
         user_name = SecurityTOTP.get_user_name(request.args['user'])
         locked = False
         lockout = {}
-        if user_name:
-            throttle = LoginThrottle(User.by_name(user_name), user_name)
-            locked = throttle.is_locked()
-            if locked:
-                lockout['timeout'] = throttle.login_lock_timeout
+        #if user_name:
+        #    throttle = LoginThrottle(User.by_name(user_name), user_name)
+        #    locked = throttle.is_locked()
+        #    if locked:
+        #        lockout['timeout'] = throttle.login_lock_timeout
 
         lockout['result'] = locked
         return json.dumps(lockout)
@@ -90,9 +90,11 @@ class HDXTwoStep:
         totp_challenger = None
         if request.args.get('user'):
             user_name = SecurityTOTP.get_user_name(request.args['user'])
+        log.info(user_name)
         if user_name:
             totp_challenger = SecurityTOTP.get_for_user(user_name)
         return json.dumps({'result': totp_challenger is not None})
+        #return json.dumps({'result': totp_challenger is not None})
 
 
 class HDXEditView(EditView):

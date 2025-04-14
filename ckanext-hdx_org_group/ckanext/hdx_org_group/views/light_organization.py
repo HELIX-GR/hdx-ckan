@@ -94,7 +94,7 @@ def _index(template_file, show_switch_to_desktop, show_switch_to_mobile):
     )
     # displayed_orgs = c.featured_orgs + [o for o in c.page]
     displayed_orgs = [o for o in page]
-    helper.org_add_last_updated_field(displayed_orgs)
+    #helper.org_add_last_updated_field(displayed_orgs)
     template_data = {
         'q': q,
         'sorting_selected': sort_option,

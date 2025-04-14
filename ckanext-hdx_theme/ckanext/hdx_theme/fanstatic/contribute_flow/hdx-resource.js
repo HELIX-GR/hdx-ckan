@@ -89,7 +89,6 @@ $(function(){
         initialize: function() {
             this.set('originalHash', this.hashResource());
             this.set('batch_mode', 'DONT_GROUP');
-
             // this.on('progress', function (percentage) {
             //     var position = this.get('position') + 1;
             //     console.log('Percentage is ' + percentage + ' for ' + position)
@@ -903,6 +902,7 @@ $(function(){
             'click .contribute-splash .apis-urls': 'onApisURLsBtn'
         },
         initialize: function(options){
+            this.goToStep2();
             this.googlepicker = this.initGooglePicker();
             this.resourceWidget = new ResourceWidgetView({sandbox: sandbox, data: initial_resource_data});
 

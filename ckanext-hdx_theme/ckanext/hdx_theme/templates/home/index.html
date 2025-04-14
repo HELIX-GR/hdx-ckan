@@ -7,7 +7,7 @@
 
 {% set carouselItems = h.hdx_get_carousel_list() %}
 {% set mobileCarouselItems = carouselItems|batch(2)|list %}
-{% set page_subtitle = data.page_subtitle if data and data.page_subtitle else _("Humanitarian Data Exchange | Find & Use Crisis Data") %}
+{% set page_subtitle = _("HARDMIN - HELIX") %}
 
 {% block subtitle %}{{ page_subtitle }}{% endblock %}
 
@@ -33,7 +33,7 @@
     <div class="container">
       <div class="hero-section-content">
         <div class="hero-description">
-          <h1 class="section-title">The Humanitarian Data Exchange</h1>
+          <h1 class="section-title">Hellenic Academic Research Data Management Initiative</h1>
         </div>
         <div class="hero-boxes-container">
           <div class="hero-boxes">
@@ -100,7 +100,7 @@
           </div>
         </div>
         <div class="hero-description">
-          <p class="section-subtitle">Find, share and use humanitarian data all in one place</p>
+          <p class="section-subtitle">Find, share and use data all in one place</p>
         </div>
         <div class="hero-description">
           <a data-module="hdx_click_stopper" data-module-link_type="learn more faq" href="/faq" class="btn btn-faq"

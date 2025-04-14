@@ -63,7 +63,7 @@ from __future__ import with_statement
 import os
 import sys
 import datetime
-import urllib2
+
 import subprocess
 
 from fabric.api import *
@@ -243,7 +243,7 @@ def deploy():
 
         # get latest requirements.txt
         print 'Getting requirements from revision: %s' % env.revision
-        latest_pip_file = urllib2.urlopen(pip_req)
+        latest_pip_file = urlb.request.urlopen(pip_req)
         tmp_pip_requirements_filepath = os.path.join('/tmp', pip_requirements)
         local_pip_file = open(tmp_pip_requirements_filepath, 'w')
         local_pip_file.write(latest_pip_file.read())

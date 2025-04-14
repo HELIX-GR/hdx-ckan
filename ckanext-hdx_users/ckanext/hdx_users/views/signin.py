@@ -14,7 +14,7 @@ import ckan.plugins as plugins
 import ckan.model as model
 
 import ckanext.hdx_users.helpers.tokens as tokens
-
+from ckan.lib.authenticator import default_authenticate
 
 hdx_signin = Blueprint(u'hdx_signin', __name__, url_prefix=u'/')
 
@@ -44,7 +44,7 @@ def _authenticate(identity: 'Mapping[str, Any]') -> Optional[model.User]:
         user_obj = item.authenticate(identity)
         if user_obj:
             return user_obj
-    return None
+    return default_authenticate(identity)
 
 
 def _check_email_validation(user_obj: model.User) -> bool:
@@ -101,13 +101,15 @@ def login() -> Union[Response, str]:
 
         user_obj = _authenticate(identity)
 
-        if user_obj:
+        '''if user_obj:
             validated_email = _check_email_validation(user_obj)
             if not validated_email:
                 _logout()
                 h.flash_error(_('You have not yet validated your email.'))
-                return h.redirect_to('hdx_splash.index')
-
+                return h.redirect_to('hdx_splash.index')'''
+        
+        log.info("HERE 1")
+        log.info(user_obj)
         if user_obj:
             first_login_context: Context = {
                 'model': model,
@@ -138,6 +140,7 @@ def login() -> Union[Response, str]:
             extra_vars['error_message'] = _(u"Login failed. Bad username or password.")
             log.warning(f'Login failed for: {username_or_email} .  Bad username or password.')
             return render("user/signin.html", extra_vars=extra_vars)
+    
 
     info_message_type = request.args.get('info_message_type')
     if info_message_type:

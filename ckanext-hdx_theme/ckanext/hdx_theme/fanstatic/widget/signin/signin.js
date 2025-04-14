@@ -49,7 +49,7 @@ function checkMfa() {
   const username = $("#field-login").val();
   const response = $.ajax({
     type: "GET",
-    url: `/util/user/check_mfa?user=${username}`,
+    //url: `/util/user/check_mfa?user=${username}`,
     cache: false,
     async: false
   }).responseText;
@@ -86,7 +86,7 @@ $(
     const $loginFormRequiredFields = $loginForm.find('input, select, textarea').filter('[required]');
     $loginForm.on('submit', checkLockout);
     $loginFormRequiredFields.on('input change focus', requiredFieldsFormValidator);
-    $("#field-login").on('change', checkMfa);
+    //$("#field-login").on('change', checkMfa);
     $loginFormRequiredFields.filter(() => this.value !== '').first().trigger('change');
     //check cookies
     const loginCookie = $.cookie("hdx_login");
@@ -102,7 +102,7 @@ $(
             $('#user-display-email').text(data.email);
         $('#login-photo-gravatar-img').attr("src", "//gravatar.com/avatar/"+ data.email_hash +"?s=95&d=identicon");
         $('#username-static, #login-photo-gravatar').show();
-        checkMfa();
+        //checkMfa();
     }
 
     //check for login info message

@@ -30,7 +30,7 @@
           {{ h.bs5_build_nav_icon('dashboard.organizations', _('My Organisations'), class_='nav-link hdx-tab-button') }}
           {{ h.bs5_build_nav_icon('dashboard.groups', _('My Locations'), class_='nav-link hdx-tab-button') }}
 
-          {{ h.bs5_build_nav_icon('requestdata.my_requested_data', _('HDX Connect Requests'), class_='nav-link', id=c.userobj.name) }}
+          {#{{ h.bs5_build_nav_icon('requestdata.my_requested_data', _('HDX Connect Requests'), class_='nav-link', id=c.userobj.name) }}#}
           {% if c.userobj.sysadmin %}
             <li class="nav-item nav-tabs-more">
               <a href="#" data-bs-toggle="dropdown" class="nav-link" aria-haspopup="true" role="button" aria-expanded="false">
@@ -42,7 +42,7 @@
                     <li class="nav-item">
                       <a href="#" data-module="hdx_click_stopper" class="nav-link" data-module-link_type="main nav">Carousel</a>
                     </li>
-                    {{ h.bs5_build_nav_icon('requestdata_ckanadmin.requests_data', _('HDX Connect Dashboard'), class_='nav-link') }}
+                    {#{{ h.bs5_build_nav_icon('requestdata_ckanadmin.requests_data', _('HDX Connect Dashboard'), class_='nav-link') }}#}
                     {{ h.bs5_build_nav_icon('hdx_custom_pages.index', _('Custom/Event Page'), class_='nav-link') }}
                     <li class="nav-item">
                       <a href="#" data-module="hdx_click_stopper" class="nav-link" data-module-link_type="main nav">COD</a>

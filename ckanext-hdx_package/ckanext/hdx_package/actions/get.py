@@ -280,9 +280,12 @@ def package_search(context, data_dict):
         include_deleted = asbool(data_dict.pop('include_deleted', False))
 
         if not include_private:
-            data_dict['fq'] = '+capacity:public ' + data_dict['fq']
-
-        if '+state' not in data_dict['fq']:
+            if 'fq' in data_dict:
+                data_dict['fq'] = '+capacity:public ' + data_dict['fq']
+            else:
+                data_dict['fq'] = '+capacity:public '
+        
+        if 'fq' in data_dict and '+state' not in data_dict['fq']:
             states = ['active']
             if include_drafts:
                 states.append('draft')
@@ -301,19 +304,20 @@ def package_search(context, data_dict):
                 ).get_user_dataset_labels(context['auth_user_obj'])
 
         # ADDED BY HDX - setting default query params
-        _set_default_value_if_needed('qf', data_dict)
-        _set_default_value_if_needed('tie', data_dict)
-        _set_default_value_if_needed('bf', data_dict)
+        #_set_default_value_if_needed('qf', data_dict)
+        #_set_default_value_if_needed('tie', data_dict)
+        #_set_default_value_if_needed('bf', data_dict)
         # END ADDED BY HDX
 
         query = search.query_for(model.Package)
-        query.run(data_dict, permission_labels=labels)
+        #query.run(data_dict, permission_labels=labels)
 
         # Add them back so extensions can use them on after_search
         data_dict['extras'] = extras
 
         if result_fl:
             for package in query.results:
+                log.info('result: ', package)
                 if isinstance(package, str):
                     package = {result_fl[0]: package}
                 extras = cast("dict[str, Any]", package.pop('extras', {}))
@@ -338,12 +342,18 @@ def package_search(context, data_dict):
                               'id %s', package['id'])
 
         count = query.count
-        facets = query.facets
-        facet_ranges = query.raw_response.get('facet_counts', {}).get('facet_ranges', {})
-        facet_pivot = query.raw_response.get('facet_counts', {}).get('facet_pivot', {})
-        facet_queries = query.raw_response.get('facet_counts', {}).get('facet_queries', {})
-        expanded = query.raw_response.get('expanded', {})
-
+        log.info(vars(query))
+        #facets = query.facets
+        #facet_ranges = query.raw_response.get('facet_ranges', {}).get('facet_ranges', {})
+        #facet_pivot = query.raw_response.get('facet_counts', {}).get('facet_pivot', {})
+        #facet_queries = query.raw_response.get('facet_counts', {}).get('facet_queries', {})
+        #expanded = query.raw_response.get('expanded', {})
+        facets = {}
+        facet_ranges = {}
+        facet_pivot = {}
+        facet_queries = {}
+        results = []
+        expanded = {}
     else:
         count = 0
         facets = {}
@@ -593,8 +603,8 @@ def package_show(context, data_dict):
     '''
     # data_dict['include_tracking'] = True
     package_dict = logic_get.package_show(context, data_dict)
-
-    _additional_hdx_package_show_processing(context, package_dict)
+    log.info(package_dict)
+    #_additional_hdx_package_show_processing(context, package_dict)
 
     return package_dict
 

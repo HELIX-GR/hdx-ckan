@@ -8,8 +8,8 @@ import ckan.plugins.toolkit as tk
 import ckanext.hdx_users.helpers.mailer as hdx_mailer
 from ckan.types import Context, DataDict, Request
 from ckan.lib.navl.dictization_functions import validate
-from ckanext.requestdata.logic.schema import request_create_schema
-from ckanext.requestdata.view_helper import process_extras_fields
+#from ckanext.requestdata.logic.schema import request_create_schema
+#from ckanext.requestdata.view_helper import process_extras_fields
 
 get_action = tk.get_action
 check_access = tk.check_access
@@ -27,7 +27,7 @@ class DatasetRequestAccessLogic(object):
         self.request = request
         self.context = context
         self.form = request.form
-        self.schema = request_create_schema()
+        #self.schema = request_create_schema()
 
     def read(self) -> DataDict:
         data_dict = logic.clean_dict(dictization_functions.unflatten(logic.tuplize_dict(logic.parse_params(self.form))))
@@ -94,8 +94,8 @@ class DatasetRequestAccessLogic(object):
             'id': user_obj.id,
             'permission': 'read'
         })
-        extras = json.loads(process_extras_fields(data, organizations, sender_org))
-
+        #extras = json.loads(process_extras_fields(data, organizations, sender_org))
+        extras = None
         _send_email_to_maintainer(sender_name, message, user_email, extras, recipients, maintainer_dict, pkg_dict)
         _send_email_to_requester(sender_name, sender_email, message, user_email, pkg_dict)
 

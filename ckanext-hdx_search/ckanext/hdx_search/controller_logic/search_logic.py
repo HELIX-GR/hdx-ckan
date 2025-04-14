@@ -288,21 +288,21 @@ class SearchLogic(object):
                            search_extras, pager_url, context, fq_list=None, expand='false',
                            enable_update_status_facet=False):
         data_dict = {
-            'q': q,
-            'fq_list': fq_list if fq_list else [],
-            'expand': expand,
-            'expand.rows': 1,  # we anyway don't show the expanded datasets, but doesn't work with 0
-            'fq': fq.strip(),
-            'f.extras_archived.facet.missing': 'true',
-            'facet.field': facet_keys,
-            'facet.query': [
-                '{{!key={} ex=batch}} {}'.format(HXLATED_DATASETS_FACET_NAME, HXLATED_DATASETS_FACET_QUERY),
-                '{{!key={} ex=batch}} {}'.format(SADD_DATASETS_FACET_NAME, SADD_DATASETS_FACET_QUERY),
-                '{{!key={} ex=batch}} {}'.format(HDX_HAPI_DATA_FACET_NAME, HDX_HAPI_DATA_FACET_QUERY),
-                '{{!key={} ex=batch}} {}'.format(ADMIN_DIVISIONS_DATASETS_FACET_NAME,
-                                                 ADMIN_DIVISIONS_DATASETS_FACET_QUERY),
-                '{{!key={} ex=batch}} {}'.format(COD_DATASETS_FACET_NAME, COD_DATASETS_FACET_QUERY),
-            ],
+            #'q': q,
+            #'fq_list': fq_list if fq_list else [],
+            #'expand': expand,
+            #'expand.rows': 1,  # we anyway don't show the expanded datasets, but doesn't work with 0
+            #'fq': fq.strip(),
+            #'f.extras_archived.facet.missing': 'true',
+            #'facet.field': facet_keys,
+            #'facet.query': [
+            #    '{{!key={} ex=batch}} {}'.format(HXLATED_DATASETS_FACET_NAME, HXLATED_DATASETS_FACET_QUERY),
+            #    '{{!key={} ex=batch}} {}'.format(SADD_DATASETS_FACET_NAME, SADD_DATASETS_FACET_QUERY),
+            #    '{{!key={} ex=batch}} {}'.format(HDX_HAPI_DATA_FACET_NAME, HDX_HAPI_DATA_FACET_QUERY),
+            #    '{{!key={} ex=batch}} {}'.format(ADMIN_DIVISIONS_DATASETS_FACET_NAME,
+            #                                     ADMIN_DIVISIONS_DATASETS_FACET_QUERY),
+            #    '{{!key={} ex=batch}} {}'.format(COD_DATASETS_FACET_NAME, COD_DATASETS_FACET_QUERY),
+            #],
             # added for https://github.com/OCHA-DAP/hdx-ckan/issues/3340
             'facet.limit': 2000,
             'rows': limit,
@@ -356,7 +356,7 @@ class SearchLogic(object):
 
                 dataset['approx_total_downloads'] = find_approx_download(dataset.get('total_res_downloads', 0))
 
-                dataset['batch_length'] = query['expanded'].get(dataset.get('batch',''), {}).get('numFound', 0)
+                #dataset['batch_length'] = query['expanded'].get(dataset.get('batch',''), {}).get('numFound', 0)
                 if dataset.get('organization'):
                     dataset['batch_url'] = h.url_for(
                         'hdx_light_dataset.search', organization=dataset['organization'].get('name'),

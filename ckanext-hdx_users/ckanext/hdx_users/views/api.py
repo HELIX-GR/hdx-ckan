@@ -32,4 +32,4 @@ def user_autocomplete():
 
 hdx_user_autocomplete.add_url_rule(u'/util/user/hdx_autocomplete', view_func=user_autocomplete)
 hdx_user_autocomplete.add_url_rule('/util/user/check_lockout', view_func=HDXTwoStep.check_lockout, methods=['GET'])
-hdx_user_autocomplete.add_url_rule('/util/user/check_mfa', view_func=HDXTwoStep.check_mfa, methods=['GET'])
+#hdx_user_autocomplete.add_url_rule('/util/user/check_mfa', view_func=HDXTwoStep.check_mfa, methods=['GET'])

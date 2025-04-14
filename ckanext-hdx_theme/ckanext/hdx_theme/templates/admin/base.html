@@ -44,9 +44,9 @@
   {% if user_is_sysadmin or h.check_access('hdx_carousel_update') %}
     {{ h.bs5_build_nav_icon('hdx_carousel.show', _('Carousel'), class_='nav-link') }}
   {% endif %}
-  {% if user_is_sysadmin or h.check_access('hdx_request_data_admin_list') %}
+  {#{% if user_is_sysadmin or h.check_access('hdx_request_data_admin_list') %}
     {{ h.bs5_build_nav_icon('requestdata_ckanadmin.requests_data', _('HDX Connect Dashboard'), class_='nav-link') }}
-  {% endif %}
+  {% endif %} #}
   {% if user_is_sysadmin or h.check_access('admin_page_list') %}
     {{ h.bs5_build_nav_icon('hdx_custom_pages.index', _('Custom/Event Pages'), class_='nav-link') }}
   {% endif %}
@@ -62,7 +62,7 @@
               {{ h.bs5_build_nav_icon('hdx_quick_links.show', _('Quick Links'), class_='nav-link') }}
               {{ h.bs5_build_nav_icon('hdx_package_links.show', _('Package Links'), class_='nav-link') }}
             {% endif %}
-            {{ h.bs5_build_nav_icon('requestdata_ckanadmin.email', _('Email'), class_='nav-link') }}
+           {# {{ h.bs5_build_nav_icon('requestdata_ckanadmin.email', _('Email'), class_='nav-link') }}#}
             {{ h.bs5_build_nav_icon('admin.config', _('Config'), class_='nav-link') }}
 
           </ul>

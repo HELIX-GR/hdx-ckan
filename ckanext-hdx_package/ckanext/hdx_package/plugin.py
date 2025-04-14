@@ -121,7 +121,7 @@ class HDXPackagePlugin(plugins.SingletonPlugin, tk.DefaultDatasetForm):
             'package_creator': [tk.get_validator('find_package_creator'),
                                 tk.get_validator('not_empty'),
                                 tk.get_converter('convert_to_extras')],
-            'groups_list': [vd.groups_not_empty],
+            'groups_list': [tk.get_validator('ignore_missing')],
             'is_requestdata_type': [tk.get_validator('hdx_resources_not_allowed_if_requested_data'),
                                     tk.get_validator('hdx_boolean_string_converter'),
                                     tk.get_converter('convert_to_extras')],
@@ -139,9 +139,9 @@ class HDXPackagePlugin(plugins.SingletonPlugin, tk.DefaultDatasetForm):
             'dataset_source': [tk.get_validator('not_empty'), tk.get_converter('convert_to_extras')],
             'dataset_date': [tk.get_validator('hdx_convert_old_date_to_daterange'),
                              tk.get_validator('hdx_daterange_possible_infinite_end_dataset_date'),
-                             tk.get_validator('not_empty'),
+                             tk.get_validator('ignore_missing'),
                              tk.get_converter('convert_to_extras')],
-            'methodology': [tk.get_validator('not_empty'), tk.get_converter('convert_to_extras')],
+            'methodology': [tk.get_validator('ignore_missing'), tk.get_converter('convert_to_extras')],
             'methodology_other': [tk.get_validator('not_empty_if_methodology_other'),
                                   tk.get_converter('convert_to_extras')],
             'license_id': [tk.get_validator('not_empty'), unicode_safe],
@@ -152,7 +152,7 @@ class HDXPackagePlugin(plugins.SingletonPlugin, tk.DefaultDatasetForm):
             'quality': [tk.get_validator('ignore_not_sysadmin'), tk.get_validator('ignore_missing'),
                         tk.get_converter('convert_to_extras')],
             'data_update_frequency': [
-                tk.get_validator('not_empty'),
+                tk.get_validator('ignore_missing'),
                 tk.get_validator('unicode_safe'),
                 tk.get_validator('hdx_in_update_frequency_values'),
                 tk.get_validator('hdx_disable_live_frequency_filestore_resources_only'),
@@ -206,7 +206,10 @@ class HDXPackagePlugin(plugins.SingletonPlugin, tk.DefaultDatasetForm):
                 tk.get_validator('ignore_missing'),
                 tk.get_validator('tag_string_convert'),
                 tk.get_validator('hdx_tag_string_approved_validator'),
-            ]
+            ],
+            # Add heallink metadata
+            'title_optional': [tk.get_validator('ignore_missing'), tk.get_converter('convert_to_extras')],
+            'notes_optional': [tk.get_validator('ignore_missing'), tk.get_converter('convert_to_extras')],
         })
 
         schema['tags'].update(
@@ -417,7 +420,14 @@ class HDXPackagePlugin(plugins.SingletonPlugin, tk.DefaultDatasetForm):
                 tk.get_validator('ignore_missing'),
                 tk.get_converter('hdx_convert_from_json_string'),
             ],
-
+            'title_optional': [
+                tk.get_converter('convert_from_extras'),
+                tk.get_validator('ignore_missing')
+            ],
+             'notes_optional': [
+                tk.get_converter('convert_from_extras'),
+                tk.get_validator('ignore_missing')
+            ]
         })
 
         return schema
@@ -461,7 +471,7 @@ class HDXPackagePlugin(plugins.SingletonPlugin, tk.DefaultDatasetForm):
             'resource_patch': hdx_patch.resource_patch,
             'resource_show': hdx_get.resource_show,
             'resource_delete': hdx_delete.resource_delete,
-            'package_search': hdx_get.package_search,
+            #'package_search': hdx_get.package_search,
             'package_show': hdx_get.package_show,
             'package_show_edit': hdx_get.package_show_edit,
             'package_validate': hdx_get.package_validate,
@@ -643,6 +653,8 @@ class HDXPackagePlugin(plugins.SingletonPlugin, tk.DefaultDatasetForm):
         schema['methodology'] = [tk.get_validator('ignore_missing')] + schema['methodology']
         schema['dataset_date'] = [tk.get_validator('ignore_missing')] + schema['dataset_date']
         schema['data_update_frequency'] = [tk.get_validator('ignore_missing')] + schema['data_update_frequency']
+        schema['title_optional'] = [tk.get_validator('ignore_missing')] + schema['title_optional']
+        schema['notes_optional'] = [tk.get_validator('ignore_missing')] + schema['notes_optional']
 
         if 'groups_list' in schema:
             del schema['groups_list']

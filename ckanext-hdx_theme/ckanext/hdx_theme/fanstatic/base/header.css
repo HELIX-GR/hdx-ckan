@@ -3228,7 +3228,7 @@ ul.list-horizontal li:first-child:before {
   line-height: 20px;
 }
 .hdx-footer .logo-gray {
-  height: 30px;
+  height: 90px;
   margin-bottom: 10px;
 }
 .hdx-footer .match-logo-margin {
@@ -4182,11 +4182,12 @@ ul.list-horizontal li:first-child:before {
   display: block;
 }
 .hdxLogo .logo .logo-img {
-  background-image: url("/images/homepage/logo-hdx-accr-blk.svg");
+  background-image: url("/images/homepage/heallink-logo.png");
   background-repeat: no-repeat;
   background-position: left center;
-  width: 126px;
-  height: 28px;
+  background-size: contain;
+  width: 180px;
+  height: 100px;
   margin-top: 3px;
 }
 /* END HDX Version display */
