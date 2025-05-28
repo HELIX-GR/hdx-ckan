@@ -164,7 +164,7 @@ class SearchLogic(object):
             # a list of values eg {'tags':['tag1', 'tag2']}
             self.template_data.fields_grouped = {}
             # limit = g.datasets_per_page
-
+            log.info('FQ %s', additional_fq)
             fq = additional_fq
             tagged_fq_dict = {}
             featured_filters_set = False
@@ -292,7 +292,7 @@ class SearchLogic(object):
             #'fq_list': fq_list if fq_list else [],
             #'expand': expand,
             #'expand.rows': 1,  # we anyway don't show the expanded datasets, but doesn't work with 0
-            #'fq': fq.strip(),
+            'fq': fq,
             #'f.extras_archived.facet.missing': 'true',
             #'facet.field': facet_keys,
             #'facet.query': [
@@ -337,8 +337,8 @@ class SearchLogic(object):
         # get_action('populate_related_items_count')(
         #     context, {'pkg_dict_list': query['results']})
 
-        if self.package_type == 'dataset':
-            get_action('populate_showcase_items_count')(context, {'pkg_dict_list': query['results']})
+        #if self.package_type == 'dataset':
+        #    get_action('populate_showcase_items_count')(context, {'pkg_dict_list': query['results']})
 
         self.template_data.page = h.Page(
             collection=query['results'],

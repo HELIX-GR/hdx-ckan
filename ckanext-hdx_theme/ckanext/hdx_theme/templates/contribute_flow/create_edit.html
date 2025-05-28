@@ -32,6 +32,8 @@
 
 {% set form_title = _('Edit Details') if edit_mode else _('Add Details') %}
 
+{% set tag_attrs = {'data-module': 'autocomplete', 'data-module-tags': '', 'data-module-source': '/api/2/util/tag/autocomplete?incomplete=?'} %}
+
 {% block bodytag %} {{ super() }} class="contribute-body" {% endblock %}
 
 {% block page %}
@@ -149,7 +151,7 @@
                         </li>
                     </ol>
 
-                    {% if data.id and not data.get('update_status') == 'unknown' and not data.is_fresh %}
+                    {#{% if data.id and not data.get('update_status') == 'unknown' and not data.is_fresh %}
                     <div class="paddingLeftHack paddingRightHack">
                       <div class="alert alert-danger">
                         This dataset has passed its update date on
@@ -161,7 +163,7 @@
                         . Please check or update the following <u><a href="#resource-list">Resources</a></u> or <u><a href="#data_update_frequency">Expected Updated Frequency</a></u>
                       </div>
                     </div>
-                    {% endif %}
+                    {% endif %} #}
                 </div>
                 <form id="create_dataset_form" class="" method="post" enctype="multipart/form-data" data-module="basic-form">
                     {{ h.csrf_input() }}
@@ -172,6 +174,7 @@
                         <div class="paddingLeftHack paddingRightHack">
                                 <div id="hdx_error" class="error-explanation alert alert-danger hdx-invisible-element" data-module="hdx_error_block_manager"
                                     data-module-default_error_message="{{ _('The form contains invalid entries. These are highlighted below. Please scroll down and correct them.') }}">
+                                    {{errors}}
                                     <p></p>
                                     <!--<ul>-->
                                       <!--<li data-field-label="type of error">type of error: error</li>-->
@@ -480,7 +483,7 @@
                                             <hr class="form-hr"/>
                                         </div>
                                     </div>
-                                    <!--<span id="_dataset_preview">
+                                    <span id="_dataset_preview">
                                         <div class="form-section">
                                           <div class="row">
                                               <div class="col-3">
@@ -507,7 +510,7 @@
                                             </div>
                                         </div>
                                     </span> 
-                                  <div class="form-section">
+                                  {#<div class="form-section">
                                     <div class="row">
                                       <div class="col-3">
                                         <h3>Custom Dataviz for This Dataset</h3>
@@ -555,7 +558,7 @@
                                         </div>
                                       </div>
                                     </div>
-                                  </div>-->
+                                  </div> #}
                                   <div class="row">
                                     <div class="col-12">
                                       <hr class="form-hr"/>
@@ -568,9 +571,9 @@
                                             <p> Metadata is additional information about your dataset that will make it easier for others to understand and put your data into context. Datasets on HDX must include a set of metadata fields. </p>
                                         </div>
                                         <div class="col-7">
-                                            <div data-module="hdx_form_element_manager" data-module-element_name="dataset_source" data-module-required="private,public,requestdata">
+                                            {#<div data-module="hdx_form_element_manager" data-module-element_name="dataset_source" data-module-required="private,public,requestdata">
                                             {{ form.input('dataset_source', id='field_dataset_source', label=_('Source'), placeholder=_('Who collected the data?'), value=data.dataset_source, error=errors.dataset_source, classes=['mb-3'], attrs={}) }}
-                                            </div>
+                                            </div> #}
 
                                             {% set organisations = h.hdx_organisation_list() %}
                                             <div data-module="hdx_form_element_manager" data-module-element_name="owner_org" data-module-required="private,public,requestdata"  data-module-broadcast_change="true">
@@ -585,9 +588,47 @@
                                             'data-module-label': 'fullname',
                                             'data-module-key': 'id',
                                             'data-module-extra-params': 'org=' + selected_org_name } %}
-                                            <div data-module="hdx_form_element_manager" data-module-element_name="maintainer" data-module-required="private,public,requestdata">
-                                            {{ form.input('maintainer', id='field_maintainer', label=_('Maintainer'), placeholder=_("Maintainer"), value=data.maintainer, error=errors.maintainer, classes=['mb-3', 'required'], attrs=maintainer_attrs) }}
+                                            <div data-module="hdx_form_element_manager" data-module-element_name="creator_first_name" data-module-required="private,public,requestdata">
+                                              {{ form.input('creator_first_name', id='field_creator_first_name', label=_('Creator (first name)'), placeholder=_("Creator (first name)"), value=data.creator_first_name, error=errors.creator_first_name, classes=['mb-3', 'required']) }}
                                             </div>
+                                            <div data-module="hdx_form_element_manager" data-module-element_name="creator_last_name" data-module-required="private,public,requestdata">
+                                              {{ form.input('creator_last_name', id='creator_last_name', label=_('Creator (last name)'), placeholder=_("Creator (last name)"), value=data.creator_last_name, error=errors.creator_last_name, classes=['mb-3', 'required'] ) }}
+                                            </div>
+                                            <div data-module="hdx_form_element_manager" data-module-element_name="contact_email" data-module-required="private,public,requestdata">
+                                              {{ form.input('contact_email', id='contact_email', label=_('Contact email'), placeholder=_("contact email"), value=data.contact_email, error=errors.contact_email, classes=['mb-3', 'required'] ) }}
+                                            </div>
+                                            <div data-module="hdx_form_element_manager" data-module-element_name="is_derived_from">
+                                              {{ form.input('is_derived_from', id='is_derived_from', label=_('Derived from'), placeholder=_("The publication this dataset is derived from"), value=data.is_derived_from, error=errors.is_derived_from, classes=['mb-3'] ) }}
+                                            </div>
+                                            <div data-module="hdx_form_element_manager" data-module-element_name="related_publication" data-module-required="private,public,requestdata">
+                                              {{ form.input('related_publication', id='related_publication', label=_('Related publication'), placeholder=_("The DOI of a related publication"), value=data.related_publication, error=errors.related_publication, classes=['mb-3'] ) }}
+                                            </div>
+                                            <div data-module="hdx_form_element_manager" data-module-element_name="publication_year" data-module-required="private,public,requestdata">
+                                              {{ form.input('publication_year', id='publication_year', label=_('Publication year'), placeholder=_("2025"), value=data.publication_year, error=errors.publication_year, classes=['mb-3'] ) }}
+                                            </div>
+
+                                           {# <div data-module="hdx_form_element_manager" data-module-element_name="tag_string" data-module-broadcast_change="true" data-module-required="requestdata">
+                                              {{ form.select('tag_string', id='field_tag_string', label=_('Tags'), options=allowed_tags, selected=selected_tags, error=errors.tag_string, classes=['mb-3', 'tags-select'], attrs={'class':'choices-orange', 'multiple':'true' }) }}
+                                              <div data-module="hdx_tag_recommender" data-module-tag_input_selector="#field_tag_string"
+                                                   data-module-recommended_tag_wrapper_selector="#recommended-tags-wrapper" class="mb-3">
+                                                <div id="recommended-tags-wrapper" class="recommended-tags-wrapper" style="display: none;">
+                                                  Suggested tags: <span />
+                                                </div>
+                                              </div>
+                                            </div> #}
+
+                                            <div data-module="hdx_form_element_manager" data-module-element_name="tag_string" data-module-required="private,public,requestdata">
+                                              {{ form.input('tag_string', id='field-tags', label=_('Tags'), placeholder=_('eg. economy, mental health, government'), value=data.tags, error=errors.tags, classes=['mb-3', 'tags-select'], attrs=tag_attrs) }}</div>
+                                            
+                                            <div data-module="hdx_form_element_manager" data-module-element_name="language" data-module-required="private,public,requestdata">
+                                              {{ form.input('language', id='language', label=_('Language'), placeholder=_("English"), value=data.language, error=errors.language, classes=['mb-3'] ) }}
+                                            </div>
+                                            
+
+
+                                            {#<div data-module="hdx_form_element_manager" data-module-element_name="maintainer" data-module-required="private,public,requestdata">
+                                            {{ form.input('maintainer', id='field_maintainer', label=_('Maintainer'), placeholder=_("Maintainer"), value=data.maintainer, error=errors.maintainer, classes=['mb-3', 'required'], attrs=maintainer_attrs) }}
+                                            </div>  #}
 
                                            <!-- <div data-module="hdx_form_element_manager" data-module-element_name="dataset_date" data-module-required="public,requestdata">
                                               <div class="mb-3 ">
@@ -677,7 +718,7 @@
                                                 {{ form.markdown('license_other', id='field_license_other', label=_('Define License'), placeholder=_('Describe how people can and cannot use this data'), value=data.license_other, error=errors.license_other, classes=['mb-3'], attrs={'style': 'height: 80px;'}) }}
                                             </div>
 
-                                            {% set field_names_attrs = {'data-module': 'hdx_autocomplete', 'data-module-tags': '', 'data-module-placeholder': 'What are the most important fields in the dataset?', 'multiple':'true', 'data-module-width': '500px',} %}
+                                           {# {% set field_names_attrs = {'data-module': 'hdx_autocomplete', 'data-module-tags': '', 'data-module-placeholder': 'What are the most important fields in the dataset?', 'multiple':'true', 'data-module-width': '500px',} %}
                                             <div data-module="hdx_form_element_manager" data-module-element_name="field_names" data-module-required="requestdata">
                                             {{ form.input('field_names', id='field_names', label=_('Field names'), value=data.field_names, error=errors.field_names, classes=['', 'mb-3', 'field-names-select'], attrs=field_names_attrs) }}
                                             </div>
@@ -689,7 +730,7 @@
 
                                             <div data-module="hdx_form_element_manager" data-module-element_name="num_of_rows">
                                             {{ form.input('num_of_rows', id='num_of_rows', label=_('Number of rows'), value=data.num_of_rows, error=errors.num_of_rows, classes=['', 'mb-3', 'num-of-rows-select'], attrs={}) }}
-                                            </div>
+                                            </div> #}
 
                                             <!--{% set methodologies = h.hdx_methodology_list() %}
                                             <div data-module="hdx_form_element_manager" data-module-element_name="methodology" data-module-required="public" data-module-broadcast_change="true">
@@ -699,13 +740,13 @@
                                                 {{ form.markdown('methodology_other', id='field_method_other', label=_('Define Methodology'), placeholder=_('Describe how this data was collected'), value=data.methodology_other, error=errors.methodology_other, classes=['mb-3'], attrs={'style': 'height: 80px;'}) }}
                                             </div> -->
 
-                                            <div data-module="hdx_form_element_manager" data-module-element_name="caveats">
+                                            {#<div data-module="hdx_form_element_manager" data-module-element_name="caveats">
                                             {{ form.markdown('caveats', id='field_caveats', label=_('Caveats / Comments'),value=data.caveats, error=errors.caveats, classes=['mb-3'], attrs={'style': 'height: 80px;'}) }}
-                                            </div>
+                                            </div> #}
 
                                             {% set allowed_tags = h.hdx_get_allowed_tags_list() %}
                                             {% set selected_tags = data.tag_string.split(', ') if data.tag_string else '' %}
-                                            <div data-module="hdx_form_element_manager" data-module-element_name="tag_string" data-module-broadcast_change="true" data-module-required="requestdata">
+                                            {#<div data-module="hdx_form_element_manager" data-module-element_name="tag_string" data-module-broadcast_change="true" data-module-required="requestdata">
                                               {{ form.select('tag_string', id='field_tag_string', label=_('Tags'), options=allowed_tags, selected=selected_tags, error=errors.tag_string, classes=['mb-3', 'tags-select'], attrs={'class':'choices-orange', 'multiple':'true' }) }}
                                               <div data-module="hdx_tag_recommender" data-module-tag_input_selector="#field_tag_string"
                                                    data-module-recommended_tag_wrapper_selector="#recommended-tags-wrapper" class="mb-3">
@@ -716,7 +757,7 @@
                                               <div class="request-tags-wrapper">
                                                 Don't see a tag you are looking for? <a onclick="closeCurrentWidget(this); spawnRecaptcha('#requestTagsPopup'); showTagRequestWidget('#requestTagsPopup');" href="#">Suggest one</a> or <a href="https://data.humdata.org/rdr/spreadsheets/approved-tags" target="_blank">see the full list of approved tags</a>
                                               </div>
-                                            </div>
+                                            </div> #}
 
                                         </div>
                                     </div>
@@ -763,7 +804,13 @@
                                     <div class="float-end">
                                         <!-- removed as per #4012 <input type="button" class="btn btn-inverse btn-lg" value="See preview"/> -->
                                         <input id="create-form-submit" type="submit" class="btn btn-primary btn-lg" value="Submit"/>
-                                    </div>
+                                    
+                                      {% if errors %}
+                                      <pre>{{ errors | pprint }}</pre>
+                                      {% endif %}
+                                      {% endblock %}
+                                      </div>
+                                    
                                     {% if data.id %}
                                         <div class="float-end mLR10">
                                             {% set locale = h.dump_json({'content': _('Are you sure you want to delete this dataset ? '), 'heading': _('You are deleting a dataset'), 'delete': _('Delete')}) %}
@@ -788,7 +835,6 @@
         </div>
     </div>
 </div>
-{% endblock %}
 
 {% block scripts %}
     <script type="text/javascript" src="https://www.dropbox.com/static/api/2/dropins.js" id="dropboxjs" data-app-key="2ixptqvj5hknpzs"></script>

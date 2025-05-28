@@ -94,6 +94,10 @@ class HDXOrgGroupPlugin(plugins.SingletonPlugin, lib_plugins.DefaultOrganization
 
     # IGroupForm
     def setup_template_variables(self, context, data_dict):
+        from ckan.common import c
+        from ckanext.hierarchy.helpers import get_allowable_parent_groups
+        group_id = data_dict.get('id')
+        c.allowable_parent_groups = get_allowable_parent_groups(context.get('user'), group_id)
         org.new_org_template_variables(data_dict)
 
     # IValidators
@@ -129,6 +133,9 @@ class HDXOrgGroupPlugin(plugins.SingletonPlugin, lib_plugins.DefaultOrganization
             'modified_at': [tk.get_validator('ignore_missing'), tk.get_converter('convert_to_extras')],
             'hdx_org_type': [tk.get_validator('not_empty'), tk.get_validator('correct_hdx_org_type'),
                              tk.get_converter('convert_to_extras')],
+            'org_acronym': [tk.get_validator('ignore_missing'), tk.get_converter('convert_to_extras')],
+            'description_greek': [tk.get_validator('ignore_missing'), tk.get_converter('convert_to_extras')],
+            'email_domain': [tk.get_validator('ignore_missing'), tk.get_converter('convert_to_extras')],
             'org_acronym': [tk.get_validator('ignore_missing'), tk.get_converter('convert_to_extras')],
         })
         return schema

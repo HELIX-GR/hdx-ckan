@@ -33,12 +33,12 @@ class LightOrgReadLogic(object):
         self.flask_route_name = 'hdx_light_org.light_read'
 
     def read(self):
-
         self.org_meta = self._fetch_org_metadata()
         org_dict = self.org_meta.org_dict
-
+        log.info('org dict %s', org_dict)
         if org_dict:
             search_logic = self._fetch_template_data(org_dict)
+            #log.info('search_logic dat %s', search_logic.template_data)
             self.search_template_data = search_logic.template_data
 
             self.redirect_result = search_logic.redirect_if_needed()

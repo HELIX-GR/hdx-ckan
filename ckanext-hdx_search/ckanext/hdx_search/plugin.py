@@ -226,7 +226,7 @@ class HDXSearchPlugin(plugins.SingletonPlugin):
         pkg_dict['title_string'] = unicodedata.normalize("NFKD", pkg_dict['title']).replace(r'\xc3', 'I')
         pkg_dict.pop('resource_grouping', None)
 
-        self.__process_dates_in_resource_extra(pkg_dict)
+        #self.__process_dates_in_resource_extra(pkg_dict)
         # self.__process_dataset_date(pkg_dict)
         return pkg_dict
 

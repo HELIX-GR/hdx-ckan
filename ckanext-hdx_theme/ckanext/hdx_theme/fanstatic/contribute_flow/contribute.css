@@ -36,14 +36,14 @@
 .drag-drop-component.source-url .source-file-upload {
   display: none;
 }
-@media (min-width: 1260px) {
+@media (min-width: 1400px) {
   body.contribute-body,
   #create-dataset-app {
     overflow-x: hidden;
   }
 }
 body.contribute-body {
-  min-width: 1260px;
+  min-width: 1400px;
 }
 html {
   height: 100%;
@@ -55,6 +55,7 @@ html > .contribute-body {
 html > .contribute-body > .contribute-main {
   height: 100%;
   position: relative;
+
 }
 html > .contribute-body > .contribute-main .create-step1 {
   height: 100%;
@@ -71,6 +72,8 @@ html > .contribute-body > .contribute-main .create-step1 .contribute-splash {
 }
 html > .contribute-body > .contribute-main .create-step2.container {
   max-width: none;
+  padding-left: 50px;
+  padding-right: 50px;
 }
 html > .contribute-body > .contribute-main > div {
   height: 100%;

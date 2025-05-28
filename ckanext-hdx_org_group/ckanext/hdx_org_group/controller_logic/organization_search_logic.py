@@ -1,6 +1,7 @@
 import ckan.lib.helpers as h
 import ckanext.hdx_search.controller_logic.search_logic as sl
-
+import logging
+log = logging.getLogger(__name__)
 
 class OrganizationSearchLogic(sl.SearchLogic):
 
@@ -10,6 +11,7 @@ class OrganizationSearchLogic(sl.SearchLogic):
         self.flask_route_name = flask_route_name
 
         self.additional_fq = 'organization:"{}"'.format(self.org_name)
+        log.info('org name: %s', self.org_name)
         self.ignore_capacity_check = ignore_capacity_check
 
     def search(self):

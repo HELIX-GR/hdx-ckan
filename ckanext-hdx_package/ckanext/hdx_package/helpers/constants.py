@@ -68,7 +68,9 @@ S3_TAG_VALUE_SENSITIVE_FALSE = 'no'
 NO_DATA = 'no-data'
 
 PACKAGE_METADATA_FIELDS_MAP = {'id': 'Dataset ID', 'title': 'Title of Dataset (English)', 'title_optional': 'Title of Dataset (Greek)','name': 'Dataset URL',
-                               'notes': 'Description (English)', 'notes_optional': 'Description (Greek)','dataset_source': 'Source', 'organization': 'Contributor',
+                               'notes': 'Description (English)', 'notes_optional': 'Description (Greek)',
+                               'creator_first_name': 'Creator (first name)', 'creator_last_name': 'Creator (last name)',
+                               'dataset_source': 'Source', 'organization': 'Contributor',
                                'dataset_date': 'Reference Period', 'last_modified': 'Updated',
                                'data_update_frequency': 'Expected Update Frequency', 'groups': 'Location',
                                'license_title': 'License', 'methodology': 'Methodology',

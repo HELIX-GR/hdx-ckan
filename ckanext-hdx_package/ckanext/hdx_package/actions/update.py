@@ -549,7 +549,11 @@ def hdx_package_update_metadata(context, data_dict):
                       'last_data_update_date',
                       'groups', 'maintainer',
                       'maintainer_email',
-                      'data_update_frequency']
+                      'data_update_frequency',
+                      'creator_first_name',
+                      'creator_last_name',
+                      'contact_email',
+                      ]
 
     package = _get_action('package_show')(context, data_dict)
     requested_groups = [el.get('id', el.get('name', '')) for el in data_dict.get('groups', [])]

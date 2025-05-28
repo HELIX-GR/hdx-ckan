@@ -33,7 +33,7 @@
             <li><a href="{{ dataLink }}" data-module="hdx_click_stopper" data-module-link_type="main nav">{{ _('Data') }}</a></li>
             <li><a href="{{ locationLink }}" data-module="hdx_click_stopper" data-module-link_type="main nav">{{ _('Locations') }}</a></li>
             <li><a href="{{ orgLink}}" data-module="hdx_click_stopper" data-module-link_type="main nav">{{ _('Organisations') }}</a></li>
-            <li style="position: relative">
+            {#<li style="position: relative">
               <a href="#" data-bs-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false">
                 <span id="crises-label" >{{ _('Products') }} <i class="humanitarianicons-Down"></i></span>
               </a>
@@ -47,7 +47,7 @@
                         {{ on_link.title }}</a></div>
                       <!--<div class="crises-datasets">[ ## Datasets ]</div>-->
                     </li>
-                    {% endfor %}
+                    {% endfor %} #}
 {#                    {% for ev in events.ongoing %}#}
 {#                    <li>#}
 {#                      <div><a href="/{{ev.type}}/{{ev.name}}" data-module="hdx_click_stopper" data-module-link_type="main nav">{{ ev.title }}</a></div>#}
@@ -69,12 +69,12 @@
 {#                    <li>#}
 {#                      <div><a href="{{h.url_for(controller='ckanext.hdx_pages.controllers.custom_page:PagesController', action='read_dashboards', id='education-in-emergencies')}}" data-module="hdx_click_stopper" data-module-link_type="main nav">Education in Emergencies</a></div>#}
 {#                    </li>#}
-                  </ul>
-                </li>
+                 {# </ul>
+                </li> #}
                 {# if events.archived #}
-                <li class="crises-group">
+               {# <li class="crises-group">#}
 {#                  Archived#}
-                  <a class="archive" href="/archive" data-module="hdx_click_stopper" data-module-link_type="main nav">Archived <i class="icon humanitarianicons-Out-of-platform"></i></a>
+{#                  <a class="archive" href="/archive" data-module="hdx_click_stopper" data-module-link_type="main nav">Archived <i class="icon humanitarianicons-Out-of-platform"></i></a>#}
 {#                  <ul>#}
 {#                    {% for ev in events.archived %}#}
 {#                    <li>#}

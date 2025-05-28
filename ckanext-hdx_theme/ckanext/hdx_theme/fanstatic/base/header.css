@@ -182,7 +182,7 @@
 .navbar-static-top .container,
 .navbar-fixed-top .container,
 .navbar-fixed-bottom .container {
-  width: 1170px;
+  width: 1400px;
   padding: 0;
 }
 .paddingRowHack {
@@ -1301,14 +1301,14 @@ ul.dataset-resources li + li.label-icons {
 /* END Style Greeting message */
 /* Style links inside header-nav, main navigation links */
 .mainLinks {
-  padding-left: 20px;
+  padding-left: 80px;
   margin: 0;
 }
 .mainLinks.mainLinks-gray > li > a {
   font-family: 'Gotham-Book', sans-serif;
   font-display: block;
   font-weight: 400;
-  font-size: 12px;
+  font-size: 14px;
   color: #cccccc;
   line-height: 1;
 }
@@ -1325,7 +1325,7 @@ ul.dataset-resources li + li.label-icons {
   margin-bottom: 0;
   font-family: 'Gotham-Bold', sans-serif;
   font-weight: 400;
-  font-size: 12px;
+  font-size: 14px;
   color: #333333;
   letter-spacing: 0.03em;
   line-height: 31px;
@@ -4004,7 +4004,7 @@ ul.list-horizontal li:first-child:before {
   display: flex;
   align-items: center;
   height: 63px;
-  margin-left: 15px;
+  margin-left: 80px;
   margin-bottom: -3px;
   border-bottom: 3px solid #888888;
 }
@@ -4186,8 +4186,8 @@ ul.list-horizontal li:first-child:before {
   background-repeat: no-repeat;
   background-position: left center;
   background-size: contain;
-  width: 180px;
-  height: 100px;
+  width: 260px;
+  height: 130px;
   margin-top: 3px;
 }
 /* END HDX Version display */
