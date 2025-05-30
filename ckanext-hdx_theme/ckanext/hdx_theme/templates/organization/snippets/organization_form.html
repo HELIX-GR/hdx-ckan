@@ -27,6 +27,10 @@
 		</div>
 	</div>
 
+  <div class="org-control-container">
+    {{ form.input('title_greek', label=_('Name of Organisation (Greek)'), id='field-title_greek', value=data.title_greek, error=errors.title_greek, classes=['', 'org-control', 'field-with-info'], attrs=attrs) }}
+</div>
+
     <div class="org-control-container">
       {{ form.prepend('name', label=_('URL'), prepend=prefix, id='field-url', placeholder=_('my-organisation'), value=data.name, error=errors.name, attrs=attrs, classes=['mb-3 org-control']) }}
     </div>
@@ -50,14 +54,23 @@
 	    	<div class="org-info-label-large">
 	    		{{_('Brief overview of what organisation is for.')}}</div>
 	    </div>
+  </div>
+    <div class="org-control-container">
+      {{ form.markdown('description_greek', id='field-description_greek', label=_('Description of Organisation (Greek)'), value=data.description_greek, error=errors.description_greek, classes=['org-control','field-with-info']) }}
+      <div class="org-control-info-large  info-field">
+        <div class="org-info-label-large">
+          {{_('Brief overview of what organisation is for.')}}</div>
+      </div>
     </div>
-  <div class="org-control-container">
+    {#<div class="org-control-container">
     {% set org_acronym = h.hdx_get_extras_element(data, value_key="org_acronym") %}
       {{ form.input('org_acronym', label=_('Organisation Acronym'), id='field-org-acronym-id', type='text', value=org_acronym, error=errors.org_acronym, classes=['', 'org-control','field-with-info']) }}
       <div class="org-control-info info-field">
         <div class="org-info-label">{{_('Organisation Acronym')}}</div>
       </div>
   </div>
+
+  
   <div class="org-control-container">
       {% set hdx_org_type = h.hdx_get_extras_element(data, value_key='hdx_org_type') %}
 
@@ -74,7 +87,7 @@
         <div class="org-info-label">{{_('ID for Financial Tracking Service')}}</div>
       </div>
   </div>
-  {% endif %}
+  {% endif %}#}
 
 {% if h.hdx_get_extras_element(data, value_key="customization") %}
 {% set custom_org = h.hdx_get_extras_element(data, value_key="custom_org") %}
@@ -90,6 +103,25 @@
 {% set visualization = {} %}
 {% endif %}
 
+<div class="org-control-container">
+  {{ form.input('email_domain', label=_('Email domain'), id='field-email_domain', value=data.email_domain, error=errors.email_domain, classes=['', 'org-control', 'field-with-info'], attrs=attrs) }}
+</div>
+
+<div class="org-control-container">
+  <label class="control-label" for="field-parent_org">{{ _("Parent organization") }}</label>
+  <div class="controls">
+    <select id="field-parent_org" name="groups__0__name" data-module="autocomplete">
+      {% set selected_parent = (data.get('groups') or [{'name': ''}])[0]['name'] %} {{ selected_parent }}
+      {% if  c.userobj.sysadmin %}
+        <option value="" {% if not selected_parent %} selected="selected" {% endif %}>{{ _('None - top level') }}</option>
+      {% endif %}
+      {% for group in c.allowable_parent_groups or h.get_allowable_parent_groups(c.user, data.id) %}
+        <option value="{{ group.name }}" {% if group.name == selected_parent %}selected="selected"{% endif %}>{{ group.title }}</option>
+      {% endfor %}
+    </select>
+  </div>
+</div>
+
 {% set custom_org_checked = 'checked="checked"' if custom_org else '' %}
 <div id="customization-trigger" class="org-control-container">
   <label class="control-label" for="field-custom_org" style="display: inline-block;">{{ _("Use custom organisation page") }}</label>
@@ -100,7 +132,7 @@
 
 {% set closed_organization = h.hdx_get_extras_element(data, value_key="closed_organization") or False %}
 {% set closed_organization_checked = 'checked="checked"' if closed_organization==True else '' %}
-<div id="closed_organization-trigger" class="org-control-container">
+{#<div id="closed_organization-trigger" class="org-control-container">
   <div class="org-control field-with-info" style="min-height:30px">
     <label class="control-label" for="field-closed_organization" style="display: inline-block;">{{ _('This organization is closed/inactive') }}</label>
     <div class="controls" style="display:inline-block">
@@ -113,7 +145,7 @@
         {{_('Check the checkbox if the organization is no longer in use/active in HDX ')}}
     </div>
   </div>
-</div>
+</div>#}
 
 {% set request_membership = h.hdx_get_extras_element(data, value_key="request_membership") or "true" %}
 {% set request_membership_checked = 'checked="checked"' if request_membership=='true' else '' %}

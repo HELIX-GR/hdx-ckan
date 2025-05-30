@@ -1206,7 +1206,12 @@ organization-members-scripts:
   output: ckanext-hdx_theme/%(version)s_organization-members-scripts.js
   contents:
     - organization_/members.js
-
+    
+organization-org-tree:
+  <<: *common-js
+  output: ckanext-hdx_theme/%(version)s_organization-org-tree.js
+  contents:
+    - organization_/hierarchy/org_tree.js
 homepage-about-styles:
   <<: *common-css
   output: ckanext-hdx_theme/%(version)s_homepage-about-styles.css

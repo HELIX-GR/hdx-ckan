@@ -17,9 +17,15 @@
 <li class="breadcrumb-item active">{% link_for _('Organisations'), controller='organization', action='index' %}</li>
 {% endblock %}
 
+{% block page_header %}{% endblock %}
+
 
 {% block primary_content %}
-
+{% block page_primary_action %}
+    {%if is_sys_admin %}
+    	{% link_for _('Add Organisation'), controller='organization', action='new', class_='btn btn-primary org'%}
+    {% endif %}
+{% endblock %}
     <div class="list-items search-form">
         <h2>All Organisations</h2>
     </div>
@@ -68,18 +74,29 @@
                     {% endfor %}
                 </span>
             </div>
-            <div>
+            {#<div>
                 <ul class="hdx-bs3 list-items {{ list_class or 'dataset-list unstyled' }}">
                     {% for organization in page.items %}
                         {% snippet 'browse/snippets/org_item.html', organization=organization %}
                     {% endfor %}
                 </ul>
+            #}
+                <ul class=" hdx-bs3 list-items hierarchy-tree-top {{ list_class or 'dataset-list unstyled' }}">
+                    <div data-module="org-tree-toggle">
+                        {{ h.render_tree()|safe }}
+                      </div>
+                  </ul>
             </div>
+        
             {% block page_pagination %}
             {{ page.pager() }}
             {% endblock %}
         </div>
+
+       
     </div>
+
+    
 {% endblock %}
 
 {% block secondary %}
@@ -91,6 +108,8 @@
 {#    {% resource 'hdx_theme/organizations' %}#}
 {#    {% resource 'hdx_theme/jquery.expander' %}#}
 
+    {% asset 'hdx_theme/organization-org-tree' %}
     {% asset 'hdx_theme/search-scripts' %}
     {% asset 'hdx_theme/organizations-scripts' %}
+    
 {% endblock %}

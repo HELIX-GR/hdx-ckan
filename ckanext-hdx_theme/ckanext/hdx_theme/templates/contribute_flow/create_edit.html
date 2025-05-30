@@ -441,7 +441,7 @@
                                               {{ form.input('title', id='field_title', label=_('Title of dataset (English)'), placeholder=_('eg. A descriptive title'), value=data.title, error=errors.title, classes=['mb-3', 'required'], attrs={'data-module': 'slug-preview-target'}) }}
                                               </div>
 
-                                              <div data-module="hdx_form_element_manager" data-module-element_name="title_optional" data-module-required="private,public,requestdata" data-module-broadcast_change="true">
+                                              <div data-module="hdx_form_element_manager" data-module-element_name="title_optional" data-module-broadcast_change="true">
                                                 {{ form.input('title_optional', id='field_title_optional', label=_('Title of dataset (Greek)'), placeholder=_('eg. A descriptive title'), value=data.title_optional, error=errors.title_optional, classes=['mb-3']) }}
                                                 </div>
                                               {% set prefix = h.url_for('dataset.read', id='') %}
@@ -592,22 +592,22 @@
                                               {{ form.input('creator_first_name', id='field_creator_first_name', label=_('Creator (first name)'), placeholder=_("Creator (first name)"), value=data.creator_first_name, error=errors.creator_first_name, classes=['mb-3', 'required']) }}
                                             </div>
                                             <div data-module="hdx_form_element_manager" data-module-element_name="creator_last_name" data-module-required="private,public,requestdata">
-                                              {{ form.input('creator_last_name', id='creator_last_name', label=_('Creator (last name)'), placeholder=_("Creator (last name)"), value=data.creator_last_name, error=errors.creator_last_name, classes=['mb-3', 'required'] ) }}
+                                              {{ form.input('creator_last_name', id='field_creator_last_name', label=_('Creator (last name)'), placeholder=_("Creator (last name)"), value=data.creator_last_name, error=errors.creator_last_name, classes=['mb-3', 'required'] ) }}
                                             </div>
                                             <div data-module="hdx_form_element_manager" data-module-element_name="contact_email" data-module-required="private,public,requestdata">
-                                              {{ form.input('contact_email', id='contact_email', label=_('Contact email'), placeholder=_("contact email"), value=data.contact_email, error=errors.contact_email, classes=['mb-3', 'required'] ) }}
+                                              {{ form.input('contact_email', id='field_contact_email', label=_('Contact email'), placeholder=_("contact email"), value=data.contact_email, error=errors.contact_email, classes=['mb-3', 'required'] ) }}
                                             </div>
                                             <div data-module="hdx_form_element_manager" data-module-element_name="is_derived_from">
-                                              {{ form.input('is_derived_from', id='is_derived_from', label=_('Derived from'), placeholder=_("The publication this dataset is derived from"), value=data.is_derived_from, error=errors.is_derived_from, classes=['mb-3'] ) }}
+                                              {{ form.input('is_derived_from', id='field_is_derived_from', label=_('Derived from'), placeholder=_("The publication this dataset is derived from"), value=data.is_derived_from, error=errors.is_derived_from, classes=['mb-3'] ) }}
                                             </div>
-                                            <div data-module="hdx_form_element_manager" data-module-element_name="related_publication" data-module-required="private,public,requestdata">
-                                              {{ form.input('related_publication', id='related_publication', label=_('Related publication'), placeholder=_("The DOI of a related publication"), value=data.related_publication, error=errors.related_publication, classes=['mb-3'] ) }}
+                                            <div data-module="hdx_form_element_manager" data-module-element_name="related_publication">
+                                              {{ form.input('related_publication', id='field_related_publication', label=_('Related publication'), placeholder=_("The DOI of a related publication"), value=data.related_publication, error=errors.related_publication, classes=['mb-3'] ) }}
                                             </div>
-                                            <div data-module="hdx_form_element_manager" data-module-element_name="publication_year" data-module-required="private,public,requestdata">
-                                              {{ form.input('publication_year', id='publication_year', label=_('Publication year'), placeholder=_("2025"), value=data.publication_year, error=errors.publication_year, classes=['mb-3'] ) }}
+                                            <div data-module="hdx_form_element_manager" data-module-element_name="publication_year">
+                                              {{ form.input('publication_year', id='field_publication_year', label=_('Publication year'), placeholder=_("2025"), value=data.publication_year, error=errors.publication_year, classes=['mb-3'] ) }}
                                             </div>
 
-                                           {# <div data-module="hdx_form_element_manager" data-module-element_name="tag_string" data-module-broadcast_change="true" data-module-required="requestdata">
+                                           {# <div data-module="hdx_form_element_manager" data-module-element_name="tag_string" data-module-broadcast_change="true" >
                                               {{ form.select('tag_string', id='field_tag_string', label=_('Tags'), options=allowed_tags, selected=selected_tags, error=errors.tag_string, classes=['mb-3', 'tags-select'], attrs={'class':'choices-orange', 'multiple':'true' }) }}
                                               <div data-module="hdx_tag_recommender" data-module-tag_input_selector="#field_tag_string"
                                                    data-module-recommended_tag_wrapper_selector="#recommended-tags-wrapper" class="mb-3">
@@ -617,10 +617,10 @@
                                               </div>
                                             </div> #}
 
-                                            <div data-module="hdx_form_element_manager" data-module-element_name="tag_string" data-module-required="private,public,requestdata">
+                                            <div data-module="hdx_form_element_manager" data-module-element_name="tag_string">
                                               {{ form.input('tag_string', id='field-tags', label=_('Tags'), placeholder=_('eg. economy, mental health, government'), value=data.tags, error=errors.tags, classes=['mb-3', 'tags-select'], attrs=tag_attrs) }}</div>
                                             
-                                            <div data-module="hdx_form_element_manager" data-module-element_name="language" data-module-required="private,public,requestdata">
+                                            <div data-module="hdx_form_element_manager" data-module-element_name="language" >
                                               {{ form.input('language', id='language', label=_('Language'), placeholder=_("English"), value=data.language, error=errors.language, classes=['mb-3'] ) }}
                                             </div>
                                             

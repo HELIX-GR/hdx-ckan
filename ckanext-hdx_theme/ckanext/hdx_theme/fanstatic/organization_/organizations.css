@@ -162,3 +162,11 @@
 .featured-org .feature-content .dataset-description {
   min-height: 40px;
 }
+
+ul.children {
+  margin-left: 30px;
+}
+
+.node {
+  margin-bottom: 20px !important;
+}

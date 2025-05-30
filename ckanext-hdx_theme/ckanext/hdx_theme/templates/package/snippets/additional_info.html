@@ -6,7 +6,7 @@
     {% block package_additional_info %}
       {% set edit_mode = h.check_access('package_update', {'id':pkg_dict.id }) %}
 
-      <div class="mb-3" {% if edit_mode %} data-module="hdx-quick-edit" data-module-anchor="ui_date_range1"
+      {#<div class="mb-3" {% if edit_mode %} data-module="hdx-quick-edit" data-module-anchor="ui_date_range1"
            data-module-dataset="{{ pkg_dict.id }}"{% endif %}>
         <div class="dataset-label"><span
           title="{{ _('The earliest start date and latest end date across all resources included in the dataset.') }}"
@@ -15,7 +15,7 @@
         <div class="dataset-details">{{ h.render_date_from_concat_str(pkg_dict.dataset_date) }} <a href="#"
                                                                                                    id="show-extra-dates">... {{ _('More') }}</a>
         </div>
-      </div>
+      </div>#}
       {% set modified_time = pkg_dict.last_modified %}
       {% set confirmed_time = pkg_dict.review_date %}
       {% set hdx_added_time = pkg_dict.metadata_created %}
@@ -38,7 +38,7 @@
           </div>
         </div>
       {% endif %}#}
-      <div class="mb-3 d-none more-dates">
+      {#<div class="mb-3 d-none more-dates">
         <div class="dataset-label"><span title="{{ _('The date when the dataset was first added to HDX.') }}"
                                          data-module="bs_tooltip" data-module-placement="top"
                                          data-bs-toggle="tooltip">{{ _('Dataset Added on HDX') }} [?]</span></div>
@@ -62,11 +62,28 @@
           </span>
         </div>
       </div>
-
       <div class="mb-3" {% if edit_mode %} data-module="hdx-quick-edit" data-module-anchor="field_dataset_source"
            data-module-dataset="{{ pkg_dict.id }}"{% endif %}>
         <div class="dataset-label">{{ _('Source') }}</div>
         <div class="dataset-details">{{ pkg_dict.dataset_source }}</div>
+      </div>
+      #}
+      <div class="mb-3" {% if edit_mode %} data-module="hdx-quick-edit" data-module-anchor="field_creator_first_name"
+      data-module-dataset="{{ pkg_dict.id }}"{% endif %}>
+    <div class="dataset-label">{{ _('Creator (first name)') }}</div>
+    <div class="dataset-details">{{ pkg_dict.creator_first_name }}</div>
+      </div>
+
+      <div class="mb-3" {% if edit_mode %} data-module="hdx-quick-edit" data-module-anchor="field_creator_last_name"
+      data-module-dataset="{{ pkg_dict.id }}"{% endif %}>
+    <div class="dataset-label">{{ _('Creator (last name)') }}</div>
+    <div class="dataset-details">{{ pkg_dict.creator_last_name }}</div>
+      </div>
+
+      <div class="mb-3" {% if edit_mode %} data-module="hdx-quick-edit" data-module-anchor="field_contact_email"
+      data-module-dataset="{{ pkg_dict.id }}"{% endif %}>
+    <div class="dataset-label">{{ _('Contact email') }}</div>
+    <div class="dataset-details">{{ pkg_dict.contact_email }}</div>
       </div>
 
       <div class="mb-3">
@@ -88,7 +105,7 @@
           </div>
         </div>
 
-        <div class="mb-3" {% if edit_mode %} data-module="hdx-quick-edit" data-module-anchor="s2id_field_methodology"
+       {# <div class="mb-3" {% if edit_mode %} data-module="hdx-quick-edit" data-module-anchor="s2id_field_methodology"
              data-module-dataset="{{ pkg_dict.id }}"{% endif %}>
           <div class="dataset-label">{{ _('Methodology') }}</div>
           {% set methodology, methodology_other = h.methodology_bk_compat(pkg_dict.methodology, pkg_dict.methodology_other) %}
@@ -110,7 +127,7 @@
                                              style="visibility:hidden">{{ h.render_markdown(pkg_dict.caveats) }}</span>
           </div>
         </div>
-
+      #}
 
 
         {% if not pkg_dict.is_requestdata_type %}

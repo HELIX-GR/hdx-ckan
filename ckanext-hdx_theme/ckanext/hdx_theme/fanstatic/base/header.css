@@ -562,6 +562,10 @@ body {
   background-color: #007CE0;
   color: #fff;
 }
+
+.btn-primary.org {
+  float: right !important ;
+}
 .btn-square {
   border-radius: 0;
 }

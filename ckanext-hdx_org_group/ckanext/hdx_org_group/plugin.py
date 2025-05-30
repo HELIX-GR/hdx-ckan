@@ -114,7 +114,7 @@ class HDXOrgGroupPlugin(plugins.SingletonPlugin, lib_plugins.DefaultOrganization
     def _modify_group_schema(self, schema):
         schema.update({
             'description': [tk.get_validator('not_empty')],
-            'org_url': [tk.get_validator('not_missing'), tk.get_validator('hdx_url_validator'),
+            'org_url': [tk.get_validator('ignore_missing'), tk.get_validator('hdx_url_validator'),
                         tk.get_converter('convert_to_extras')],
             'fts_id': [tk.get_validator('hdx_org_keep_prev_value_if_empty_unless_sysadmin'),
                        tk.get_validator('ignore_missing'),
@@ -131,12 +131,17 @@ class HDXOrgGroupPlugin(plugins.SingletonPlugin, lib_plugins.DefaultOrganization
             # 'less': [tk.get_validator('ignore_missing'), tk.get_converter('convert_to_extras')],
             'visualization_config': [tk.get_validator('ignore_missing'), tk.get_converter('convert_to_extras')],
             'modified_at': [tk.get_validator('ignore_missing'), tk.get_converter('convert_to_extras')],
-            'hdx_org_type': [tk.get_validator('not_empty'), tk.get_validator('correct_hdx_org_type'),
+            'hdx_org_type': [tk.get_validator('ignore_missing'), tk.get_validator('correct_hdx_org_type'),
                              tk.get_converter('convert_to_extras')],
             'org_acronym': [tk.get_validator('ignore_missing'), tk.get_converter('convert_to_extras')],
             'description_greek': [tk.get_validator('ignore_missing'), tk.get_converter('convert_to_extras')],
             'email_domain': [tk.get_validator('ignore_missing'), tk.get_converter('convert_to_extras')],
             'org_acronym': [tk.get_validator('ignore_missing'), tk.get_converter('convert_to_extras')],
+            # Heallink organization metadata
+            'title_greek': [tk.get_validator('ignore_missing'), tk.get_converter('convert_to_extras')],
+            'description_greek': [tk.get_validator('ignore_missing'), tk.get_converter('convert_to_extras')],
+            'email_domain': [tk.get_validator('ignore_missing'), tk.get_converter('convert_to_extras')],
+            'parent_org': [tk.get_validator('ignore_missing'), tk.get_converter('convert_to_extras')],
         })
         return schema
 
@@ -185,7 +190,12 @@ class HDXOrgGroupPlugin(plugins.SingletonPlugin, lib_plugins.DefaultOrganization
                 'created': [],
                 'state': [],
                 'display_name': [tk.get_converter('convert_from_extras'), tk.get_validator('ignore_missing')],
+                # Heallink organization metadata
 
+                'title_greek': [tk.get_converter('convert_from_extras'), tk.get_validator('ignore_missing')],
+                'description_greek': [tk.get_converter('convert_from_extras'), tk.get_validator('ignore_missing')],
+                'email_domain': [tk.get_converter('convert_from_extras'), tk.get_validator('ignore_missing')],
+                'parent_org': [tk.get_converter('convert_from_extras'), tk.get_validator('ignore_missing')],
             }
             schema.update(new_org_schema)
             return schema

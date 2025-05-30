@@ -143,8 +143,8 @@ def _buildIndex(path):
     #                             qualified=True)
     #     index.append({'title':name.capitalize(), 'url': url, 'type': 'topic'})
 
-    dir_path = os.path.abspath(path)
-    f = open(dir_path + '/lunr/feature-index.js', 'w')
-    file_body = json.dumps(index)
-    file_body = 'var feature_index=' + file_body + ';'
-    f.write(file_body)
+    #dir_path = os.path.abspath(path)
+    #f = open(dir_path + '/lunr/feature-index.js', 'w')
+    #file_body = json.dumps(index)
+    #file_body = 'var feature_index=' + file_body + ';'
+    #f.write(file_body)

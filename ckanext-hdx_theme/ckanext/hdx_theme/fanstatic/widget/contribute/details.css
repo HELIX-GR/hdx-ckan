@@ -3,7 +3,7 @@
   overflow: auto;
 }
 .popup.popup-contribute .content {
-  max-width: 1260px;
+  max-width: 1400px;
   height: 100%;
   padding: 0;
   position: static;
@@ -19,7 +19,7 @@
 .popup.popup-contribute .content .custom-close-container {
   position: absolute;
   width: 100%;
-  max-width: 1260px;
+  max-width: 1400px;
   left: 50%;
   transform: translateX(-50%);
 }
