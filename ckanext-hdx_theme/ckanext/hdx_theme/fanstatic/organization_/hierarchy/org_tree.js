@@ -27,14 +27,17 @@ ckan.module('org-tree-toggle', function($, _) {
                   const renderNode = (node) => `
                     <li id="node_${node.name}" style="list-style: none;">
                       <div class="d-flex align-items-center gap-2 node">
-                        <button class="toggle-btn" data-org="${node.name}">+</button>
+                        ${node.children && node.children.length > 0 
+                          ? `<button class="toggle-btn" data-org="${node.name}">+</button>` 
+                          : ''
+                        }
                         <h3 class="organization-heading m-0">
-                        <a href="/organization/${node.name}">${node.title}</a>
+                          <a href="/organization/${node.name}">${node.title}</a>
                         </h3>
                       </div>
                       <ul class="children ps-4" id="children_${node.name}" style="display:none;"></ul>
                     </li>
-                  `;
+                  ;
   
                   const items = children.map(renderNode);
                   $childrenContainer.html(items.join('')).show();
