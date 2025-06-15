@@ -2,3 +2,4 @@ include README.rst
 include LICENSE
 include requirements.txt
 recursive-include ckanext/hdx_dataviz *.html *.json *.js *.less *.css *.mo
+include ckanext/hdx_dataviz/config_declaration.yaml

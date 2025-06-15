@@ -1,2 +1,3 @@
 include README.rst
 recursive-include ckanext/hdx_hxl_preview *.html *.json *.js *.less *.css
+include ckanext/hdx_hxl_preview/config_declaration.yaml

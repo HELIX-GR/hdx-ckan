@@ -1,2 +1,3 @@
 include README.rst
 recursive-include ckanext/hdx_service_checker *.html *.json *.js *.less *.css
+include ckanext/hdx_service_checker/config_declaration.yaml

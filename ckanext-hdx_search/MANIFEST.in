@@ -1,2 +1,3 @@
 recursive-include ckanext/hdx_search/hdx-solr *
 recursive-include ckanext/hdx_search/solr *
+include ckanext/hdx_search/config_declaration.yaml
