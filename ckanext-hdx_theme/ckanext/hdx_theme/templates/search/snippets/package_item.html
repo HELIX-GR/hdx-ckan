@@ -6,7 +6,7 @@
     <div class="dataset-pre-content">
       <div class="list-items dataset-content dataset-content2">
         <div class="row">
-          <div class="{{column_class or 'col-6'}}">
+          <div class="{{column_class or 'col-12'}}">
             {% block pre_icon %}
             {% endblock %}
             <div class="dataset-heading" data-module="highlight" data-module-text="{{ query }}">
@@ -43,11 +43,19 @@
               {% block updated %}
                 {% block owner_update %}
                   {% block owner_update_org %}
+
+                  <div class="dataset-updated-org">
+                    {% if package.datacite_doi %}
+                      <a class="updatedNameColor">
+                        {{ package.datacite_doi}}
+                      </a>
+                    {% endif %}
+                  </div>
                     <div class="dataset-updated-org">
 
 
                       {% if package.organization %}
-                        <a class="updatedNameColor" href="{{ h.url_for(controller='organization', action='read', id=package.organization.name, sort='metadata_modified desc') }}">
+                        <a  href="{{ h.url_for(controller='organization', action='read', id=package.organization.name, sort='metadata_modified desc') }}">
                           {{ package.organization.title or package.organization.name }}
                         </a>
                       {% endif %}
@@ -175,7 +183,7 @@
             </div>
           </div>
           {% block second_column_div %}
-          <div class="{{column_class or 'col-6'}}">
+          <div class="{{column_class or 'col-12'}}">
             {% block dataset_right_side %}
               <div class="dataset-description" data-module="highlight" data-module-text="{{ query }}">
                 {% block description %}
@@ -215,6 +223,9 @@
                     <div class="requested-data-message"></div>
                   {% else %}
                     <ul class="hdx-bs3 list-items dataset-resources unstyled">
+                      <li>
+                        <a" class="label label-small" >OPEN</a>
+                      </li>
                       {% if package.resources and not hide_resources %}
                         {% for resource in h.dict_list_reduce(package.resources, 'format') %}
                           <li>

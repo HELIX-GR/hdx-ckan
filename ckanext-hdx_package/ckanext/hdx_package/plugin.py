@@ -216,6 +216,7 @@ class HDXPackagePlugin(plugins.SingletonPlugin, tk.DefaultDatasetForm):
             'creator_last_name': [tk.get_validator('ignore_missing'), tk.get_converter('convert_to_extras')],
             'datacite_doi': [tk.get_validator('ignore_missing'), tk.get_converter('convert_to_extras')],
             'language': [tk.get_validator('ignore_missing'), tk.get_converter('convert_to_extras')],
+            'resource_type': [tk.get_validator('ignore_missing'), tk.get_converter('convert_to_extras')],
             
         
         })
@@ -444,6 +445,7 @@ class HDXPackagePlugin(plugins.SingletonPlugin, tk.DefaultDatasetForm):
             'creator_last_name': [tk.get_converter('convert_from_extras'), tk.get_validator('ignore_missing')],
             'datacite_doi': [tk.get_converter('convert_from_extras'), tk.get_validator('ignore_missing')],
             'language': [tk.get_converter('convert_from_extras'), tk.get_validator('ignore_missing')],
+            'resource_type': [tk.get_converter('convert_from_extras'), tk.get_validator('ignore_missing')],
         })
 
         return schema
@@ -679,6 +681,7 @@ class HDXPackagePlugin(plugins.SingletonPlugin, tk.DefaultDatasetForm):
         schema['creator_last_name'] = [tk.get_validator('ignore_missing')] + schema['creator_last_name']
         schema['datacite_doi'] = [tk.get_validator('ignore_missing')] + schema['datacite_doi']
         schema['language'] = [tk.get_validator('ignore_missing')] + schema['language']
+        schema['resource_type'] = [tk.get_validator('ignore_missing')] + schema['resource_type']
         
 
         if 'groups_list' in schema:

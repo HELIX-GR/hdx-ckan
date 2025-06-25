@@ -550,3 +550,66 @@ def remove_previous_package_dict_from_context(context, id):
     if id:
         context_key = _create_prev_package_context_key(id)
         context.pop(context_key, None)
+
+# Hardmin-related helpers
+
+def getDataciteDoi(package):
+    """Perform HTTP request"""
+
+    package_url = config.get('ckan.site_url') + h.url_for(controller='package', action='read',
+                                id=package['name'])
+    random_str = ''.join(random.SystemRandom().choice(string.ascii_lowercase + string.digits) for _ in range(4)) + '-' \
+        +''.join(random.SystemRandom().choice(string.ascii_lowercase + string.digits) for _ in range(4))
+    doi = config.get('ckanext.hdx_package.datacite.prefix') + random_str
+    #event = config.get('ckanext.hdx_package.datacite.publish')
+    #format name for datacite (first name, given name)
+    creator_name = package['creator_first_name'] + ' ' + package['creator_last_name']
+    if 'publication_year' in package:
+        publication_year =  package['publication_year'] 
+    else:
+        publication_year =  datetime.date.today().year
+    publisher = package['organization']['name']
+    #                "event":  "''' + event + '''",
+    data_string = '''{
+            "data": {
+                "type": "dois",
+                "attributes": {
+                    "doi": "''' + doi + '''",
+                    "url": "''' + package_url + '''",
+                    "titles": [
+                        {
+                            "title": "''' + package['title'] +'''"
+                        }
+                    ],
+                    "creators": [
+                    {
+                        "name": "''' + creator_name + '''",
+                        "nameType": "Personal",
+                        "affiliation": [],
+                        "nameIdentifiers": []
+                    }],
+                    "publisher": "''' + publisher +'''",
+                    "publicationYear":"''' + str(publication_year) + '''",
+                    "types": {
+                        "resourceTypeGeneral": "Dataset"
+                    }
+                }
+            }
+        }'''
+    headers = {
+        'Accept': 'application/vnd.api+json',
+        'Content-Type': 'application/vnd.api+json',
+    }
+    
+    datacite_url = config.get('ckanext.helix.datacite.api_url')
+    client_id = config.get('ckanext.helix.datacite.client_id')
+    password = config.get('ckanext.helix.datacite.password')
+    try:
+        response = requests.post(datacite_url, headers=headers, data=data_string, auth=(client_id, password))
+        #return auto-generated doi
+        result = json.loads(response.text)
+        #doi = result['data']['id']
+    except Exception as ex:
+       log.debug('Datacite request failed: %s', ex)
+    log.debug('Registered doi is %s', doi)
+    return doi
