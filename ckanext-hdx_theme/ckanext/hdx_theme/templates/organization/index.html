@@ -81,11 +81,11 @@
                     {% endfor %}
                 </ul>
             #}
-                <ul class=" hdx-bs3 list-items hierarchy-tree-top {{ list_class or 'dataset-list unstyled' }}">
-                    <div data-module="org-tree-toggle">
-                        {{ h.render_tree()|safe }}
-                      </div>
-                  </ul>
+            <div data-module="org-tree-toggle">
+                <ul class="hdx-bs3 list-items hierarchy-tree-top {{ list_class or 'dataset-list unstyled' }}">
+                  {{ h.render_tree()|safe }}
+                </ul>
+              </div>
             </div>
         
             {% block page_pagination %}

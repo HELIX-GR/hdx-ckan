@@ -782,7 +782,7 @@ def _find_last_update_for_orgs(org_names):
         data_dict = {
             'q': '',
             'fq': fq_filter,
-            'fq_list': ['{!collapse field=organization nullPolicy=expand sort="metadata_modified desc"} '],
+            #'fq_list': ['{!collapse field=organization nullPolicy=expand sort="metadata_modified desc"} '],
             'rows': len(org_names),
             'start': 0,
             'sort': 'metadata_modified desc'

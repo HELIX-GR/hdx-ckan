@@ -76,7 +76,6 @@ def _index(template_file, show_switch_to_desktop, show_switch_to_mobile):
     # }
     all_orgs = get_action('organization_list')(context, {'all_fields': True,
                                                   'include_extras': True})
-    log.info('all_orgs: %s', all_orgs)
     all_orgs = helper.filter_and_sort_results_case_insensitive(all_orgs, sort_option, q=q, has_datasets=False)
 
     # c.featured_orgs = helper.hdx_get_featured_orgs(context, data_dict)

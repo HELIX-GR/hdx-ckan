@@ -19,9 +19,9 @@
 {% block primary_content_inner %}
   {% set organizations = h.hdx_organizations_available_with_roles() %}
     {% if organizations %}
-      <div class="float-end">
+      {#<div class="float-end">
         <a class="btn btn-primary" href="{{ h.url_for('hdx_org_join.org_join') }}" title="Request to join an organisation">{{ _('Request to join an org') }}</a>
-      </div>
+      </div>#}
     {% endif %}
   <div>
     {% if organizations %}
