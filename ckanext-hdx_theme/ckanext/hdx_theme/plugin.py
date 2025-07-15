@@ -380,6 +380,9 @@ class HDXThemePlugin(plugins.SingletonPlugin):
     # IApiToken
     def create_api_token_schema(self, schema):
         # add to the schema from expire_api_token plugin
+        # Initialize 'expires_in' if not present
+        if 'expires_in' not in schema:
+            schema['expires_in'] = []
         schema['expires_in'].append(toolkit.get_validator('doesnt_exceed_max_validity_period'))
         return schema
 

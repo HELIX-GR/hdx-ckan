@@ -478,10 +478,10 @@ def hdx_check_add_data():
         _check_access("package_create", context, dataset_dict)
     except NotAuthorized as e:
         if g.userobj or g.user:
-            data_dict['href'] = h.url_for('hdx_org_join.find_organisation') #'/dashboard/organizations'
+            data_dict['href'] = h.url_for('/dashboard/organizations') #'/dashboard/organizations'
             data_dict['onclick'] = ''
         else:
-            data_dict['href'] = h.url_for('hdx_signin.login', info_message_type='add-data')
+            data_dict['href'] = h.url_for('user.login', info_message_type='add-data')
             data_dict['onclick'] = ''
 
     return data_dict

@@ -415,9 +415,9 @@ def hdx_resource_keep_prev_value_if_exist_unless_sysadmin(key, data, errors, con
             specific_key = key[2]
             context_key = 'resource_' + resource_id
             resource_dict = context.get(context_key)
-            if not resource_dict:
-                resource_dict = __get_previous_resource_dict(context, package_id, resource_id)
-                context[context_key] = resource_dict
+            #if not resource_dict:
+            #    resource_dict = __get_previous_resource_dict(context, package_id, resource_id)
+            #    context[context_key] = resource_dict
             if resource_dict:
                 old_value = resource_dict.get(specific_key)
                 if old_value is not None:
@@ -524,11 +524,11 @@ def hdx_package_keep_prev_value_unless_field_in_context_wrapper(context_field, r
             data.pop(key, None)
 
         allow_context_field = context.get(context_field)
+        resource_level=False
 
         if not allow_context_field:
             data.pop(key, None)
             pkg_id = data.get(('id',))
-
             if resource_level:
                 resource_id = data.get(key[:-1] + ('id',))
                 if resource_id:

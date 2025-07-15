@@ -108,7 +108,6 @@ def login() -> Union[Response, str]:
                 h.flash_error(_('You have not yet validated your email.'))
                 return h.redirect_to('hdx_splash.index')'''
         
-        log.info("HERE 1")
         log.info(user_obj)
         if user_obj:
             first_login_context: Context = {

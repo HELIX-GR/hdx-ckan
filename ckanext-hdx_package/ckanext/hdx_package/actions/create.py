@@ -95,7 +95,7 @@ def resource_create(context, data_dict):
     return resource
 
 
-@analytics.analytics_wrapper_4_package_create
+#@analytics.analytics_wrapper_4_package_create
 @ckanext.hdx_package.helpers.resource_triggers.common.trigger_4_resource_changes(
     BEFORE_PACKAGE_UPDATE_LISTENERS, AFTER_PACKAGE_UPDATE_LISTENERS, VERSION_CHANGE_ACTIONS
 )

@@ -51,7 +51,7 @@ class HDXValidatePlugin(plugins.SingletonPlugin):
             'hdx_send_new_org_request': misc.hdx_send_new_org_request,
             'hdx_send_request_data_auto_approval': misc.hdx_send_request_data_auto_approval,
             'user_delete': delete.hdx_user_delete,
-            'user_update': update.user_update,
+            #'user_update': update.user_update,
             'user_create': create.user_create,
         }
 
@@ -106,7 +106,7 @@ class HDXUsersPlugin(plugins.SingletonPlugin):
         return {
             'hdx_send_new_org_request': auth.hdx_send_new_org_request,
             'manage_permissions': auth.manage_permissions,
-            'user_update': auth.user_update,
+            #'user_update': auth.user_update,
             'notify_users_about_api_token_expiration': auth.notify_users_about_api_token_expiration,
             'hdx_send_request_data_auto_approval': auth.hdx_send_request_data_auto_approval,
             'hdx_add_notification_subscription': auth.hdx_add_notification_subscription,
