@@ -169,8 +169,29 @@ ckan.cors.origin_allow_all = false
 ckan.cors.origin_whitelist = 
 
 ## Plugins Settings ############################################################
-ckan.plugins=hdx_theme hdx_users hdx_user_extra hdx_search hdx_package hdx_org_group hdx_pages ytp_request hierarchy_display resource_proxy activity stats text_view image_view
+ckan.plugins=hdx_theme hdx_search hdx_package hdx_org_group hdx_pages ytp_request hierarchy_display resource_proxy activity stats text_view oauth2 expire_api_token image_view
 ckan.download_proxy = 
+
+## ckanext-oauth2 config
+ckan.oauth2.authorization_endpoint =
+ckan.oauth2.token_endpoint = 
+ckan.oauth2.profile_api_url =
+ckan.oauth2.client_id =
+ckan.oauth2.client_secret =
+ckan.oauth2.scope = openid profile email
+ckan.oauth2.profile_api_user_field = email
+ckan.oauth2.profile_api_fullname_field = name
+ckan.oauth2.profile_api_mail_field = email
+ckan.oauth2.authorization_header = Authorization
+
+# ckanext-hierarchy
+ckanext.hierarchy.group_types = organization
+
+# hdx_package
+ckanext.hdx_package.datacite.prefix  =
+ckanext.hdx_package.datacite.api_url =
+ckanext.hdx_package.datacite.client_id =
+ckanext.hdx_package.datacite.password =
 
 ## Front-End Settings ##########################################################
 ckan.site_title = HARDMIN (DEVELOPMENT)
