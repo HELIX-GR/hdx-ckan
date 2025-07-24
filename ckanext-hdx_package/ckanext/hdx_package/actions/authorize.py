@@ -4,7 +4,7 @@ import ckan.logic.auth.create as create
 import ckan.logic.auth.update as update
 import ckan.plugins.toolkit as tk
 from ckan.types import Context, DataDict
-from ckanext.hdx_users.helpers.permissions import Permissions
+#from ckanext.hdx_users.helpers.permissions import Permissions
 
 log = logging.getLogger(__name__)
 get_action = tk.get_action
@@ -101,14 +101,14 @@ def hdx_resource_download(context, resource_dict):
 
 def hdx_mark_qa_completed(context, data_dict=None):
     username_or_id = context.get('user')
-    result = Permissions(username_or_id).has_permission(Permissions.PERMISSION_MANAGE_QA)
+    #result = Permissions(username_or_id).has_permission(Permissions.PERMISSION_MANAGE_QA)
     return {'success': result}
 
 
 def hdx_mark_resource_in_quarantine(context, data_dict=None):
     username_or_id = context.get('user')
-    result = Permissions(username_or_id).has_permission(Permissions.PERMISSION_MANAGE_QA)
-    return {'success': result}
+    #result = Permissions(username_or_id).has_permission(Permissions.PERMISSION_MANAGE_QA)
+    return {'success': False}
 
 
 def hdx_qa_resource_patch(context, data_dict=None):
@@ -131,23 +131,25 @@ def hdx_qa_hapi_report_view(context, data_dict=None):
     return {'success': False, 'msg': _('Only sysadmins can change the file structure check info')}
 
 def hdx_cod_update(context, data_dict):
-    return _check_hdx_user_permission(context, Permissions.PERMISSION_MANAGE_COD)
+    return _check_hdx_user_permission(context, None)
+    #return _check_hdx_user_permission(context, Permissions.PERMISSION_MANAGE_COD)
 
 
 def hdx_dataseries_update(context, data_dict):
-    return _check_hdx_user_permission(context, Permissions.PERMISSION_MANAGE_DATASERIES)
+    return _check_hdx_user_permission(context, None)
+    #return _check_hdx_user_permission(context, Permissions.PERMISSION_MANAGE_DATASERIES)
 
 
 def _check_hdx_user_permission(context, permission):
     username_or_id = context.get('user')
-    result = Permissions(username_or_id).has_permission(permission)
-    return {'success': result}
+    #result = Permissions(username_or_id).has_permission(permission)
+    return {'success': False}
 
 
 def hdx_p_coded_resource_update(context, data_dict):
     username_or_id = context.get('user')
-    result = Permissions(username_or_id).has_permission(Permissions.PERMISSION_MANAGE_P_CODES)
-    return {'success': result}
+    #result = Permissions(username_or_id).has_permission(Permissions.PERMISSION_MANAGE_P_CODES)
+    return {'success': False}
 
 
 def hdx_send_mail_request_tags(context, data_dict):
@@ -168,7 +170,8 @@ def hdx_send_mail_request_tags(context, data_dict):
 
 
 def hdx_mark_resource_in_hapi(context: Context, data_dict: DataDict):
-    return _check_hdx_user_permission(context, Permissions.PERMISSION_MANAGE_IN_HAPI_FLAG)
+    return _check_hdx_user_permission(context, None)
+    #return _check_hdx_user_permission(context, Permissions.PERMISSION_MANAGE_IN_HAPI_FLAG)
 
 
 def hdx_request_access(context: Context, data_dict: DataDict):

@@ -8,8 +8,8 @@ import ckan.logic.action.create as core_create
 import ckan.logic.schema as core_schema
 import ckan.model as core_model
 import ckan.plugins.toolkit as tk
-import ckanext.hdx_users.helpers.mailer as hdx_mailer
-import ckanext.hdx_users.helpers.reset_password as reset_password
+import ckanext.hdx_package.helpers.mailer as hdx_mailer
+#import ckanext.hdx_users.helpers.reset_password as reset_password
 
 _validate = core_df.validate
 _check_access = tk.check_access
@@ -88,7 +88,7 @@ def hdx_user_invite(context, data_dict):
         group_dict = _get_action('group_show')({}, {'id': data['group_id']})
     try:
         expiration_in_hours = config.get('hdx.password.invitation_reset_key.expiration_in_hours')
-        reset_password.create_reset_key(user, expiration_in_minutes=60 * expiration_in_hours)
+        #reset_password.create_reset_key(user, expiration_in_minutes=60 * expiration_in_hours)
         subject = u'HDX account creation'
         email_data = {
             'org_name': group_dict.get('display_name'),

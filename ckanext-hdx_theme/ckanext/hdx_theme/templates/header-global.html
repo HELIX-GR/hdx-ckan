@@ -144,7 +144,7 @@
                                       </a>
                                     </li>
                                   {% endif %}
-                                  {% if user_is_sysadmin or h.check_access('hdx_carousel_update') %}
+                                  {% if user_is_sysadmin %}
                                     <li>
                                       <a href="{{ h.url_for('hdx_carousel.show') }}" title="{{ _('Carousel') }}">
                                         <i class="icon-legal"></i>

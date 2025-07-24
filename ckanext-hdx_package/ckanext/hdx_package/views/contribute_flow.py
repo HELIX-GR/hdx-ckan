@@ -196,6 +196,8 @@ def validate(package_type=None):
 
     except ValidationError as e:
         error_summary = dict(e.error_summary)
+
+        log.debug('error_summary')
         if 'Resources' in e.error_summary:
             error_summary['Resources'] = {
                 _('Resource {}').format(idx): {key: '; '.join(val)
@@ -213,6 +215,8 @@ def validate(package_type=None):
 def _prepare_data_for_saving(context, package_type):
     data_dict = clean_dict(dict_fns.unflatten(
         tuplize_dict(parse_params(request.form))))
+    if isinstance(data_dict.get("private"), str):
+        data_dict["private"] = data_dict["private"].lower() == "true"
     data_dict['type'] = package_type or data_dict.get('type')
 
     del data_dict['save']

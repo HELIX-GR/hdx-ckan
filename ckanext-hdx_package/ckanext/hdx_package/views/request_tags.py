@@ -4,7 +4,7 @@ import requests
 import ckan.lib.captcha as captcha
 import ckan.model as model
 import ckan.plugins.toolkit as tk
-import ckanext.hdx_users.helpers.helpers as usr_h
+import ckanext.hdx_package.helpers.helpers as usr_h
 
 from flask import Blueprint, make_response
 from six import text_type

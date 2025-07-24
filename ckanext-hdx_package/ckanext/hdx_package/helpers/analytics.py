@@ -5,7 +5,9 @@ import datetime
 
 from ckanext.hdx_package.helpers.constants import COD_ENHANCED, COD_STANDARD
 from ckanext.hdx_theme.util.analytics import AbstractAnalyticsSender
-from ckanext.hdx_users.helpers.notification_platform import check_notifications_enabled_for_dataset
+#from ckanext.hdx_users.helpers.notification_platform import check_notifications_enabled_for_dataset
+
+from ckanext.hdx_package.helpers.caching import cached_datasets_with_notifications
 
 from typing import Any, Dict, Optional
 
@@ -75,11 +77,15 @@ def came_from(request_args: Dict[str, str]) -> Optional[str]:
 
     return source_mapping.get(came_from_arg, '')
 
-
 def supports_notifications(pkg_dict: dict[str, Any]) -> str:
-    dataset_supports_notifications = check_notifications_enabled_for_dataset(pkg_dict['id'])
+    dataset_supports_notifications = _check_notifications_enabled_for_dataset(pkg_dict['id'])
 
     return str(dataset_supports_notifications).lower()
+
+def _check_notifications_enabled_for_dataset(dataset_id: str) -> bool:
+    #datasets = cached_datasets_with_notifications()
+    return False
+    #return dataset_id in datasets
 
 
 def extract_locations(pkg_dict):
@@ -141,7 +147,7 @@ def generate_analytics_data(dataset_dict):
         analytics_dict['groupNames'], analytics_dict['groupIds'] = extract_locations_in_json(dataset_dict)
         analytics_dict['datasetAvailability'] = dataset_availability(dataset_dict)
         analytics_dict['cameFrom'] = ''
-        analytics_dict['supportsNotifications'] = supports_notifications(dataset_dict)
+    #    analytics_dict['supportsNotifications'] = supports_notifications(dataset_dict)
     else:
         analytics_dict['datasetId'] = ''
         analytics_dict['datasetName'] = ''

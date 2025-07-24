@@ -11,7 +11,7 @@ import ckan.logic as logic
 
 import ckanext.hdx_theme.util.mail as mailutil
 
-import ckanext.hdx_users.helpers.mailer as hdx_mailer
+import ckanext.hdx_package.helpers.mailer as hdx_mailer
 
 import ckanext.hdx_org_group.helpers.analytics as analytics
 import ckanext.hdx_org_group.helpers.org_meta_dao as org_meta_dao

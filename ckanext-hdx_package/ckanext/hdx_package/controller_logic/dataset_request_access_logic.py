@@ -5,7 +5,7 @@ import ckan.lib.navl.dictization_functions as dictization_functions
 import ckan.logic as logic
 import ckan.model as model
 import ckan.plugins.toolkit as tk
-import ckanext.hdx_users.helpers.mailer as hdx_mailer
+import ckanext.hdx_package.helpers.mailer as hdx_mailer
 from ckan.types import Context, DataDict, Request
 from ckan.lib.navl.dictization_functions import validate
 #from ckanext.requestdata.logic.schema import request_create_schema

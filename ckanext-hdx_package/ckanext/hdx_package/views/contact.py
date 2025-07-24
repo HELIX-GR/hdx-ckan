@@ -10,7 +10,7 @@ import ckan.plugins.toolkit as tk
 from ckan.views.api import CONTENT_TYPES
 
 import ckanext.hdx_package.helpers.membership_data as membership_data
-import ckanext.hdx_users.helpers.helpers as usr_h
+import ckanext.hdx_package.helpers.helpers as usr_h
 
 from ckanext.hdx_theme.util.mail import hdx_validate_email
 

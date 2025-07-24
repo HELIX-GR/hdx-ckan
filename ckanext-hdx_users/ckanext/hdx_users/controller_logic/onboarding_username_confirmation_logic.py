@@ -3,7 +3,7 @@ import logging
 import ckan.plugins.toolkit as tk
 import ckan.model as model
 
-import ckanext.hdx_users.helpers.mailer as hdx_mailer
+import ckanext.hdx_package.helpers.mailer as hdx_mailer
 
 from ckan.types import ActionResult, DataDict
 

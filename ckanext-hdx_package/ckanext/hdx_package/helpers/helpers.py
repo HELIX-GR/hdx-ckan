@@ -613,3 +613,12 @@ def getDataciteDoi(package):
        log.debug('Datacite request failed: %s', ex)
     log.debug('Registered doi is %s', doi)
     return doi
+
+
+def validate_captcha(response):
+    url = config.get('hdx.captcha.url')
+    secret = config.get('ckan.recaptcha.privatekey')
+    params = {'secret': secret, "response": response}
+    r = requests.get(url, params=params, verify=True)
+    res = json.loads(r.content)
+    return 'success' in res and res['success'] == True

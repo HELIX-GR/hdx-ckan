@@ -21,7 +21,7 @@ def user_extra_show(context, data_dict):
     '''
     _check_access('user_extra_show', context, data_dict)
     user_id = data_dict.get('user_id')
-    user_extra_list = ue_model.UserExtra.get_by_user(user_id=user_id)
+    #user_extra_list = ue_model.UserExtra.get_by_user(user_id=user_id)
     if user_extra_list is None:
         raise NotFound
     user_extra_dict_list = [ue.as_dict() for ue in user_extra_list]

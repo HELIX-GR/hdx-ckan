@@ -30,7 +30,7 @@ from ckanext.hdx_theme.views.splash_page import hdx_splash
 import ckan.plugins.toolkit as tk
 from ckanext.security.model import SecurityTOTP
 from ckan.common import session
-from ckanext.hdx_users.helpers.token_creation_notification_helper import send_email_on_token_creation
+#from ckanext.hdx_users.helpers.token_creation_notification_helper import send_email_on_token_creation
 
 config = toolkit.config
 log = logging.getLogger(__name__)
@@ -388,7 +388,7 @@ class HDXThemePlugin(plugins.SingletonPlugin):
 
     # IApiToken
     def postprocess_api_token(self, data, jti, data_dict):
-        send_email_on_token_creation(data_dict.get('user'), data_dict.get('name'), data.get('exp'))
+        #send_email_on_token_creation(data_dict.get('user'), data_dict.get('name'), data.get('exp'))
         return data
 
     # IBlueprint

@@ -1,15 +1,22 @@
 import six
 
 from ckanext.hdx_search.helpers.constants import DEFAULT_SORTING
-from ckanext.hdx_users.helpers.constants import (
-    ONBOARDING_VALUE_PROPOSITION_INDIVIDUAL_ACCOUNT_WITH_ORG,
-    ONBOARDING_VALUE_PROPOSITION_INDIVIDUAL_ACCOUNT,
-    ONBOARDING_START_PAGE_HDX_CONNECT,
-    ONBOARDING_START_PAGE_CONTACT_CONTRIBUTOR,
-    ONBOARDING_START_PAGE_ADD_DATA,
-)
+
 from ckanext.hdx_theme.helpers.ui_constants import CONSTANTS as UI_CONSTANTS
 from ckanext.security.validators import MIN_PASSWORD_LENGTH, MIN_LEN_ERROR
+
+ONBOARDING_VALUE_PROPOSITION_INDIVIDUAL_ACCOUNT_WITH_ORG = 'individual_account_with_org'
+ONBOARDING_VALUE_PROPOSITION_INDIVIDUAL_ACCOUNT = 'individual_account'
+
+ONBOARDING_START_PAGE_HDX_CONNECT = 'hdx-connect'
+ONBOARDING_START_PAGE_CONTACT_CONTRIBUTOR = 'contact-contributor'
+ONBOARDING_START_PAGE_ADD_DATA = 'add-data'
+
+ONBOARDING_CAME_FROM_EXTRAS_KEY = 'hdx_onboarding_came_from'
+ONBOARDING_CAME_FROM_STATE_EXTRAS_KEY = 'hdx_onboarding_came_from_state'
+
+ONBOARDING_MAILCHIMP_OPTIN_KEY = 'hdx_onboarding_mailchimp_optin'
+
 
 CONSTANTS = {
     'DEFAULT_SORTING': DEFAULT_SORTING,

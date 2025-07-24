@@ -10,7 +10,7 @@ import os
 import six
 import openpyxl
 import ckanext.hdx_search.cli.click_feature_search_command as lunr
-import ckanext.hdx_users.helpers.mailer as hdx_mailer
+import ckanext.hdx_package.helpers.mailer as hdx_mailer
 from sqlalchemy import func
 import ckanext.hdx_org_group.helpers.static_lists as static_lists
 from flask import make_response

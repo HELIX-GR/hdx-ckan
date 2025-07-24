@@ -32,7 +32,7 @@ from ckan.lib import uploader
 from ckan.common import c
 from ckanext.hdx_package.helpers.constants import UNWANTED_DATASET_PROPERTIES, COD_VALUES_MAP, IN_HAPI_FLAG_VALUES
 from ckanext.hdx_package.helpers.freshness_calculator import UPDATE_FREQ_INFO
-from ckanext.hdx_users.helpers.permissions import Permissions
+#from ckanext.hdx_users.helpers.permissions import Permissions
 
 log = logging.getLogger(__name__)
 
@@ -251,13 +251,14 @@ class HDXPackagePlugin(plugins.SingletonPlugin, tk.DefaultDatasetForm):
                                  + core_last_modified_validators,
                 'in_quarantine': [
                     tk.get_validator('hdx_keep_unless_allow_resource_qa_script_field'),
-                    tk.get_validator('boolean_validator'),
+                #    tk.get_validator('boolean_validator'),
                     tk.get_validator('hdx_reset_on_file_upload'),
                     tk.get_validator('hdx_update_microdata'),
                 ],
                 'microdata': [
                     # tk.get_validator('hdx_update_field_if_value_wrapper'),
-                    tk.get_validator('boolean_validator'),
+                    
+                 #   tk.get_validator('boolean_validator'),
                     tk.get_validator('hdx_update_in_quarantine_by_microdata'),
                     # tk.get_validator('hdx_reset_on_file_upload')
                 ],
@@ -265,10 +266,10 @@ class HDXPackagePlugin(plugins.SingletonPlugin, tk.DefaultDatasetForm):
                     tk.get_validator('hdx_keep_unless_allow_resource_qa_script_field'),
                     tk.get_validator('hdx_reset_on_file_upload'),
                     tk.get_validator('ignore_missing'),  # if None, don't save 'None' string
-                    tk.get_validator('boolean_validator')
+                 #    tk.get_validator('boolean_validator')
                 ],
                 'dataset_preview_enabled': [
-                    tk.get_validator('hdx_convert_values_to_boolean_for_dataset_preview'),
+                    tk. get_validator('hdx_convert_values_to_boolean_for_dataset_preview'),
                     tk.get_validator('ignore_missing')
                 ],
                 'broken_link': [
@@ -293,7 +294,7 @@ class HDXPackagePlugin(plugins.SingletonPlugin, tk.DefaultDatasetForm):
                 'p_coded': [
                     tk.get_validator('hdx_delete_unless_authorized_to_update_p_coded'),
                     tk.get_validator('ignore_missing'),  # if None, don't save 'None' string
-                    tk.get_validator('boolean_validator'),
+                #     tk.get_validator('boolean_validator'),
                 ],
                 'in_hapi': [
                     tk.get_validator('hdx_keep_unless_allow_resource_in_hapi_field'),
@@ -336,15 +337,15 @@ class HDXPackagePlugin(plugins.SingletonPlugin, tk.DefaultDatasetForm):
                 ],
                 'in_quarantine': [
                     tk.get_validator('ignore_missing'),
-                    tk.get_validator('boolean_validator')
+                 #    tk.get_validator('boolean_validator')
                 ],
                 'microdata': [
                     tk.get_validator('ignore_missing'),
-                    tk.get_validator('boolean_validator')
+                #     tk.get_validator('boolean_validator')
                 ],
                 'broken_link': [
                     tk.get_validator('ignore_missing'),
-                    tk.get_validator('boolean_validator')
+                 #    tk.get_validator('boolean_validator')
                 ],
                 'daterange_for_data': [
                     tk.get_validator('ignore_missing'),
@@ -354,7 +355,7 @@ class HDXPackagePlugin(plugins.SingletonPlugin, tk.DefaultDatasetForm):
                 ],
                 'pii_is_sensitive': [
                     tk.get_validator('ignore_missing'),
-                    tk.get_validator('boolean_validator')
+                 #    tk.get_validator('boolean_validator')
                 ],
                 'fs_check_info': [
                     tk.get_validator('ignore_missing'),
@@ -362,11 +363,11 @@ class HDXPackagePlugin(plugins.SingletonPlugin, tk.DefaultDatasetForm):
                 ],
                 'p_coded': [
                     tk.get_validator('ignore_missing'),
-                    tk.get_validator('boolean_validator')
+                #     tk.get_validator('boolean_validator')
                 ],
                 'dataset_preview_enabled': [
                     tk.get_validator('ignore_missing'),
-                    tk.get_validator('boolean_validator'),
+                #     tk.get_validator('boolean_validator'),
                 ],
                 'qa_hapi_report': [
                     tk.get_validator('ignore_missing'),
@@ -420,7 +421,7 @@ class HDXPackagePlugin(plugins.SingletonPlugin, tk.DefaultDatasetForm):
             'qa_completed': [
                 tk.get_converter('convert_from_extras'),
                 tk.get_converter('hdx_assume_missing_is_true'),
-                tk.get_validator('boolean_validator')
+            #     tk.get_validator('boolean_validator')
             ],
             'updated_by_script': [tk.get_converter('convert_from_extras'), tk.get_validator('ignore_missing')],
             'cod_level': [tk.get_converter('convert_from_extras'), tk.get_validator('ignore_missing')],
@@ -635,12 +636,11 @@ class HDXPackagePlugin(plugins.SingletonPlugin, tk.DefaultDatasetForm):
         if action == 'package_show':
             if is_requestdata_type:
                 self._update_with_requestdata_show_package_schema(schema)
-
         return navl_validate(data_dict, schema, context)
 
     def _user_allowed_to_skip_validation(self, username):
-        return authz.is_sysadmin(username) or \
-               Permissions(username).has_permission(Permissions.PERMISSION_MANAGE_DATASERIES)
+        return authz.is_sysadmin(username)
+        #  or     Permissions(username).has_permission(Permissions.PERMISSION_MANAGE_DATASERIES)
 
     def _is_requestdata_type(self, data_dict):
         is_requestdata_type_show = False
@@ -684,8 +684,8 @@ class HDXPackagePlugin(plugins.SingletonPlugin, tk.DefaultDatasetForm):
         schema['resource_type'] = [tk.get_validator('ignore_missing')] + schema['resource_type']
         
 
-        if 'groups_list' in schema:
-            del schema['groups_list']
+        #if 'groups_list' in schema:
+        #    del schema['groups_list']
 
     def _update_with_requestdata_modify_package_schema(self, schema):
         log.debug('Update with requestdata modifiy package schema')

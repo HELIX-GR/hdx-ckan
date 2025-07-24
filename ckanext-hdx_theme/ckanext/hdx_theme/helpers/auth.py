@@ -6,7 +6,7 @@ import ckan.plugins.toolkit as tk
 # from ckan.logic.auth.update import user_generate_apikey
 from ckan.logic.auth import get_user_object
 from ckan.types import Context, DataDict
-from ckanext.hdx_users.helpers.permissions import Permissions
+#from ckanext.hdx_users.helpers.permissions import Permissions
 
 _ = tk._
 auth_sysadmins_check = tk.auth_sysadmins_check
@@ -79,26 +79,27 @@ def hdx_user_statistics(context, data_dict):
     '''
     return {'success': False, 'msg': _('Only sysadmins can manage custom pages')}
 
-
+@auth_sysadmins_check
 def hdx_push_general_stats(context, data_dict):
-    return _check_hdx_user_permission(context, Permissions.PERMISSION_MANAGE_BASIC_SCHEDULED_TASKS)
+    return _check_hdx_user_permission(context, None)
+    #return _check_hdx_user_permission(context, Permissions.PERMISSION_MANAGE_BASIC_SCHEDULED_TASKS)
 
-
+@auth_sysadmins_check
 def hdx_carousel_update(context, data_dict):
     username_or_id = context.get('user')
-    result = Permissions(username_or_id).has_permission(Permissions.PERMISSION_MANAGE_CAROUSEL)
+    #result = Permissions(username_or_id).has_permission(Permissions.PERMISSION_MANAGE_CAROUSEL)
     return {'success': result}
 
-
+@auth_sysadmins_check
 def hdx_quick_links_update(context, data_dict):
     username_or_id = context.get('user')
-    result = Permissions(username_or_id).has_permission(Permissions.PERMISSION_MANAGE_QUICK_LINKS)
+    #result = Permissions(username_or_id).has_permission(Permissions.PERMISSION_MANAGE_QUICK_LINKS)
     return {'success': result}
 
-
+@auth_sysadmins_check
 def hdx_request_data_admin_list(context, data_dict):
     username_or_id = context.get('user')
-    result = Permissions(username_or_id).has_permission(Permissions.PERMISSION_VIEW_REQUEST_DATA)
+    #result = Permissions(username_or_id).has_permission(Permissions.PERMISSION_VIEW_REQUEST_DATA)
     return {'success': result}
 
 
@@ -110,8 +111,8 @@ def hdx_request_data_admin_list(context, data_dict):
 #     else:
 #         return user_generate_apikey(context, data_dict)
 
-
+@auth_sysadmins_check
 def _check_hdx_user_permission(context, permission):
     username_or_id = context.get('user')
-    result = Permissions(username_or_id).has_permission(permission)
+    #result = Permissions(username_or_id).has_permission(permission)
     return {'success': result}

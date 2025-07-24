@@ -41,10 +41,10 @@
   {% if user_is_sysadmin %}
     {{ h.bs5_build_nav_icon('user.index', 'All users [%s]' % h.hdx_user_count(), class_='nav-link') }}
   {% endif %}
-  {% if user_is_sysadmin or h.check_access('hdx_carousel_update') %}
+  {% if user_is_sysadmin %}
     {{ h.bs5_build_nav_icon('hdx_carousel.show', _('Carousel'), class_='nav-link') }}
   {% endif %}
-  {#{% if user_is_sysadmin or h.check_access('hdx_request_data_admin_list') %}
+  {#{% if user_is_sysadmin  %}
     {{ h.bs5_build_nav_icon('requestdata_ckanadmin.requests_data', _('HDX Connect Dashboard'), class_='nav-link') }}
   {% endif %} #}
   {% if user_is_sysadmin or h.check_access('admin_page_list') %}
@@ -58,7 +58,7 @@
       <ul class="dropdown-menu crises-menu" role="menu" aria-labelledby="crises-label">
         <li class="nav-item crises-group">
           <ul>
-            {% if user_is_sysadmin or h.check_access('hdx_quick_links_update') %}
+            {% if user_is_sysadmin %}
               {{ h.bs5_build_nav_icon('hdx_quick_links.show', _('Quick Links'), class_='nav-link') }}
               {{ h.bs5_build_nav_icon('hdx_package_links.show', _('Package Links'), class_='nav-link') }}
             {% endif %}

@@ -29,7 +29,7 @@ import ckanext.hdx_package.helpers.caching as pkg_caching
 import ckanext.hdx_package.helpers.freshness_calculator as freshness
 import ckanext.hdx_package.helpers.helpers as helpers
 import ckanext.hdx_theme.util.jql as jql
-import ckanext.hdx_users.helpers.mailer as hdx_mailer
+import ckanext.hdx_package.helpers.mailer as hdx_mailer
 
 from ckan.lib import uploader
 from ckan.lib.munge import munge_filename
@@ -603,7 +603,7 @@ def package_show(context, data_dict):
     '''
     # data_dict['include_tracking'] = True
     package_dict = logic_get.package_show(context, data_dict)
-    log.info(package_dict)
+    #log.info(package_dict)
     #_additional_hdx_package_show_processing(context, package_dict)
 
     return package_dict
@@ -847,9 +847,12 @@ def package_validate(context, data_dict):
         schema = package_plugin.create_package_schema() if action == 'package_create' \
             else package_plugin.update_package_schema()
 
-    data, errors = lib_plugins.plugin_validate(
-        package_plugin, context, data_dict, schema, action)
-
+    try:
+        data, errors = lib_plugins.plugin_validate(
+            package_plugin, context, data_dict, schema, action)
+    except Exception as e:
+        log.error(f'plugin_validate failed: {e}', exc_info=True)
+        raise
     if errors:
         raise ValidationError(errors)
 
