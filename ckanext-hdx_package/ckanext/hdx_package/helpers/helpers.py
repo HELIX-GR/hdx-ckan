@@ -3,6 +3,7 @@ import logging
 import requests
 import re
 import six.moves.urllib.parse as urlparse
+import importlib
 
 import ckanext.hdx_package.helpers.custom_validator as vd
 import ckanext.hdx_package.helpers.analytics as analytics
@@ -11,7 +12,7 @@ from ckanext.hdx_package.exceptions import NoOrganization
 from ckanext.hdx_package.helpers.caching import cached_group_iso_to_title
 from ckanext.hdx_package.helpers.constants import UPDATE_FREQ_LIVE
 from ckanext.hdx_package.helpers.freshness_calculator import FreshnessCalculator
-
+from ckan.logic.action.get import organization_list_for_user as default_org_list
 
 import ckan.authz as new_authz
 import ckan.lib.base as base
@@ -622,3 +623,12 @@ def validate_captcha(response):
     r = requests.get(url, params=params, verify=True)
     res = json.loads(r.content)
     return 'success' in res and res['success'] == True
+
+
+def organization_list_for_user(context, data_dict):
+    perm = data_dict.get('permission')
+    if perm in ['create_dataset', 'update_dataset', 'delete_dataset']:
+        # Change permission to 'read' to include all members
+        data_dict = {**data_dict, 'permission': 'read'}
+
+    return default_org_list(context, data_dict)

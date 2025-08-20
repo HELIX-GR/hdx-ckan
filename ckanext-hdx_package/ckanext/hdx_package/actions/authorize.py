@@ -3,7 +3,12 @@ import ckan.authz as new_authz
 import ckan.logic.auth.create as create
 import ckan.logic.auth.update as update
 import ckan.plugins.toolkit as tk
+from ckan import model
 from ckan.types import Context, DataDict
+import ckan.lib.plugins as lib_plugins
+from ckan.logic.validators import owner_org_validator as default_owner_org_validator
+from ckan.authz import users_role_for_group_or_org, has_user_permission_for_some_org
+from ckanext.hdx_package.helpers.custom_validator import hdx_owner_org_validator
 #from ckanext.hdx_users.helpers.permissions import Permissions
 
 log = logging.getLogger(__name__)
@@ -12,23 +17,35 @@ auth_allow_anonymous_access = tk.auth_allow_anonymous_access
 _ = tk._
 
 
-def package_create(context, data_dict=None):
-    retvalue = True
-    if data_dict and 'groups' in data_dict:
-        temp_groups = data_dict['groups']
-        del data_dict['groups']
-        # check original package_create auth
-        log.debug('Removed groups from data_dict: ' + str(data_dict))
-        retvalue = create.package_create(context, data_dict)
-        data_dict['groups'] = temp_groups
+def package_create(context, data_dict):
+    user = context['auth_user_obj']
+    if data_dict and 'owner_org' in data_dict:
+        role = users_role_for_group_or_org(data_dict['owner_org'], user.name)
+        if role == 'member':
+            return {'success': True}
     else:
-        retvalue = create.package_create(context, data_dict)
-
-    return retvalue
-
+        # If there is no organization, then this should return success if the user can create datasets for *some*
+        # organisation (see the ckan implementation), so either if anonymous packages are allowed or if we have
+        # member status in any organization.
+        if has_user_permission_for_some_org(user.name, 'read'):
+            return {'success': True}
+    fallback = create.package_create(context, data_dict)
+    
+    return fallback
 
 def package_update(context, data_dict=None):
     retvalue = True
+    user = context['auth_user_obj']
+    if data_dict:
+        if 'owner_org' in data_dict:
+            owner_org = data_dict['owner_org']
+        elif 'id' in data_dict:
+            pkg = model.Package.get(data_dict['id'])
+            if pkg:
+                owner_org = pkg.owner_org
+        role = users_role_for_group_or_org(owner_org, user.name)
+        if role == 'member':
+            return {'success': True}
     if data_dict and 'groups' in data_dict:
         temp_groups = data_dict['groups']
         del data_dict['groups']

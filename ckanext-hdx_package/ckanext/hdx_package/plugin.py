@@ -19,6 +19,8 @@ import ckanext.hdx_package.helpers.custom_validator as vd
 import ckanext.hdx_package.helpers.helpers as hdx_helpers
 import ckanext.hdx_package.helpers.licenses as hdx_licenses
 import ckanext.hdx_package.views.download_wrapper as download_wrapper
+from ckan.logic.validators import owner_org_validator as default_owner_org_validator
+from ckanext.hdx_package.helpers.custom_validator import hdx_owner_org_validator
 
 import ckan.logic as logic
 import ckan.model.license as license
@@ -297,10 +299,10 @@ class HDXPackagePlugin(plugins.SingletonPlugin, tk.DefaultDatasetForm):
                 #     tk.get_validator('boolean_validator'),
                 ],
                 'in_hapi': [
-                    tk.get_validator('hdx_keep_unless_allow_resource_in_hapi_field'),
+                    #tk.get_validator('hdx_keep_unless_allow_resource_in_hapi_field'),
                     tk.get_validator('ignore_missing'),
-                    tk.get_validator('hdx_in_hapi_flag_values'),
-                    tk.get_validator('hdx_delete_if_marked_with_no_data'),
+                    #tk.get_validator('hdx_in_hapi_flag_values'),
+                    #tk.get_validator('hdx_delete_if_marked_with_no_data'),
                 ],
                 'qa_hapi_report': [
                     # tk.get_validator('ignore_missing'),  # if None, don't save 'None' string
@@ -516,6 +518,7 @@ class HDXPackagePlugin(plugins.SingletonPlugin, tk.DefaultDatasetForm):
             'hdx_dataseries_unlink': hdx_patch.hdx_dataseries_unlink,
             'hdx_p_coded_resource_update': hdx_patch.hdx_p_coded_resource_update,
             'hdx_mark_resource_in_hapi': hdx_patch.hdx_mark_resource_in_hapi,
+            'organization_list_for_user': hdx_helpers.organization_list_for_user,
         }
 
     # IValidators
@@ -626,7 +629,12 @@ class HDXPackagePlugin(plugins.SingletonPlugin, tk.DefaultDatasetForm):
 
             #if is_requestdata_type:
             #    self._update_with_requestdata_modify_package_schema(schema)
-
+            if 'owner_org' in schema:
+                schema['owner_org'] = [
+                    hdx_owner_org_validator if f is default_owner_org_validator else f
+                    for f in schema['owner_org']
+                ]
+                context['schema'] = schema
             allow_skip_for_sysadmin = config.get('hdx.validation.allow_skip_for_sysadmin') or ''
             fields_to_skip = allow_skip_for_sysadmin.split(',')
             if len(fields_to_skip) > 0 and fields_to_skip[0] and \
@@ -666,7 +674,6 @@ class HDXPackagePlugin(plugins.SingletonPlugin, tk.DefaultDatasetForm):
                 schema[field] = [tk.get_validator('ignore_missing'), tk.get_converter('convert_to_extras')]
 
     def _update_with_private_modify_package_schema(self, schema):
-        log.debug('Update with private modifiy package schema')
         schema['notes'] = [tk.get_validator('ignore_missing')] + schema['notes']
         schema['methodology'] = [tk.get_validator('ignore_missing')] + schema['methodology']
         schema['dataset_date'] = [tk.get_validator('ignore_missing')] + schema['dataset_date']

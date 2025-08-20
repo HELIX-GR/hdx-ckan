@@ -229,7 +229,7 @@ class HDXOrgGroupPlugin(plugins.SingletonPlugin, lib_plugins.DefaultOrganization
         return [
             org.hdx_org,
             light_org.hdx_light_org,
-#            redirect.hdx_org_group_redirect,
+            redirect.hdx_org_group_redirect,
             members.hdx_members,
         ]
 

@@ -16,6 +16,7 @@ import ckan.model as model
 import ckan.authz as authz
 import ckan.plugins.toolkit as tk
 import ckan.lib.navl.dictization_functions as df
+from ckan.logic.validators import owner_org_validator as default_owner_org_validator
 
 from ckan.types import (
     FlattenDataDict, FlattenKey, Validator, Context, FlattenErrorDict)
@@ -444,6 +445,7 @@ def hdx_update_microdata(key, data, errors, context):
 
 
 def hdx_update_in_quarantine_by_microdata(key, data, errors, context):
+    # Set quarantine and in_hapi to false for now 
     if data.get(key):
         pkg_id = data.get(('id',))
         if pkg_id:
@@ -453,13 +455,13 @@ def hdx_update_in_quarantine_by_microdata(key, data, errors, context):
                 res_dict = __get_previous_resource_dict(context, pkg_id, res_id)
                 # check if previous value was not microdata
                 if res_dict and not res_dict.get('microdata'):
-                    data[key[:2] + ('in_quarantine',)] = True
+                    data[key[:2] + ('in_quarantine',)] = False
             # new resource will be put in quarantine
             else:
-                data[key[:2] + ('in_quarantine',)] = True
+                data[key[:2] + ('in_quarantine',)] = False
         # if new package, resource will be in quarantine
         else:
-            data[key[:2] + ('in_quarantine',)] = True
+            data[key[:2] + ('in_quarantine',)] = False
 
 
 def hdx_update_data_frequency_by_archived(key, data, errors, context):
@@ -557,11 +559,17 @@ def hdx_keep_prev_value_if_empty(key, data, errors, context):
         data.pop(key, None)
         pkg_id = data.get(('id',))
         if pkg_id:
-            prev_package_dict = __get_previous_package_dict(context, pkg_id)
-            old_value = prev_package_dict.get(key[0], None)
-            if old_value:
-                data[key] = old_value
-
+            # prev_package_dict = __get_previous_package_dict(context, pkg_id)
+            # old_value = prev_package_dict.get(key[0], None)
+            # if old_value:
+            #     data[key] = old_value
+            pkg = model.Package.get(pkg_id)
+            if pkg:
+                prev_dict = pkg.as_dict()
+                old_value = prev_dict.get(key[0], None)
+                if old_value:
+                    data[key] = old_value
+    
     if isinstance(new_value, six.string_types) and not new_value.strip():
         data.pop(key, None)
 
@@ -698,8 +706,16 @@ def __get_previous_resource_dict(context, package_id, resource_id):
 def __get_previous_package_dict(context, id):
     context_key = 'hdx_prev_package_dict_' + id
     pkg_dict = context.get(context_key)
+
+    # Prevent recursion by setting a flag
+    if context.get('_in_validator_lookup'):
+        return pkg_dict or {}
+
     if not pkg_dict:
-        pkg_dict = get_action('package_show')(context, {'id': id})
+        new_context = context.copy()
+        new_context['skip_validators'] = True
+        new_context['_in_validator_lookup'] = True  # flag to detect recursion
+        pkg_dict = get_action('package_show')(new_context, {'id': id})
         context[context_key] = pkg_dict
 
     return pkg_dict or {}
@@ -861,3 +877,34 @@ def hdx_update_last_modified_if_url_changed(key: FlattenKey, data: FlattenDataDi
             prev_url_value = prev_resource_dict.get('url')
             if prev_url_value != url_value:
                 data[key] = datetime.datetime.utcnow()
+
+
+def org_role_is_valid(group_or_org_id, username):
+    """
+    Determine whether the given user has a valid role in the specified group or
+    organisation.
+
+    :param group_or_org_id: ID of a group or organisation
+    :param username: username for the user to check
+    :returns: True if the role is valid (member, editor, or admin), False otherwise
+    :rtype: bool
+    """
+    role = authz.users_role_for_group_or_org(group_or_org_id, username)
+    log.debug(f"org_role_is_valid: user={username}, org={group_or_org_id}, role={role}")
+    return role in ['member', 'editor', 'admin']
+
+def hdx_owner_org_validator(key, data, errors, context):
+    owner_org = data.get(key)
+    user = context.get('auth_user_obj')
+    
+    # Only validate if there’s a value
+    if owner_org not in (tk.missing, None, ''):
+        username = context.get('auth_user_obj').name if context.get('auth_user_obj') else context.get('user')
+        
+        if owner_org not in (tk.missing, None, '') and user is not None:
+            role = authz.users_role_for_group_or_org(owner_org, user.name)
+            if role == 'member':
+                    # allow members
+                    return
+    # If nothing blocks, optionally call default validator
+    default_owner_org_validator(key, data, errors, context)
