@@ -103,3 +103,7 @@ ul.hdx-bs3 {
     max-width: none;
   }
 }
+
+#flDebug, #flDebug * {
+  overflow-y: auto !important;
+  }

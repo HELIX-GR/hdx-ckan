@@ -17,11 +17,10 @@
 {% endblock %}
 
 {% block content_primary_nav %}
+<div class="org-actions">
   {{ h.build_nav_icon('organization.edit', _('Edit'), id=group_dict.name) }}
-  
   {{ h.build_nav_icon('organization.bulk_process', _('Datasets'), id=c.group_dict.name) }}
-  {{ h.build_nav_icon('organization.members', _('Members'), id=c.group_dict.name) }}
-  
+</div>
 {% endblock %}
 
 {% block secondary_content %}
