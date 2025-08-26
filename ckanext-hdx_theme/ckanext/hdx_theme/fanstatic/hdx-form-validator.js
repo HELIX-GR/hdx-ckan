@@ -358,12 +358,12 @@ this.ckan.module('hdx-form-validator', function ($) {
         }
       });
 
-      if (!isFormValid) {
-        self.disableSubmitButton();
-      }
-      else {
-        self.enableSubmitButton();
-      }
+      // if (!isFormValid) {
+      //   self.disableSubmitButton();
+      // }
+      // else {
+      //   self.enableSubmitButton();
+      // }
 
       return isFormValid;
     },

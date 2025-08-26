@@ -17,11 +17,7 @@
   {% endif %}
 {% endblock %}
 
-{% block page_header_inner %}
-{% endblock %}
 
-
-{#
   {% block page_header_inner %}
     {% set sorting = [
           (_('Name Ascending'), 'title asc'),
@@ -29,7 +25,7 @@
           (_('Last Modified'), 'metadata_modified desc') ]
         %}
     {% set sorting_option = c.sort_by_selected or 'metadata_modified desc' %}
-    {% resource 'hdx_theme/order-by-dropdown.js' %}
+    {#{% resource 'hdx_theme/order-by-dropdown.js' %}#}
     {% if sorting %}
       <form class="list-items search-form" method="get" data-module="select-switch" style="margin-top: 10px;">
         <div class="form-select control-order-by mTop10">
@@ -56,5 +52,17 @@
     {% endif %}
   {% endblock %}
 
-#}
+  {% block primary_content_inner %}
+  {# This is a little different because the query is run through SQLAlchemy, not Solr #}
+{% set my_c = user_dict %}
+  <div style="min-height: 120px;">
+    
+      {{ h.snippet('search/snippets/package_list.html',
+                query=my_c.q, packages=user_dict.datasets,
+                ext_page_size=my_c.ext_page_size, sorting_selected=my_c.sort_by_selected,
+                other_links=my_c.other_links, admin_view=True) }}
+      {#{{ my_c.page.pager() }}#}
+  </div>
+{% endblock %}
+
 

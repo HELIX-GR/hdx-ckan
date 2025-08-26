@@ -34,9 +34,9 @@ Example:
 
     <div id="base-filter-location" style="display: none;">{{current_page_url}}</div>
     <div id="dataset-filter-start" class="list-header {% if display_min and not min_version %}list-header-min{% endif %}">
-        <span class="mL15 list-header-title">{{ _("Data") }}
+        {#<span class="mL15 list-header-title">{{ _("Data") }}
           {% snippet 'search/snippets/archived_tabs.html', archived_url_helper=full_facet_info.archived_url_helper %}
-        </span>
+        </span> #}
           <span class="mL30">
 
               <input autocomplete="off" id="headerSearch" name="q" class="header-search" type="text" placeholder="Search all datasets ..." value="{{searchValue}}">
@@ -83,8 +83,8 @@ Example:
               Refine your search: <a href="{{current_page_url}}" class="filter-clear float-end">Clear all</a>
           </div>
 
-          {% set facet_list = full_facet_info.get('facets') %}
-          {% snippet 'search/snippets/package_search_facets.html', facet_list=facet_list  %}
+          {#{% set facet_list = full_facet_info.get('facets') %}
+          {% snippet 'search/snippets/package_search_facets.html', facet_list=facet_list  %}#}
           {% set ext_after_metadata_modified = h.hdx_get_request_param('ext_after_metadata_modified', None) %}
           {%  if ext_after_metadata_modified %}
               <input id="ext_after_metadata_modified" type="hidden" name="ext_after_metadata_modified" value="{{ ext_after_metadata_modified }}"/>

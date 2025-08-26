@@ -247,7 +247,7 @@
                                               <img class="cloud-img" src="/images/icons/drive.png" />
                                               <strong>{{ _('Google Drive') }}</strong> <br />
                                               {% trans %}
-                                                  In order to add your file(s) from Google Drive, sharing settings of file(s) has to be on so your file(s) becomes viewable on HDX.
+                                                  In order to add your file(s) from Google Drive, sharing settings of file(s) has to be on so your file(s) becomes viewable on HARDMIN.
                                               {% endtrans %}
                                               <br />
                                               {% trans %} For instructions on how to change, please visit our <a href="/faq" target="_blank">FAQ</a>. {% endtrans %}
@@ -434,7 +434,7 @@
                                               <h3>Dataset Title &amp; Description</h3>
                                               <p>
                                                   <strong>Title of dataset</strong><br/>
-                                                  When users search for data on HDX, their search terms will be matched to terms in your title. Avoid using abbreviations in the title which may not be familiar to all users. Also, avoid using words such as current, latest or previous when referring to the time period (e.g. Latest 3W) as these terms become misleading as the dataset ages.
+                                                  When users search for data on HARDMIN, their search terms will be matched to terms in your title. Avoid using abbreviations in the title which may not be familiar to all users. Also, avoid using words such as current, latest or previous when referring to the time period (e.g. Latest 3W) as these terms become misleading as the dataset ages.
                                                   <br/><br/>
                                                   Example dataset title: <strong>Who is Doing What Where in Afghanistan, Jan-Dec 2015</strong>
                                               </p>
@@ -571,7 +571,7 @@
                                     <div class="row">
                                         <div class="col-3">
                                             <h3>Metadata</h3>
-                                            <p> Metadata is additional information about your dataset that will make it easier for others to understand and put your data into context. Datasets on HDX must include a set of metadata fields. </p>
+                                            <p> Metadata is additional information about your dataset that will make it easier for others to understand and put your data into context. Datasets on HARDMIN must include a set of metadata fields. </p>
                                         </div>
                                         <div class="col-7">
                                             {#<div data-module="hdx_form_element_manager" data-module-element_name="dataset_source" data-module-required="private,public,requestdata">
@@ -799,10 +799,6 @@
                         <div class="paddingLeftHack paddingRightHack">
                             <div class="pTopBottom35">
                                 <div class="clearfix vertically-center-reference">
-                                    <label id="terms-of-service-label" class="terms-of-service vertically-center" data-module="hdx_terms_checkbox" data-module-button="create-form-submit">
-                                        <input type="checkbox">
-                                        I confirm that this dataset does not contain Personally Identifiable Information (PII) or otherwise violate the  <a target="_blank" href="{{ h.url_for('hdx_faqs.read', category='terms') }}">HDX Terms of Service</a>
-                                    </label>
 
                                     <div class="float-end">
                                         <!-- removed as per #4012 <input type="button" class="btn btn-inverse btn-lg" value="See preview"/> -->
