@@ -486,7 +486,7 @@
                                             <hr class="form-hr"/>
                                         </div>
                                     </div>
-                                    <span id="_dataset_preview">
+                                    {#<span id="_dataset_preview">
                                         <div class="form-section">
                                           <div class="row">
                                               <div class="col-3">
@@ -512,7 +512,7 @@
                                                 <hr class="form-hr"/>
                                             </div>
                                         </div>
-                                    </span> 
+                                    </span> #}
                                   {#<div class="form-section">
                                     <div class="row">
                                       <div class="col-3">
@@ -621,7 +621,7 @@
                                             </div> #}
 
                                             <div data-module="hdx_form_element_manager" data-module-element_name="tag_string">
-                                              {{ form.input('tag_string', id='field-tags', label=_('Tags'), placeholder=_('eg. economy, mental health, government'), value=data.tags, error=errors.tags, classes=['mb-3', 'tags-select'], attrs=tag_attrs) }}</div>
+                                              {{ form.input('tag_string', id='field-tags', label=_('Tags'), placeholder=_('eg. economy, mental health, government'), value=data.tag_string, error=errors.tags, classes=['mb-3', 'tags-select'], attrs=tag_attrs) }}</div>
                                             
                                             <div data-module="hdx_form_element_manager" data-module-element_name="language" >
                                               {{ form.input('language', id='language', label=_('Language'), placeholder=_("English"), value=data.language, error=errors.language, classes=['mb-3'] ) }}

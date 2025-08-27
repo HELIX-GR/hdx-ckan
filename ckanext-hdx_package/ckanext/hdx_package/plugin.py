@@ -202,7 +202,7 @@ class HDXPackagePlugin(plugins.SingletonPlugin, tk.DefaultDatasetForm):
                 tk.get_converter('convert_to_extras')
             ],
             'tag_string': [
-                tk.get_validator('hdx_keep_crisis_tag_string_if_not_sysadmin'),
+                #tk.get_validator('hdx_keep_crisis_tag_string_if_not_sysadmin'),
                 tk.get_validator('ignore_missing'),
                 tk.get_validator('tag_string_convert'),
                 #tk.get_validator('hdx_tag_string_approved_validator'),
@@ -211,7 +211,7 @@ class HDXPackagePlugin(plugins.SingletonPlugin, tk.DefaultDatasetForm):
             'title_optional': [tk.get_validator('ignore_missing'), tk.get_converter('convert_to_extras')],
             'notes_optional': [tk.get_validator('ignore_missing'), tk.get_converter('convert_to_extras')],
             'contact_email': [tk.get_validator('ignore_missing'), tk.get_converter('convert_to_extras')],
-            'publication_date': [tk.get_validator('ignore_missing'), tk.get_converter('convert_to_extras')],
+            'publication_year': [tk.get_validator('ignore_missing'), tk.get_converter('convert_to_extras')],
             'related_publication': [tk.get_validator('ignore_missing'), tk.get_converter('convert_to_extras')],
             'is_derived_from': [tk.get_validator('ignore_missing'), tk.get_converter('convert_to_extras')],
             'creator_first_name': [tk.get_validator('ignore_missing'), tk.get_converter('convert_to_extras')],
@@ -441,7 +441,7 @@ class HDXPackagePlugin(plugins.SingletonPlugin, tk.DefaultDatasetForm):
                 tk.get_validator('ignore_missing')
             ],
             'contact_email': [tk.get_converter('convert_from_extras'), tk.get_validator('ignore_missing')],
-            'publication_date': [tk.get_converter('convert_from_extras'), tk.get_validator('ignore_missing')],
+            'publication_year': [tk.get_converter('convert_from_extras'), tk.get_validator('ignore_missing')],
             'related_publication': [tk.get_converter('convert_from_extras'), tk.get_validator('ignore_missing')],
             'is_derived_from': [tk.get_converter('convert_from_extras'), tk.get_validator('ignore_missing')],
             'creator_first_name': [tk.get_converter('convert_from_extras'), tk.get_validator('ignore_missing')],
@@ -681,7 +681,7 @@ class HDXPackagePlugin(plugins.SingletonPlugin, tk.DefaultDatasetForm):
         schema['title_optional'] = [tk.get_validator('ignore_missing')] + schema['title_optional']
         schema['notes_optional'] = [tk.get_validator('ignore_missing')] + schema['notes_optional']
         schema['contact_email'] = [tk.get_validator('ignore_missing')] + schema['contact_email']
-        schema['publication_date'] = [tk.get_validator('ignore_missing')] + schema['publication_date']
+        schema['publication_year'] = [tk.get_validator('ignore_missing')] + schema['publication_year']
         schema['related_publication'] = [tk.get_validator('ignore_missing')] + schema['related_publication']
         schema['is_derived_from'] = [tk.get_validator('ignore_missing')] + schema['is_derived_from']
         schema['creator_first_name'] = [tk.get_validator('ignore_missing')] + schema['creator_first_name']
