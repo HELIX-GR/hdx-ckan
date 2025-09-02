@@ -37,7 +37,7 @@ log = logging.getLogger(__name__)
 
 
 # @fs_check.fs_check_4_resources
-@geopreview.geopreview_4_resources
+#@geopreview.geopreview_4_resources
 def resource_create(context, data_dict):
     '''
 

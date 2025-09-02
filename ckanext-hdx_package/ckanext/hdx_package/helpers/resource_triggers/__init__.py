@@ -8,8 +8,8 @@ BEFORE_PACKAGE_UPDATE_LISTENERS = [
 ]
 
 AFTER_PACKAGE_UPDATE_LISTENERS = [
-    geopreview._after_ckan_action,
-    fs_check._after_ckan_action
+    #geopreview._after_ckan_action,
+    #fs_check._after_ckan_action
 ]
 
 VERSION_CHANGE_ACTIONS = [

@@ -21,6 +21,7 @@ import ckanext.hdx_package.helpers.licenses as hdx_licenses
 import ckanext.hdx_package.views.download_wrapper as download_wrapper
 from ckan.logic.validators import owner_org_validator as default_owner_org_validator
 from ckanext.hdx_package.helpers.custom_validator import hdx_owner_org_validator
+import ckanext.hdx_package.config as ext_data
 
 import ckan.logic as logic
 import ckan.model.license as license
@@ -218,7 +219,11 @@ class HDXPackagePlugin(plugins.SingletonPlugin, tk.DefaultDatasetForm):
             'creator_last_name': [tk.get_validator('ignore_missing'), tk.get_converter('convert_to_extras')],
             'datacite_doi': [tk.get_validator('ignore_missing'), tk.get_converter('convert_to_extras')],
             'language': [tk.get_validator('ignore_missing'), tk.get_converter('convert_to_extras')],
+            'closed_tag': [tk.get_validator('not_empty'), tk.get_validator('convert_to_tags')('closed_tags')],
+            'dataset_category': [tk.get_validator('ignore_missing'), tk.get_validator('convert_to_tags')('dataset_categories')],
             'resource_type': [tk.get_validator('ignore_missing'), tk.get_converter('convert_to_extras')],
+            'embargo_date': [tk.get_validator('ignore_missing'),
+                             tk.get_converter('convert_to_extras')],
             
         
         })
@@ -252,10 +257,11 @@ class HDXPackagePlugin(plugins.SingletonPlugin, tk.DefaultDatasetForm):
                 'last_modified': [tk.get_validator('hdx_update_last_modified_if_url_changed')] \
                                  + core_last_modified_validators,
                 'in_quarantine': [
-                    tk.get_validator('hdx_keep_unless_allow_resource_qa_script_field'),
+                 #   tk.get_validator('hdx_keep_unless_allow_resource_qa_script_field'),
                 #    tk.get_validator('boolean_validator'),
-                    tk.get_validator('hdx_reset_on_file_upload'),
-                    tk.get_validator('hdx_update_microdata'),
+                #    tk.get_validator('hdx_reset_on_file_upload'),
+                #    tk.get_validator('hdx_update_microdata'),
+                    tk.get_validator('ignore_missing')
                 ],
                 'microdata': [
                     # tk.get_validator('hdx_update_field_if_value_wrapper'),
@@ -265,8 +271,8 @@ class HDXPackagePlugin(plugins.SingletonPlugin, tk.DefaultDatasetForm):
                     # tk.get_validator('hdx_reset_on_file_upload')
                 ],
                 'pii_is_sensitive': [
-                    tk.get_validator('hdx_keep_unless_allow_resource_qa_script_field'),
-                    tk.get_validator('hdx_reset_on_file_upload'),
+                 #   tk.get_validator('hdx_keep_unless_allow_resource_qa_script_field'),
+                 #   tk.get_validator('hdx_reset_on_file_upload'),
                     tk.get_validator('ignore_missing'),  # if None, don't save 'None' string
                  #    tk.get_validator('boolean_validator')
                 ],
@@ -309,8 +315,10 @@ class HDXPackagePlugin(plugins.SingletonPlugin, tk.DefaultDatasetForm):
                     tk.get_validator('hdx_resource_keep_prev_value_if_exist_unless_sysadmin'),
                     tk.get_validator('hdx_reset_on_file_upload'),
                     tk.get_validator('ignore_missing'),  # if None, don't save 'None' string
-
-
+                ],
+                'restricted': [
+                    tk.get_validator('ignore_missing'),
+                    tk.get_converter('boolean_validator'),
                 ],
             }
         )
@@ -373,6 +381,10 @@ class HDXPackagePlugin(plugins.SingletonPlugin, tk.DefaultDatasetForm):
                 ],
                 'qa_hapi_report': [
                     tk.get_validator('ignore_missing'),
+                ],
+                'restricted': [
+                    tk.get_validator('ignore_missing'),
+                    tk.get_validator('boolean_validator')
                 ],
             }
         )
@@ -448,10 +460,17 @@ class HDXPackagePlugin(plugins.SingletonPlugin, tk.DefaultDatasetForm):
             'creator_last_name': [tk.get_converter('convert_from_extras'), tk.get_validator('ignore_missing')],
             'datacite_doi': [tk.get_converter('convert_from_extras'), tk.get_validator('ignore_missing')],
             'language': [tk.get_converter('convert_from_extras'), tk.get_validator('ignore_missing')],
+            'closed_tag': [tk.get_converter('convert_from_tags')('closed_tags'),tk.get_validator('not_empty')],
+            #'tags': [tk.get_validator('remove_vocab_tags'({'closed_tags'})],
+            'dataset_category': [tk.get_converter('convert_from_tags')('dataset_categories'), tk.get_validator('ignore_missing')],
             'resource_type': [tk.get_converter('convert_from_extras'), tk.get_validator('ignore_missing')],
+            'embargo_date': [tk.get_converter('convert_from_extras'), tk.get_validator('ignore_missing')],
         })
 
+
+
         return schema
+
 
     def get_helpers(self):
         return {
@@ -464,6 +483,8 @@ class HDXPackagePlugin(plugins.SingletonPlugin, tk.DefaultDatasetForm):
             'hdx_get_last_modification_date': hdx_helpers.hdx_get_last_modification_date,
             'hdx_render_resource_updated_date': hdx_helpers.hdx_render_resource_updated_date,
             'hdx_compute_analytics': hdx_helpers.hdx_compute_analytics,
+            'closed_tags': self.closed_tags,
+            'dataset_categories': self.dataset_categories,
         }
 
     def get_actions(self):
@@ -518,13 +539,13 @@ class HDXPackagePlugin(plugins.SingletonPlugin, tk.DefaultDatasetForm):
             'hdx_dataseries_unlink': hdx_patch.hdx_dataseries_unlink,
             'hdx_p_coded_resource_update': hdx_patch.hdx_p_coded_resource_update,
             'hdx_mark_resource_in_hapi': hdx_patch.hdx_mark_resource_in_hapi,
-            'organization_list_for_user': hdx_helpers.organization_list_for_user,
+            'organization_list_for_user': hdx_helpers.organization_list_for_user
         }
 
     # IValidators
     def get_validators(self):
         return {
-            'hdx_detect_format': vd.detect_format,
+            'hdx_detect_format': vd.detect_format,  
             'hdx_to_lower': vd.to_lower,
             'find_package_creator': vd.find_package_creator,
             'not_empty_if_methodology_other': vd.general_not_empty_if_other_selected('methodology', 'Other'),
@@ -585,6 +606,9 @@ class HDXPackagePlugin(plugins.SingletonPlugin, tk.DefaultDatasetForm):
             'hdx_keep_unless_allow_resource_in_hapi_field':
                 vd.hdx_package_keep_prev_value_unless_field_in_context_wrapper(
                 'allow_resource_in_hapi_field', resource_level=True),
+            'convert_to_closed_tags': vd.convert_to_closed_tags,
+            'convert_from_closed_tags': vd.convert_from_closed_tags,
+            'remove_vocab_tags': vd.remove_vocab_tags
         }
 
     def get_auth_functions(self):
@@ -687,6 +711,9 @@ class HDXPackagePlugin(plugins.SingletonPlugin, tk.DefaultDatasetForm):
         schema['creator_first_name'] = [tk.get_validator('ignore_missing')] + schema['creator_first_name']
         schema['creator_last_name'] = [tk.get_validator('ignore_missing')] + schema['creator_last_name']
         schema['datacite_doi'] = [tk.get_validator('ignore_missing')] + schema['datacite_doi']
+        schema['closed_tag'] = [tk.get_validator('not_empty')] + schema['closed_tag']
+        schema['dataset_category'] = [tk.get_validator('ignore_missing')] + schema['dataset_category']
+        schema['embargo_date'] = [tk.get_validator('ignore_missing')] + schema['embargo_date']
         schema['language'] = [tk.get_validator('ignore_missing')] + schema['language']
         schema['resource_type'] = [tk.get_validator('ignore_missing')] + schema['resource_type']
         
@@ -759,7 +786,73 @@ class HDXPackagePlugin(plugins.SingletonPlugin, tk.DefaultDatasetForm):
             contact.hdx_contact,
             request_tags.hdx_request_tags,
         ]
+    def closed_tags(cls):
+        '''Return the list of all existing types from the closed tags vocabulary.'''
+        cls.create_closed_tags()
+        try:
+            closed_tags = tk.get_action ('tag_list') (data_dict={ 'vocabulary_id': 'closed_tags'})
+            return closed_tags
+        except tk.ObjectNotFound:
+            return None
+    
+    def create_closed_tags(cls):
+        '''Create closed tag vocabulary and tags, if they don't exist already.
+        '''
+        user = tk.get_action('get_site_user')({'ignore_auth': True}, {})
+        context = {'user': user['name']}
+        
+        try:
+            data = {'id': 'closed_tags'}
+            tk.get_action ('vocabulary_show') (context, data)
+            log.info("The closed tag vocabulary already exists. Skipping.")
+        except tk.ObjectNotFound:
+            log.info("Creating vocabulary closed tags")
+            data = {'name': 'closed_tags'}
+            vocab = tk.get_action ('vocabulary_create') (context, data)
+        data = {'id': 'closed_tags'}
+        vocab = tk.get_action ('vocabulary_show') (context, data)
+        closed_tags = tk.get_action ('tag_list') (data_dict={ 'vocabulary_id': 'closed_tags'})
+        with open(ext_data.get_path('closed-subject.txt')) as f: 
+            closed_subjects = f.read().splitlines()
+        for tag in closed_subjects:
+            if tag not in closed_tags:
+                log.info("Adding tag {0} to vocab 'closed_tags'".format(tag))
+                data = {'name': tag, 'vocabulary_id': vocab['id']}
+                tk.get_action ('tag_create') (context, data)
 
+    DATASET_CATEGORIES = ['bio','geo','stat']
+    def create_dataset_categories(cls):
+        '''Create dataset category vocabulary and tags, if they don't exist already.
+        Note that you could also create the vocab and tags using CKAN's api,
+        and once they are created you can edit them (add or remove items) using the api.
+        '''
+        user = tk.get_action('get_site_user')({'ignore_auth': True}, {})
+        context = {'user': user['name']}
+        try:
+            data = {'id': 'dataset_categories'}
+            tk.get_action ('vocabulary_show') (context, data)
+            log.info("The dataset categories vocabulary already exists. Skipping.")
+        except tk.ObjectNotFound:
+            log.info("Creating vocabulary dataset categories")
+            data = {'name': 'dataset_categories'}
+            vocab = tk.get_action ('vocabulary_create') (context, data)
+        data = {'id': 'dataset_categories'}
+        vocab = tk.get_action ('vocabulary_show') (context, data)
+        categories = tk.get_action ('tag_list') (data_dict={ 'vocabulary_id': 'dataset_categories'})
+        for tag in cls.DATASET_CATEGORIES:
+            if tag not in categories:
+                log.info("Adding tag {0} to vocab 'dataset categories'".format(tag))
+                data = {'name': tag, 'vocabulary_id': vocab['id']}
+                tk.get_action ('tag_create') (context, data)  
+
+    def dataset_categories(cls):
+        '''Return the list of all existing types from the dataset_categories vocabulary.'''
+        cls.create_dataset_categories()
+        try:
+            dataset_categories = tk.get_action ('tag_list') (data_dict={ 'vocabulary_id': 'dataset_categories'})
+            return dataset_categories
+        except tk.ObjectNotFound:
+            return None
 
 class HDXAnalyticsPlugin(plugins.SingletonPlugin):
     # plugins.implements(plugins.IMiddleware, inherit=True)

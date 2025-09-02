@@ -908,3 +908,78 @@ def hdx_owner_org_validator(key, data, errors, context):
                     return
     # If nothing blocks, optionally call default validator
     default_owner_org_validator(key, data, errors, context)
+
+from ckan.lib.navl.dictization_functions import Missing
+
+def convert_to_closed_tags(vocab_name):
+    def _convert(key, data, errors, context):
+        values = data.get(key, [])
+        if not values:
+            return
+
+        if isinstance(values, str):
+            values = [v.strip() for v in values.split(',') if v.strip()]
+
+        try:
+            vocab = tk.get_action('vocabulary_show')(context, {'id': vocab_name})
+            vocab_id = vocab['id']
+        except tk.ObjectNotFound:
+            errors[key] = [f"Vocabulary '{vocab_name}' does not exist"]
+            return
+
+        tags = data.get(('tags',), [])
+        if tags is Missing or tags is None:
+            tags = []
+
+        # remove duplicates free tags with same name
+        tags = [t for t in tags if not (t.get('name') in values and t.get('vocabulary_id') is None)]
+
+        existing = {t['name'] for t in tags if 'name' in t}
+
+        for v in values:
+            if v not in existing:
+                tags.append({'name': v, 'vocabulary_id': vocab_id})
+
+        data[('tags',)] = tags
+        # keep key for NAVL validator
+        # data[key] = values
+
+    return _convert
+
+
+def convert_from_closed_tags(vocab_name):
+    def _convert(key, data, errors, context):
+        log.info('in _convert from')
+        tags = data.get('tags', [])
+        log.info(tags)
+        if not tags:
+            data[key] = []
+            return
+
+        try:
+            vocab = tk.get_action('vocabulary_show')(context, {'id': vocab_name})
+            vocab_id = vocab['id']
+        except tk.ObjectNotFound:
+            data[key] = []
+            return
+
+        # filter safely and extract names
+        data[key] = [t['name'] for t in tags if t and t.get('vocabulary_id') == vocab_id]
+    return _convert
+
+def remove_vocab_tags(vocab_names):
+    def _convert(key, data, errors, context):
+        tags = data.get(key, [])
+        if not tags:
+            return
+
+        vocab_ids = set()
+        for vocab_name in vocab_names:
+            try:
+                vocab = tk.get_action('vocabulary_show')(context, {'id': vocab_name})
+                vocab_ids.add(vocab['id'])
+            except tk.ObjectNotFound:
+                continue
+
+        data[key] = [t for t in tags if t and t.get('vocabulary_id') not in vocab_ids]
+    return _convert

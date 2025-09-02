@@ -32,6 +32,10 @@ ckan.module('hdx_datepicker', function ($, _) {
         }
 
         this.el.datepicker('setDate', dateStr);
+        if (dateStr) {
+          var parsedDate = $.datepicker.parseDate("MM d, yy", dateStr);
+          this.el.datepicker('setDate', parsedDate);
+        }
         this.el.datepicker("option", "dateFormat", "MM d, yy");
 
         if (this.options.alt_field_id) {

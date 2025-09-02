@@ -3,7 +3,10 @@ import json
 import ckan.plugins.toolkit as tk
 
 import ckanext.hdx_package.helpers.custom_validator as vd
+from ckan.lib.navl.dictization_functions import Missing
+import logging
 
+log = logging.getLogger(__name__)
 h = tk.h
 _get_action = tk.get_action
 
@@ -26,8 +29,31 @@ class ContributeFlowReadLogic(object):
             self.dataset_dict['locations'] = [item.get('name') for item in self.dataset_dict.get("groups")]
 
     def process_tags(self):
-        if self.dataset_dict and not self.dataset_dict.get('tag_string'):
-            self.dataset_dict['tag_string'] = ', '.join(h.dict_list_reduce(self.dataset_dict.get('tags', {}), 'name'))
+        if not self.dataset_dict:
+            return
+
+        tags = self.dataset_dict.get('tags', Missing)
+        if tags is Missing or not tags:
+            self.dataset_dict['tag_string'] = ''
+            return
+
+        # get closed vocabulary ID
+        try:
+            vocab = tk.get_action('vocabulary_show')({}, {'id': 'closed_tags'})
+            closed_vocab_id = vocab['id']
+        except tk.ObjectNotFound:
+            closed_vocab_id = None
+
+        # get dataset category vocabulary ID
+        try:
+            vocab = tk.get_action('vocabulary_show')({}, {'id': 'dataset_categories'})
+            dataset_category_id = vocab['id']
+        except tk.ObjectNotFound:
+            dataset_category_id = None
+
+        # keep only free tags
+        free_tags = [t['name'] for t in tags if t and t.get('vocabulary_id') != closed_vocab_id and t.get('vocabulary_id') != dataset_category_id]
+        self.dataset_dict['tag_string'] = ', '.join(free_tags)
 
     def pre_process_dataset_date(self):
         if self.dataset_dict and 'dataset_date' in self.dataset_dict:

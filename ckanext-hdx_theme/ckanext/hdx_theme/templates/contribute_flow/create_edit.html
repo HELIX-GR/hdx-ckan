@@ -348,34 +348,19 @@
                                                                   </div>
                                                               </div>
                                                               <div class="row">
-                                                                  <div class="col-12">
-                                                                    <div class="mb-3">
-                                                                      <label class="control-label">This file could contain:</label>
-                                                                      <div class="controls checkbox">
-                                                                        <label class="" for="resource<%= position %>-pii">
-                                                                          <input id="resource<%= position %>-pii" type="checkbox" name="pii" <% if (pii === 'true') { print('checked="checked"'); } %>>
-                                                                          <b>Personally Identifiable Information (PII)</b> e.g. name, biometric data, phone number, ID numbers, etc.
-                                                                        </label>
-                                                                        <div class="item-description orange" <% if (!pii || pii === 'false') { print('style="display:none;"'); } %>>
-                                                                          HDX does not allow data that includes personally identifiable information (PII) to be shared
-                                                                          publicly through the site. Please delete the resource(s) containing PII. If you wish to share this resource,
-                                                                          take steps to ensure that it is properly anonymised (with all the direct identifiers removed) and upload it again.<br>
-                                                                          You can learn more in the <a href="{{ h.url_for('hdx_faqs.read', category='terms') }}" target="_blank">HDX Terms of Service</a>.
-                                                                        </div>
-                                                                      </div>
-                                                                      <div class="controls checkbox">
-                                                                        <label class="" for="resource<%= position %>-microdata">
-                                                                          <input id="resource<%= position %>-microdata" type="checkbox" name="microdata" <% if (microdata) { print('checked="checked"'); } %>>
-                                                                          <b>Microdata</b> e.g. household survey results, disaggregated needs assessment data, etc.
-                                                                        </label>
-                                                                        <div class="item-description" <% if (!microdata) { print('style="display:none;"'); } %>>
-                                                                          HDX allows microdata to be shared publicly through the site. However, to protect individuals and vulnerable groups, our team runs a disclosure risk assessment on any resource  containing microdata. We do this because it may still be possible to re-identify individuals or expose confidential information even after direct identifiers have been removed from microdata.<br><br>
-                                                                          We will notify you within 24 hours if our team detects any disclosure risk. During this time, the resource will appear on your dataset page but be marked as <b>under review</b>.<br><br>
-                                                                          Learn more about the <a href="/about/hdx-qa-process" target="_blank">HDX QA process</a>.
-                                                                        </div>
-                                                                      </div>
+                                                                <div class="col-12">
+                                                                  <div class="mb-3">
+                                                                    <div class="controls checkbox">
+                                                                      <label for="resource<%= position %>-restricted">
+                                                                        <input id="resource<%= position %>-restricted"
+                                                                               type="checkbox"
+                                                                               name="restricted"
+                                                                               <% if (restricted) { print('checked="checked"'); } %>>
+                                                                        <b>Restricted</b> - Restrict resource to non-authorized users.
+                                                                      </label>
                                                                     </div>
                                                                   </div>
+                                                                </div>
                                                               </div>
                                                           </div>
                                                           <div class="col-3 source-file-upload">
@@ -620,6 +605,45 @@
                                               </div>
                                             </div> #}
 
+                                            {# Dataset category (bio, geo etc.)#}
+                                            <div class="form-group control-full" >
+                                              <div class="mb-3 tags-select">
+                                                  <label for="field-dataset_category"   class="control-label field-optional"> {{_('Thematic group')}}</label>
+                                                  <div class="controls" >
+                                                    <select  class="input-xlarge form-control" id="field-dataset_category"  data-module="autocomplete" name="dataset_category"   placeholder=_('The thematic group of this dataset') >
+                                                        <option class="placeholder" value=""   {% if not data.get('dataset_category', []) %} selected {% endif %}  hidden>{{_('The thematic group of this dataset')}} </option>
+                                                        {% for dataset_category in h.dataset_categories()  %}
+                                                          <option value="{{ dataset_category}}" {% if dataset_category in data.get('dataset_category', []) %}selected="selected"{% endif %}>{{dataset_category|title}}</option>
+                                                        {% endfor %}
+                                                    </select>
+                                                    <div class="help-block">{{_('Please select only if the dataset belongs to a special category') }}
+                                                    </div>
+                                                  </div>
+                                              </div>
+                                            </div>  
+
+                                            {# Closed tags field #}
+                                            {% set error = errors.closed_tag %} 
+                                            <div data-module="hdx_form_element_manager" data-module-element_name="closed_tag">
+                                              <div class="mb-3 tags-select">
+                                              <label for="field-closed_tag" class="control-label"> <span title="This field is required" class="control-required">*</span> {{_('Subject')}}</label>
+                                                <div class="controls" >
+                                                  <select  id="field-closed_tag" class="form-control" name="closed_tag"  data-module="input-select2-subject" multiple  placeholder="{{_('A categorization of this dataset')}}" >
+                                                    {% for closed_tag in h.closed_tags() %}
+                                                      <option value="{{ closed_tag }}" 
+                                                              {% if closed_tag in data.get('closed_tag', []) %}selected="selected"{% endif %}>
+                                                          {{ closed_tag|title }}
+                                                      </option>
+                                                    {% endfor %}
+                                                  </select>
+                                                  {% if error and error is iterable %}<span class="error-block">{{ error|join(', ') }}</span>{% endif %}
+                                                  {#<div class="help-block">
+                                                    {{_('You can find the detailed classification list at ')}} <a href="https://hellenicdataservice.gr/project/page/subjects" target="_blank">subjects </a>
+                                                  </div>#}
+                                                </div>
+                                              </div>
+                                            </div>  
+
                                             <div data-module="hdx_form_element_manager" data-module-element_name="tag_string">
                                               {{ form.input('tag_string', id='field-tags', label=_('Tags'), placeholder=_('eg. economy, mental health, government'), value=data.tag_string, error=errors.tags, classes=['mb-3', 'tags-select'], attrs=tag_attrs) }}</div>
                                             
@@ -721,6 +745,32 @@
                                                 {{ form.markdown('license_other', id='field_license_other', label=_('Define License'), placeholder=_('Describe how people can and cannot use this data'), value=data.license_other, error=errors.license_other, classes=['mb-3'], attrs={'style': 'height: 80px;'}) }}
                                             </div>
 
+                                            <div data-module="hdx_form_element_manager" data-module-element_name="embargo_date" data-module-required="public,requestdata">
+                                              <div class="mb-3 ">
+                                                <label class="control-label"
+                                                 style="font-weight:inherit"
+                                                 data-module='bs_tooltip'>
+                                                  {{_('Embargo Date')}} [?]
+                                                </label>
+                                                <div class="controls">
+                                                  <div style="display: flex">
+                                                      <div>
+                                                        <input type="text" name='embargo_date' id='field-embargo_date' value="{{data.embargo_date}}" autocomplete="off" onkeydown="return false;"
+                                                               data-module='hdx_datepicker' data-module-group='2' data-module-type="single" data-module-topic='date-field-clicked'
+                                                               data-module-alt_field_id='date_range1' data-module-original_value="{{data.embargo_date}}"
+                                                               label="{{_('Embargo Date')}}" placeholder="{{_('Embargo Date')}}" error='{{errors.embargo_date}}' class='form-control' style="width: 100%;" />
+
+                                                      </div>
+                                                  </div>
+                                                  <div class="row">
+                                                    <div class="col-12">
+                                                      <span class="error-block"></span>
+                                                    </div>
+                                                  </div>
+                                                </div>
+                                                </div>
+                                            </div> 
+
                                            {# {% set field_names_attrs = {'data-module': 'hdx_autocomplete', 'data-module-tags': '', 'data-module-placeholder': 'What are the most important fields in the dataset?', 'multiple':'true', 'data-module-width': '500px',} %}
                                             <div data-module="hdx_form_element_manager" data-module-element_name="field_names" data-module-required="requestdata">
                                             {{ form.input('field_names', id='field_names', label=_('Field names'), value=data.field_names, error=errors.field_names, classes=['', 'mb-3', 'field-names-select'], attrs=field_names_attrs) }}
@@ -747,7 +797,7 @@
                                             {{ form.markdown('caveats', id='field_caveats', label=_('Caveats / Comments'),value=data.caveats, error=errors.caveats, classes=['mb-3'], attrs={'style': 'height: 80px;'}) }}
                                             </div> #}
 
-                                            {% set allowed_tags = h.hdx_get_allowed_tags_list() %}
+                                            {#{% set allowed_tags = h.hdx_get_allowed_tags_list() %}#}
                                             {% set selected_tags = data.tag_string.split(', ') if data.tag_string else '' %}
                                             {#<div data-module="hdx_form_element_manager" data-module-element_name="tag_string" data-module-broadcast_change="true" data-module-required="requestdata">
                                               {{ form.select('tag_string', id='field_tag_string', label=_('Tags'), options=allowed_tags, selected=selected_tags, error=errors.tag_string, classes=['mb-3', 'tags-select'], attrs={'class':'choices-orange', 'multiple':'true' }) }}
