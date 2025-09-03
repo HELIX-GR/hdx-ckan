@@ -373,10 +373,12 @@ $(function(){
             'change input[type=radio].resource-source': 'onSourceChange',
             'change input[type=checkbox][name=pii]': 'onPiiChange',
             'change input[type=checkbox][name=microdata]': 'onMicrodataChange',
+            'change input[type=checkbox][name=restricted]': 'onRestrictedChange',
             'change .source-file-fields .form-control': 'onFieldEdit',
             'click .dropbox a': 'onDropboxBtn',
-            'click .googledrive a': 'onGoogleDriveBtn'
+            'click .googledrive a': 'onGoogleDriveBtn',
         },
+
 
         initialize: function() {
             this.model.view = this;
@@ -439,9 +441,9 @@ $(function(){
         },
 
         _convertToBoolean: function (value) {
-          if (value === "True")
+          if (value === "True" || value === "true")
             return true;
-          if (value === "False")
+          if (value === "False" || value === "false")
             return false;
           return value;
         },
@@ -452,6 +454,8 @@ $(function(){
             template_data.lower_case_format = template_data.format ? template_data.format.toLowerCase() : null;
             template_data.pii = this._convertToBoolean(this.model.get('pii'));
             template_data.microdata = this._convertToBoolean(this.model.get('microdata'));
+            template_data.restricted = this._convertToBoolean(this.model.get('restricted'));
+            console.log(template_data.restricted);
             var html = this.template(template_data);
             this.$el.html(html);
 
@@ -543,6 +547,13 @@ $(function(){
           $(e.target).closest('.controls').find('.item-description').toggle(value);
         },
 
+        onRestrictedChange: function(e) {
+          const value = e.target.checked;
+          this.model.set('restricted', value);
+          const name = this.model.get('name') || '';
+          this.model.set('name', name + ' ');
+        },
+
         onUpdateBtn: function(e) {
             this.updateResource();
         },
@@ -603,8 +614,14 @@ $(function(){
 
             // Serialize in the correct JSON format.
             var form_data = {format: 'txt'};
-            _.map(update_form_array, function(x){form_data[x.name] = x.value;});
-
+            _.map(update_form_array, function(x){
+                if (x.name === 'restricted') {
+                    // use model boolean
+                    form_data[x.name] = this.model.get('restricted');
+                } else {
+                    form_data[x.name] = x.value;
+                }
+            }.bind(this));
             this.model.set('upload', this.$('.resource_file_field')[0].files[0]);
             this.model.save(form_data, {
                 wait: true,
@@ -804,6 +821,7 @@ $(function(){
                 format: '',
                 pii: false,
                 microdata: false,
+                restricted: false,
                 description: ''
             };
         },

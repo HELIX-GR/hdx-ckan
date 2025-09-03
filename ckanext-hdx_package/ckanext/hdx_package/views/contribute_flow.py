@@ -155,29 +155,53 @@ def _save_or_update(context, package_type=None):
     data_dict = {}
     try:
         data_dict = _prepare_data_for_saving(context, package_type)
+
         pkg_dict = {}
         if data_dict.get('id'):
-            # we allow partial updates to not destroy existing resources
+            # ---- UPDATE ----
             is_req_type = False
-            if data_dict.get('private', 'True') == 'False' and data_dict.get('is_requestdata_type',
-                                                                             'False') == 'True':
+            if data_dict.get('private', 'True') == 'False' and data_dict.get('is_requestdata_type', 'False') == 'True':
                 context['allow_partial_update'] = False
                 is_req_type = True
             else:
                 context['allow_partial_update'] = True
-            pkg_old = _get_action('package_show')(context, {'id': data_dict.get('id')})
+
+            # Save/update the package
             pkg_dict = _get_action('package_update')(context, data_dict)
+
+            # Ensure restricted is applied correctly
+            incoming_resources = {r['name']: r for r in data_dict.get('resources', []) if r.get('name')}
+            # Fetch updated resources from CKAN to get correct IDs
+            pkg_updated = _get_action('package_show')(context, {'id': data_dict['id']})
+            for res in pkg_dict.get('resources', []):
+                # Look up incoming restricted value from the form
+                incoming_res = next((r for r in data_dict.get('resources', []) if r.get('name') == res['name']), None)
+                if incoming_res and 'restricted' in incoming_res:
+                    restricted_val = incoming_res['restricted']
+                    log.debug("Patching resource %s with restricted=%s", res['id'], restricted_val)
+                    _get_action('resource_patch')(context, {
+                        'id': res['id'],
+                        'restricted': restricted_val
+                    })
+
             if is_req_type:
                 for res in pkg_old.get('resources'):
                     _get_action('resource_delete')(context, {'id': res.get('id')})
+
         else:
+            # ---- CREATE ----
             pkg_dict = _get_action('package_create')(context, data_dict)
+
+            # Ensure restricted is copied back into pkg_dict
+            incoming_resources = {r['name']: r for r in data_dict.get('resources', []) if r.get('name')}
+            for res in pkg_dict.get('resources', []):
+                if res['name'] in incoming_resources:
+                    res['restricted'] = incoming_resources[res['name']].get('restricted', res.get('restricted'))
 
         return pkg_dict, {}, {}
 
     except ValidationError as e:
         return data_dict, e.error_dict, e.error_summary
-
 
 def validate(package_type=None):
     context = {'model': model, 'session': model.Session,
@@ -188,8 +212,12 @@ def validate(package_type=None):
     try:
         data_dict = _prepare_data_for_saving(context, package_type)
         # data_dict = self.process_resources(data_dict)
-
         data_dict['batch'] = 'FAKE_ORG_BATCH_FOR_VALIDATION'
+
+        for resource in data_dict.get('resources', []):
+            if 'restricted' in resource and isinstance(resource['restricted'], str):
+                resource['restricted'] = resource['restricted'].strip().lower() == 'true'
+
         pkg_dict = _get_action('package_validate')(context, data_dict)
         return _prepare_and_render(save_type=save_type, data=data_dict, errors={},
                                         error_summary={})
@@ -215,18 +243,23 @@ def validate(package_type=None):
 def _prepare_data_for_saving(context, package_type):
     data_dict = clean_dict(dict_fns.unflatten(
         tuplize_dict(parse_params(request.form))))
-    if isinstance(data_dict.get("private"), str):
+
+    # Only set 'private' if this is a new package (no 'id' yet)
+    if 'id' not in data_dict and isinstance(data_dict.get("private"), str):
         data_dict["private"] = data_dict["private"].lower() == "true"
+
     data_dict['type'] = package_type or data_dict.get('type')
 
-    del data_dict['save']
+    # Remove the save param
+    if 'save' in data_dict:
+        del data_dict['save']
 
     context['message'] = data_dict.get('log_message', '')
 
     write_logic = ContributeFlowWriteLogic(data_dict)
     write_logic.process_all(g.user)
-
     return data_dict
+
 
 
 hdx_contribute.add_url_rule(u'/new', view_func=new, methods=[u'GET', u'POST'])

@@ -47,7 +47,6 @@ def resource_create(context, data_dict):
 
     process_batch_mode(context, data_dict)
     flag_if_file_uploaded(context, data_dict)
-
     if data_dict.get('resource_type', '') != 'file.upload':
         # If this isn't an upload, it is a link so make sure we update
         # the url_type otherwise solr will screw everything up

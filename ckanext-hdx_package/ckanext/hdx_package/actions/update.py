@@ -312,10 +312,10 @@ def package_update(
 
     data, errors = lib_plugins.plugin_validate(
         package_plugin, context, data_dict, schema, 'package_update')
-    log.debug('package_update validate_errs=%r user=%s package=%s data=%r',
-              errors, context.get('user'),
-              context.get('package').name if context.get('package') else '',
-              data)
+    # log.debug('package_update validate_errs=%r user=%s package=%s data=%r',
+    #           errors, context.get('user'),
+    #           context.get('package').name if context.get('package') else '',
+    #           data)
 
     if errors:
         model.Session.rollback()
@@ -337,7 +337,6 @@ def package_update(
 
     pkg = modified_save(context, data, include_plugin_data)
     # pkg = model_save.package_dict_save(data, context)
-
     context_org_update = context.copy()
     context_org_update['ignore_auth'] = True
     context_org_update['defer_commit'] = True
@@ -356,6 +355,7 @@ def package_update(
                      .format('clear' if upload.clear else 'upload'))
             upload.upload(resource['id'], uploader.get_max_resource_size())
 
+  
     for item in plugins.PluginImplementations(plugins.IPackageController):
         item.edit(pkg)
 
