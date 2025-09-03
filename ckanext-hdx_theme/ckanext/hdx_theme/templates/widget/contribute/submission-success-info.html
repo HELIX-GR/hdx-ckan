@@ -5,7 +5,7 @@ Depends on:
     Fanstatic resource bundle "popup"
 
 Example:
-    {{ h.snippet('widget/contribute/private-dataset-info.html', id="datasetPopup") }}
+    {{ h.snippet('widget/contribute/submission-success-info.html', id="datasetPopup") }}
 #}
 {% asset 'hdx_theme/onboarding-done-styles' %}
 
@@ -17,11 +17,8 @@ Example:
 {% block notification_content %}
   <div class="notification-content notification-small">
     <div>
-      You have successfully submitted the dataset. It will remain private until it is approved by the organisation. <br><br>
+      You successfully submitted the dataset.  <br><br>
       <div style="text-align: right;">
-        {#<label class="float-start">
-          <input type="checkbox" name="hide-message"> Do not display this message next time
-        </label> #}
         <a class="btn btn-primary">Close</a>
       </div>
     </div>

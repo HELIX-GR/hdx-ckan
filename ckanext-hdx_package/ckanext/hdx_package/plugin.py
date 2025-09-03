@@ -647,6 +647,12 @@ class HDXPackagePlugin(plugins.SingletonPlugin, tk.DefaultDatasetForm):
 
         if action in ['package_create', 'package_update']:
             private = False if str(data_dict.get('private', '')).lower() == 'false' else True
+            if 'id' not in data_dict and 'private' in data_dict:
+                if isinstance(data_dict['private'], str):
+                    data_dict['private'] = data_dict['private'].lower() == 'true'
+            elif 'id' in data_dict:
+                # Remove 'private' from form data to avoid overwriting existing value
+                data_dict.pop('private', None)
 
             #if private:
             self._update_with_private_modify_package_schema(schema)

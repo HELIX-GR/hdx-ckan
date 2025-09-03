@@ -288,27 +288,37 @@
                     contributeGlobal.resourceSaveReadyDeferred = null;
                   }
                 },
-                'displayPrivateDatasetInfoPopup': function (data) {
-                  // Check if we need to display the info about private datasets
+                'displayPopup': function(popupId, options = {}) {
                   let deferred = new $.Deferred();
-                  const STORAGE_KEY = "/contribute:hidePrivateDatasetInfo";
-                  let hideInfo = window.localStorage.getItem(STORAGE_KEY);
-
-                  if (data.data.private && !hideInfo) {
-                    $('#privateDatasetInfoPopup, #privateDatasetInfoPopup .close, #privateDatasetInfoPopup .btn-primary').click(function(ev) {
-                      let { deferred, STORAGE_KEY } = this;
-                      if ($('#privateDatasetInfoPopup input[name="hide-message"]').is(':checked')) {
-                        window.localStorage.setItem(STORAGE_KEY, 'true');
+                  const STORAGE_KEY = options.storageKey || null;
+              
+                  const $popup = $(popupId);
+              
+                  $popup.add($popup.find('.close, .btn-primary')).off('click').on('click', function() {
+                      // For private dataset, store hide-message preference
+                      if (STORAGE_KEY && $popup.find('input[name="hide-message"]').is(':checked')) {
+                          window.localStorage.setItem(STORAGE_KEY, 'true');
                       }
-                      $('#privateDatasetInfoPopup').hide();
+                      $popup.hide();
                       deferred.resolve();
-                    }.bind({deferred: deferred, STORAGE_KEY: STORAGE_KEY}));
-                    $('#privateDatasetInfoPopup').show();
-                  } else {
-                    deferred.resolve();
-                  }
+                  });
+              
+                  // Show the popup
+                  $popup.show();
+              
                   return deferred.promise();
-                },
+              },
+              
+              'displayPrivateDatasetInfoPopup': function(data) {
+                  const STORAGE_KEY = "/contribute:hidePrivateDatasetInfo";
+                  //let hideInfo = window.localStorage.getItem(STORAGE_KEY);
+              
+                  if (data.data.private) {
+                      return this.displayPopup('#privateDatasetInfoPopup', { storageKey: STORAGE_KEY });
+                  } else {
+                      return this.displayPopup('#submissionSuccessInfoPopup');
+                  }
+              },
                 'displayContributeDatasetReviewPopup': function (data) {
                   // display the dataset contribute review info
                   let deferred = new $.Deferred();
