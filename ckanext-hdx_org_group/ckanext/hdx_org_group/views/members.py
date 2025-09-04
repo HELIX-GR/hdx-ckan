@@ -192,13 +192,13 @@ def member_delete(id):
                 'user_username': usr_obj.name,
                 'org_name': org_obj.display_name,
             }
-            hdx_mailer.mail_recipient(admins_with_email, subject,
-                                      email_data,
-                                      snippet='email/content/membership_removal_to_admins.html')
+            # hdx_mailer.mail_recipient(admins_with_email, subject,
+            #                           email_data,
+            #                           snippet='email/content/membership_removal_to_admins.html')
 
-            hdx_mailer.mail_recipient([{'display_name': user_display_name, 'email': usr_obj.email}], subject,
-                                      email_data,
-                                      snippet='email/content/membership_removal_to_user.html')
+            # hdx_mailer.mail_recipient([{'display_name': user_display_name, 'email': usr_obj.email}], subject,
+            #                           email_data,
+            #                           snippet='email/content/membership_removal_to_user.html')
 
             return redirect('hdx_members.members', id=id)
         # c.user_dict = self._action('user_show')(context, {'id': user_id})

@@ -134,9 +134,6 @@ class HDXOrgGroupPlugin(plugins.SingletonPlugin, lib_plugins.DefaultOrganization
             'hdx_org_type': [tk.get_validator('ignore_missing'), tk.get_validator('correct_hdx_org_type'),
                              tk.get_converter('convert_to_extras')],
             'org_acronym': [tk.get_validator('ignore_missing'), tk.get_converter('convert_to_extras')],
-            'description_greek': [tk.get_validator('ignore_missing'), tk.get_converter('convert_to_extras')],
-            'email_domain': [tk.get_validator('ignore_missing'), tk.get_converter('convert_to_extras')],
-            'org_acronym': [tk.get_validator('ignore_missing'), tk.get_converter('convert_to_extras')],
             # Heallink organization metadata
             'title_greek': [tk.get_validator('ignore_missing'), tk.get_converter('convert_to_extras')],
             'description_greek': [tk.get_validator('ignore_missing'), tk.get_converter('convert_to_extras')],

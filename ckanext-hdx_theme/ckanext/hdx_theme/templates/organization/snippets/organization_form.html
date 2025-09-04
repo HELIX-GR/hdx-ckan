@@ -111,8 +111,24 @@
 {% set visualization = {} %}
 {% endif %}
 
-<div class="org-control-container">
+{#<div class="org-control-container">
   {{ form.input('email_domain', label=_('Email domain'), id='field-email_domain', value=data.email_domain, error=errors.email_domain, classes=['', 'org-control', 'field-with-info'], attrs=attrs) }}
+</div>#}
+
+<div class="org-control-container">
+  <div class="org-control field-with-info">
+    <div class="controls">
+      <label for="field-email_domain">{{ _('Email domain') }}</label>
+      <input type="text"
+              id="field-email_domain"
+              name="email_domain"
+              value="{{ data.get('email_domain', '') }}"
+              class="form-control " />
+        {% if errors.email_domain %}
+          <div class="error-block">{{ errors.email_domain }}</div>
+        {% endif %}
+    </div>
+  </div>
 </div>
 
 <div class="org-control-container">

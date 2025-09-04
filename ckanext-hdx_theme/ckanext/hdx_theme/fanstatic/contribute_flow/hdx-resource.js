@@ -455,7 +455,6 @@ $(function(){
             template_data.pii = this._convertToBoolean(this.model.get('pii'));
             template_data.microdata = this._convertToBoolean(this.model.get('microdata'));
             template_data.restricted = this._convertToBoolean(this.model.get('restricted'));
-            console.log(template_data.restricted);
             var html = this.template(template_data);
             this.$el.html(html);
 
