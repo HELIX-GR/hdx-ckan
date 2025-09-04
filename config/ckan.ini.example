@@ -233,8 +233,8 @@ ckan.admin_tabs = {}
 
 ## Storage Settings ############################################################
 ckan.storage_path = /var/lib/ckan/default
-ckan.max_resource_size = 10
-ckan.max_image_size = 2
+ckan.max_resource_size = 150
+ckan.max_image_size = 10
 
 ## Uploader Settings ###########################################################
 ckan.upload.user.types = image
