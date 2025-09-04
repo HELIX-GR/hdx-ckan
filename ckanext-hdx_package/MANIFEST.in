@@ -1,1 +1,3 @@
 include ckanext/hdx_package/config_declaration.yaml
+include ckanext/hdx_package/config/closed-subject.txt
+include ckanext/hdx_package/config/resource_formats.json
