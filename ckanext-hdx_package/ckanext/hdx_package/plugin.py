@@ -293,11 +293,11 @@ class HDXPackagePlugin(plugins.SingletonPlugin, tk.DefaultDatasetForm):
                     tk.get_validator('ignore_missing')
                 ],
                 'fs_check_info': [
-                    tk.get_validator('hdx_keep_if_fs_check_format'),
-                    tk.get_validator('hdx_add_update_fs_check_info'),
-                    tk.get_validator('hdx_keep_unless_allow_fs_check_field'),
+                #    tk.get_validator('hdx_keep_if_fs_check_format'),
+                #    tk.get_validator('hdx_add_update_fs_check_info'),
+                #    tk.get_validator('hdx_keep_unless_allow_fs_check_field'),
                     tk.get_validator('ignore_missing'),
-                    tk.get_validator('hdx_convert_to_json_string_if_not_string')
+                #    tk.get_validator('hdx_convert_to_json_string_if_not_string')
                 ],
                 'p_coded': [
                     tk.get_validator('hdx_delete_unless_authorized_to_update_p_coded'),
