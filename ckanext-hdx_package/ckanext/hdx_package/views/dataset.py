@@ -619,7 +619,7 @@ class DatasetContactContributorView(MethodView):
 
         except NotAuthorized:
             came_from = h.url_for('hdx_dataset.contact_contributor', id=id)
-            return redirect(h.url_for('hdx_signin.login', info_message_type='contact-contributor', came_from=came_from))
+            return redirect(h.url_for('user.login', info_message_type='contact-contributor', came_from=came_from))
 
         except MailerException as e:
             error_summary = _('Could not send request for: %s') % text_type(e)
@@ -672,7 +672,7 @@ class DatasetContactContributorView(MethodView):
 
         except NotAuthorized:
             came_from = h.url_for('hdx_dataset.contact_contributor', id=id)
-            return redirect(h.url_for('hdx_signin.login', info_message_type='contact-contributor', came_from=came_from))
+            return redirect(h.url_for('user.login', info_message_type='contact-contributor', came_from=came_from))
 
 
 class DatasetRequestAccessView(MethodView):
@@ -731,7 +731,7 @@ class DatasetRequestAccessView(MethodView):
 
         except NotAuthorized:
             came_from = h.url_for('hdx_dataset.request_access', id=id)
-            return redirect(h.url_for('hdx_signin.login', info_message_type='hdx-connect', came_from=came_from))
+            return redirect(h.url_for('user.login', info_message_type='hdx-connect', came_from=came_from))
 
         except MailerException as e:
             error_summary = _('Could not send request for: %s') % text_type(e)
@@ -793,7 +793,7 @@ class DatasetRequestAccessView(MethodView):
 
         except NotAuthorized:
             came_from = h.url_for('hdx_dataset.request_access', id=id)
-            return redirect(h.url_for('hdx_signin.login', info_message_type='hdx-connect', came_from=came_from))
+            return redirect(h.url_for('user.login', info_message_type='hdx-connect', came_from=came_from))
 
 
 hdx_search.add_url_rule(u'/', view_func=search, strict_slashes=False)

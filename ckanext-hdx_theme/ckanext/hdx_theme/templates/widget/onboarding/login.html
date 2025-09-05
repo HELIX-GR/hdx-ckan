@@ -33,7 +33,7 @@ Example:
             </div>
         </div>
         <div class="row">
-            {% set form_url = h.url_for('hdx_signin.login', came_from=data.login_came_from) if data.login_came_from else h.url_for('hdx_signin.login') %}
+            {% set form_url = h.url_for('user.login', came_from=data.login_came_from) if data.login_came_from else h.url_for('user.login') %}
             <form id="hdx-login-form" action="{{ form_url }}" method="post" onsubmit="checkLockout">
                 <div class="login-content">
                     <div class="col-12">
