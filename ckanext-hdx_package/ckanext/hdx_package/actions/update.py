@@ -334,7 +334,19 @@ def package_update(
 
     if 'tags' in data:
         data['tags'] = helpers.get_tag_vocabulary(data['tags'])
+    # Merge indexed creators into 'creators'
+    
+    # creators_list = []
+    # max_creators = 5
+    # for i in range(1, max_creators+1):
+    #     fn = data_dict.get(f'creator_first_name_{i}')
+    #     ln = data_dict.get(f'creator_last_name_{i}')
+    #     if fn or ln:
+    #         creators_list.append({'first_name': fn, 'last_name': ln})
 
+    # data['creators'] = creators_list
+    # log.info('creators_list {0}'.format(creators_list))
+    #log.info('pkg dict 2 {0}'.format(data_dict))
     pkg = modified_save(context, data, include_plugin_data)
     # pkg = model_save.package_dict_save(data, context)
     context_org_update = context.copy()
@@ -374,8 +386,6 @@ def package_update(
 
     if not context.get('defer_commit'):
         model.repo.commit()
-
-    log.debug('Updated object %s' % pkg.name)
 
     return_id_only = context.get('return_id_only', False)
 

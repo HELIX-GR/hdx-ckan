@@ -223,9 +223,21 @@ class HDXSearchPlugin(plugins.SingletonPlugin):
 
         before_indexing_clean_resource_formats(pkg_dict)
 
+        if 'vocab_closed_tags' in pkg_dict:
+            subjects = pkg_dict['vocab_closed_tags']
+            
+            #Add subjects for solr indexing/facet use
+
+            pkg_dict['closed_tags'] = []
+            for subject in subjects:
+                pkg_dict['closed_tags'].append(subject)
+        if 'vocab_dataset_categories' in pkg_dict:
+            categories = pkg_dict['vocab_dataset_categories']
+            if categories:
+                pkg_dict['dataset_category'] = categories[0]  # take first, or however you define it
+
         pkg_dict['title_string'] = unicodedata.normalize("NFKD", pkg_dict['title']).replace(r'\xc3', 'I')
         pkg_dict.pop('resource_grouping', None)
-
         #self.__process_dates_in_resource_extra(pkg_dict)
         # self.__process_dataset_date(pkg_dict)
         return pkg_dict
@@ -295,8 +307,6 @@ class HDXSearchPlugin(plugins.SingletonPlugin):
 
         if are_new_p_code_filters_enabled():
             facets_dict['{!ex=batch,archived}res_extras_p_coded'] = _('Datasets with P-Codes')
-
-
 
         return facets_dict
 

@@ -114,6 +114,30 @@ class HDXPackagePlugin(plugins.SingletonPlugin, tk.DefaultDatasetForm):
         for property_name in UNWANTED_DATASET_PROPERTIES:
             schema.pop(property_name, None)
 
+    def _indexed_creator_fields(self, max_creators=5, use_converter=True, use_validator=True):
+        """
+        Returns a dict of creator_first_name_X / creator_last_name_X fields for schema.
+        Skips converting empty fields to extras to avoid 'Missing' errors on update.
+        """
+        fields = {}
+        for i in range(1, max_creators + 1):
+            validators = []
+            converters = []
+
+            if use_validator:
+                validators.append(tk.get_validator('ignore_missing'))  # skip if field is missing
+
+            # Only add converter if field may have a value
+            if use_converter:
+                converters.append(tk.get_converter('convert_from_extras'))
+
+            # Combine and assign to each field
+            fields[f'creator_first_name_{i}'] = converters + validators
+            fields[f'creator_last_name_{i}'] = converters + validators
+
+        return fields
+
+
     def _modify_package_schema(self, schema):
 
         self._remove_package_fields_from_schema(schema)
@@ -219,14 +243,16 @@ class HDXPackagePlugin(plugins.SingletonPlugin, tk.DefaultDatasetForm):
             'creator_last_name': [tk.get_validator('ignore_missing'), tk.get_converter('convert_to_extras')],
             'datacite_doi': [tk.get_validator('ignore_missing'), tk.get_converter('convert_to_extras')],
             'language': [tk.get_validator('ignore_missing'), tk.get_converter('convert_to_extras')],
-            'closed_tag': [tk.get_validator('not_empty'), tk.get_validator('convert_to_tags')('closed_tags')],
+            'closed_tags': [tk.get_validator('not_empty'), tk.get_validator('convert_to_tags')('closed_tags')],
             'dataset_category': [tk.get_validator('ignore_missing'), tk.get_validator('convert_to_tags')('dataset_categories')],
             'resource_type': [tk.get_validator('ignore_missing'), tk.get_converter('convert_to_extras')],
             'embargo_date': [tk.get_validator('ignore_missing'),
                              tk.get_converter('convert_to_extras')],
-            
-        
         })
+
+        for i in range(1, 6):
+            schema[f'creator_first_name_{i}'] = [tk.get_validator('ignore_missing'),tk.get_converter('convert_to_extras')]
+            schema[f'creator_last_name_{i}'] = [ tk.get_validator('ignore_missing'),tk.get_converter('convert_to_extras')]
 
         schema['tags'].update(
             {
@@ -460,14 +486,16 @@ class HDXPackagePlugin(plugins.SingletonPlugin, tk.DefaultDatasetForm):
             'creator_last_name': [tk.get_converter('convert_from_extras'), tk.get_validator('ignore_missing')],
             'datacite_doi': [tk.get_converter('convert_from_extras'), tk.get_validator('ignore_missing')],
             'language': [tk.get_converter('convert_from_extras'), tk.get_validator('ignore_missing')],
-            'closed_tag': [tk.get_converter('convert_from_tags')('closed_tags'),tk.get_validator('not_empty')],
+            'closed_tags': [tk.get_converter('convert_from_tags')('closed_tags'),tk.get_validator('not_empty')],
             #'tags': [tk.get_validator('remove_vocab_tags'({'closed_tags'})],
             'dataset_category': [tk.get_converter('convert_from_tags')('dataset_categories'), tk.get_validator('ignore_missing')],
             'resource_type': [tk.get_converter('convert_from_extras'), tk.get_validator('ignore_missing')],
             'embargo_date': [tk.get_converter('convert_from_extras'), tk.get_validator('ignore_missing')],
         })
 
-
+        for i in range(1, 6):
+            schema[f'creator_first_name_{i}'] = [tk.get_converter('convert_from_extras'),tk.get_validator('ignore_missing')]
+            schema[f'creator_last_name_{i}'] = [ tk.get_converter('convert_from_extras'),tk.get_validator('ignore_missing')]
 
         return schema
 
@@ -514,7 +542,7 @@ class HDXPackagePlugin(plugins.SingletonPlugin, tk.DefaultDatasetForm):
             'resource_show': hdx_get.resource_show,
             'resource_delete': hdx_delete.resource_delete,
             #'package_search': hdx_get.package_search,
-            'package_show': hdx_get.package_show,
+            #'package_show': hdx_get.package_show,
             'package_show_edit': hdx_get.package_show_edit,
             'package_validate': hdx_get.package_validate,
             'shape_info_show': hdx_get.shape_info_show,
@@ -717,12 +745,17 @@ class HDXPackagePlugin(plugins.SingletonPlugin, tk.DefaultDatasetForm):
         schema['creator_first_name'] = [tk.get_validator('ignore_missing')] + schema['creator_first_name']
         schema['creator_last_name'] = [tk.get_validator('ignore_missing')] + schema['creator_last_name']
         schema['datacite_doi'] = [tk.get_validator('ignore_missing')] + schema['datacite_doi']
-        schema['closed_tag'] = [tk.get_validator('not_empty')] + schema['closed_tag']
+        schema['closed_tags'] = [tk.get_validator('not_empty')] + schema['closed_tags']
         schema['dataset_category'] = [tk.get_validator('ignore_missing')] + schema['dataset_category']
         schema['embargo_date'] = [tk.get_validator('ignore_missing')] + schema['embargo_date']
         schema['language'] = [tk.get_validator('ignore_missing')] + schema['language']
         schema['resource_type'] = [tk.get_validator('ignore_missing')] + schema['resource_type']
-        
+
+        for i in range(1, 6):
+            schema[f'creator_first_name_{i}'] = [tk.get_validator('ignore_missing')] + schema.get(f'creator_first_name_{i}', [])
+            schema[f'creator_last_name_{i}'] = [tk.get_validator('ignore_missing')] + schema.get(f'creator_last_name_{i}', [])
+
+
 
         #if 'groups_list' in schema:
         #    del schema['groups_list']

@@ -242,7 +242,7 @@
   font-family: 'Gotham-Book', sans-serif;
   font-display: block;
   font-weight: 400;
-  font-size: 24px;
+  font-size: 26px;
 }
 .homepage-main .carousel-section .carousel-items .sub-item {
   width: 215px;
@@ -256,7 +256,7 @@
 .homepage-main .carousel-section .carousel-items .sub-item .title {
   font-family: 'Gotham-Bold', sans-serif;
   font-weight: 400;
-  font-size: 8px;
+  font-size: 12px;
   padding: 5px 15px;
   background-color: #333333;
   color: #fff;
@@ -313,7 +313,7 @@
   font-family: 'Gotham-Book', sans-serif;
   font-display: block;
   font-weight: 400;
-  font-size: 12px;
+  font-size: 16px;
   margin: 0;
 }
 .homepage-main .carousel-section .carousel-items .sub-item {

@@ -65,20 +65,20 @@
                   <div class="col-4">
                     <div class="row">
                       <div class="col-12 item-count">
-                        <a href="{% url_for 'group.index' %}"
+                        <a href="{% url_for 'organization.index' %}"
                            data-module="count hdx_click_stopper" data-module-link_type="find data box"
-                           data-url="{% url_for 'hdx_count.country' %}">
-                          {{ count.locations }}
+                           data-url="{% url_for 'hdx_count.organization' %}">
+                          {{ count }}
                         </a>
                       </div>
                     </div>
                     <div class="row">
                       <div class="col-12 item-name">
-                        {{ _("Locations") }}
+                        {{ _("Organizations") }}
                       </div>
                     </div>
                   </div>
-                  <div class="col-4">
+                  {#<div class="col-4">
                     <div class="row">
                       <div class="col-12 item-count">
                         <a 
@@ -93,7 +93,7 @@
                         {{ _("Sources") }}
                       </div>
                     </div>
-                  </div>
+                  </div>#}
                 </div>
               </div>
             </div>
@@ -116,7 +116,7 @@
     <div class="container">
       <div class="carousel-content">
         <div class="carousel-title">
-          Highlights
+          Thematic Groups
         </div>
         <div class="carousel-items">
           <div class="row">

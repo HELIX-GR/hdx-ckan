@@ -84,5 +84,6 @@ list = {
 
 
 hdx_count.add_url_rule(u'/count/dataset', view_func=dataset)
+hdx_count.add_url_rule(u'/count/organization', view_func=organization)
 hdx_count.add_url_rule(u'/count/country', view_func=country)
 hdx_count.add_url_rule(u'/count/source', view_func=source)

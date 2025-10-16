@@ -195,21 +195,26 @@ class SearchLogic(object):
 
             self._set_filters_are_selected_flag()
 
-            fq_list = [self._create_filter_query(key, ' OR '.join(value_list))
-                       for key, value_list in tagged_fq_dict.items()]
+            # fq_list = [self._create_filter_query(key, ' OR '.join(value_list))
+            #            for key, value_list in tagged_fq_dict.items()]
+            # Clean keys: remove Solr local parameters from fq
+            fq_list = []
+            for key, value_list in tagged_fq_dict.items():
+                clean_key = re.sub(r'\{![^}]+\}', '', key).strip()  # remove {!...}
+                fq_list.append(f'{clean_key}:({" OR ".join(value_list)})')
 
             # if the search is not filtered by query or facet group datasets
             solr_expand = 'false'
             if use_solr_collapse and not fq_list and not q and not featured_filters_set:
-                fq_list = [
-                    '{{!tag=batch q.op=OR}}{{!collapse field=batch nullPolicy=expand sort="{sort}"}} '
-                        .format(sort=sort_by)
-                ]
+                # fq_list = [
+                #     '{{!tag=batch q.op=OR}}{{!collapse field=batch nullPolicy=expand sort="{sort}"}} '
+                #         .format(sort=sort_by)
+                # ]
                 solr_expand = 'true'
 
             # filtering archived datasets should happen after we decide whether to collapse/batch results
-            fq_list.append(self._create_filter_query(
-                ARCHIVED_DATASETS_FACET_NAME, '-extras_archived:"true"' if hide_archived else 'extras_archived:"true"'))
+            # fq_list.append(self._create_filter_query(
+            #     ARCHIVED_DATASETS_FACET_NAME, '-extras_archived:"true"' if hide_archived else 'extras_archived:"true"'))
 
             try:
                 limit = 1 if self._is_facet_only_request() else int(request.args.get('ext_page_size', num_of_items))
@@ -234,6 +239,7 @@ class SearchLogic(object):
             facets = self._generate_facet_name_to_title_map(package_type)
             #adding site_id to facets to facilitate totals counts in case of batch/collapse
             facet_keys = ['{!ex=batch}site_id'] + list(facets)
+            log.info(f"FACET KEYS: {facet_keys}")
             self._performing_search(q, fq, facet_keys, limit, page, sort_by, search_extras,
                                     self._get_pager_function(package_type), context,
                                     fq_list=fq_list, expand=solr_expand)
@@ -287,22 +293,24 @@ class SearchLogic(object):
     def _performing_search(self, q, fq, facet_keys, limit, page, sort_by,
                            search_extras, pager_url, context, fq_list=None, expand='false',
                            enable_update_status_facet=False):
+        normalized_facet_keys = [re.sub(r'\{![^}]+\}', '', k).strip() for k in facet_keys]   
+        log.info(f"fq list {fq_list}")                
         data_dict = {
-            #'q': q,
-            #'fq_list': fq_list if fq_list else [],
+            'q': q,
+            'fq_list': fq_list if fq_list else [],
             #'expand': expand,
             #'expand.rows': 1,  # we anyway don't show the expanded datasets, but doesn't work with 0
             'fq': fq,
             #'f.extras_archived.facet.missing': 'true',
-            #'facet.field': facet_keys,
-            #'facet.query': [
+            'facet.field': normalized_facet_keys,
+            # 'facet.query': [
             #    '{{!key={} ex=batch}} {}'.format(HXLATED_DATASETS_FACET_NAME, HXLATED_DATASETS_FACET_QUERY),
             #    '{{!key={} ex=batch}} {}'.format(SADD_DATASETS_FACET_NAME, SADD_DATASETS_FACET_QUERY),
             #    '{{!key={} ex=batch}} {}'.format(HDX_HAPI_DATA_FACET_NAME, HDX_HAPI_DATA_FACET_QUERY),
             #    '{{!key={} ex=batch}} {}'.format(ADMIN_DIVISIONS_DATASETS_FACET_NAME,
             #                                     ADMIN_DIVISIONS_DATASETS_FACET_QUERY),
             #    '{{!key={} ex=batch}} {}'.format(COD_DATASETS_FACET_NAME, COD_DATASETS_FACET_QUERY),
-            #],
+            # ],
             # added for https://github.com/OCHA-DAP/hdx-ckan/issues/3340
             'facet.limit': 2000,
             'rows': limit,
@@ -464,7 +472,6 @@ class SearchLogic(object):
         :return: facet information
         :rtype: OrderedDict
         '''
-
         result = OrderedDict()
         result['facets'] = OrderedDict()
         result['filters_selected'] = False
@@ -627,6 +634,8 @@ class SearchLogic(object):
 
         result['query_selected'] = True if query and query.strip() else False
 
+        result['facets'].pop('featured', None)
+        
         return result
 
     def _get_facet_item_count_from_list(self, item_list, facet_item_name):
