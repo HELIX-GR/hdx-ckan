@@ -92,6 +92,7 @@ def index():
             h.flash_notice(msg, allow_html=True)
 
     datasets = json.loads(count.dataset())
+    organizations = json.loads(count.organization())
     locations = json.loads(count.country())
     sources = json.loads(count.source())
     template_data = {
@@ -103,6 +104,7 @@ def index():
         },
         'count': {
             'datasets': datasets['count'],
+            'organizations': organizations['count'],
             'locations': locations['count'],
             'sources': sources['count']
         }

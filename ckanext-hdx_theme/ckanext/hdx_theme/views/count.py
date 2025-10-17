@@ -1,6 +1,9 @@
 import json
 from flask import Blueprint
 
+import logging
+log = logging.getLogger(__name__)
+
 import sqlalchemy
 
 import ckan.plugins.toolkit as tk
@@ -43,9 +46,27 @@ def country():
     return json.dumps({'count': _get_count('"group"', 'group', True)})
 
 
-def organization():
-    return json.dumps({'count': _get_count('"group"', 'organization', True)})
+# def organization():
+#     return json.dumps({'count': _get_count('"group"', 'organization', True)})
 
+
+def organization():
+    """
+    Count only top-level organizations (no parent orgs).
+    Uses ckanext-hierarchy's 'group_tree' action.
+    """
+    context = {'user': 'visitor'}
+    data_dict = {'type': 'organization'}
+    
+    try:
+        # get_action('group_tree') returns a list of top-level orgs with nested children
+        tree = tk.get_action('group_tree')(context, data_dict)
+        top_level_count = len(tree)  # each top node = one top-level org
+    except Exception as e:
+        log.exception(f"Failed to get top-level org count: {e}")
+        top_level_count = 0
+
+    return json.dumps({'count': top_level_count})
 
 def source():
     q = sqlalchemy.text('''select count(distinct(pe.value)) from package_extra pe

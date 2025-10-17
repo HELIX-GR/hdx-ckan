@@ -18,7 +18,7 @@
 {% block meta %}
     {{ super() }}
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Access and share humanitarian data across crises and organizations. Explore on HDX {{count.datasets}} datasets from {{count.locations}} locations and {{count.sources}} sources to support effective humanitarian response." />
+    <meta name="description" content="Access and share humanitarian data across crises and organizations. Explore on HDX {{count.datasets}} datasets from {{count.organization}} organizations and {{count.sources}} sources to support effective humanitarian response." />
 {% endblock %}
 
 {% block header_core %}
@@ -66,9 +66,8 @@
                     <div class="row">
                       <div class="col-12 item-count">
                         <a href="{% url_for 'organization.index' %}"
-                           data-module="count hdx_click_stopper" data-module-link_type="find data box"
-                           data-url="{% url_for 'hdx_count.organization' %}">
-                          {{ count }}
+                           data-module="count hdx_click_stopper" data-module-link_type="find data box">
+                          {{ count.organizations }}
                         </a>
                       </div>
                     </div>
