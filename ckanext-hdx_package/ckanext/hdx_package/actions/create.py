@@ -40,59 +40,35 @@ log = logging.getLogger(__name__)
 #@geopreview.geopreview_4_resources
 def resource_create(context, data_dict):
     '''
-
     This runs the 'resource_create' action from core ckan's create.py
     It allows us to do some minor changes and wrap it.
     '''
 
     process_batch_mode(context, data_dict)
     flag_if_file_uploaded(context, data_dict)
-    if data_dict.get('resource_type', '') != 'file.upload':
-        # If this isn't an upload, it is a link so make sure we update
-        # the url_type otherwise solr will screw everything up
-        data_dict['url_type'] = 'api'
 
-        # we need to overwrite size field (not just setting it to None or pop) otherwise
-        # ckan.lib.dictization.model_save.resource_dict_save() keeps the old value
+    if data_dict.get('resource_type', '') != 'file.upload':
+        # This is a link, not an upload
+        data_dict['url_type'] = 'api'
         data_dict['size'] = 0
     else:
         try:
             data_dict['size'] = request.content_length
             data_dict['mimetype'] = request.files['upload'].mimetype
         except RuntimeError as re:
-            log.debug('This usually happens for tests when there is no HTTP request: ' + six.text_type(re))
-
-    # result_dict = run_action_without_geo_preview(core_create.resource_create, context, data_dict)
-    # return result_dict
-
-    pkg_id_or_username = _get_or_bust(data_dict, 'package_id')
-    model = context['model']
-    pkg = model.Package.get(pkg_id_or_username)
-    pkg_id = pkg.id
-    data_revise_dict = {
-        "match": {"id": pkg_id},
-        "update__resources__extend": [data_dict]
-    }
-    revise_response = run_action_without_geo_preview(core_update.package_revise, context, data_revise_dict)
-    package = revise_response.get('package', {})
-    if isinstance(package, str):
-        package = _get_action('package_show')(context, {'id': pkg_id})
-
-    res_list = package.get('resources', [])
-    resource = res_list[-1]
-
-    #  Add the default views to the new resource
+            log.debug('No HTTP request (likely during tests): %s', six.text_type(re))
+ 
+    data_dict['extras'] = data_dict.get('extras', {})
+    data_dict['microdata'] = False
+    # ✅ Use the original CKAN action instead of package_revise
+    result_dict = run_action_without_geo_preview(core_create.resource_create, context, data_dict)
+    # Add default resource views
     logic.get_action('resource_create_default_resource_views')(
-        {'model': context['model'],
-         'user': context['user'],
-         'ignore_auth': True
-         },
-        {'resource': resource,
-         'package': package
-         })
+        {'model': context['model'], 'user': context['user'], 'ignore_auth': True},
+        {'resource': result_dict, 'package': {'id': result_dict['package_id']}}
+    )
 
-    return resource
-
+    return result_dict
 
 #@analytics.analytics_wrapper_4_package_create
 @ckanext.hdx_package.helpers.resource_triggers.common.trigger_4_resource_changes(
