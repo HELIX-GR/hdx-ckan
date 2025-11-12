@@ -55,43 +55,43 @@ INITIAL_CAROUSEL_DATA = [
    {
         "title": "Natural Sciences",
         "description": "Natural Sciences",
-        "graphic": "/images/homepage/KakumaRefugee.png",
+        "graphic": "/images/homepage/heallink/natural_sciences.png",
         "url": "//data.humdata.org/visualization/wfp-indicators/"
     },
     {
         "title": "Humanities",
         "description": "Humanities",
-        "graphic": "/images/homepage/mVAM.png",
+        "graphic": "/images/homepage/heallink/humanities.png",
         "url": "//data.humdata.org/visualization/wfp-indicators/"
     },
     {
         "title": "Health Sciences",
         "description": "Health Sciences",
-        "graphic": "/images/homepage/south-sudan.png",
+        "graphic": "/images/homepage/heallink/health_sciences.png",
         "url": "//data.humdata.org/organization/ocha-south-sudan"
     },
     {
         "title": "Computer Science & Engineering",
         "description": "Computer Science & Engineering",
-        "graphic": "/images/homepage/Adeso.png",
+        "graphic": "/images/homepage/heallink/computer_science.png",
         "url": "https://centre.humdata.org/new-features-contact-the-contributor-and-group-message/"
     },
     {
         "title": "Environmental Sciences",
         "description": "Environmental Sciences",
-        "graphic": "/images/homepage/WFP.png",
+        "graphic": "/images/homepage/heallink/environmental_sciences.png",
         "url": "//data.humdata.org/organization/wfp"
     },
     {
         "title": "Social Sciences",
         "description": "Social Sciences",
-        "graphic": "/images/homepage/KakumaRefugee.png",
+        "graphic": "/images/homepage/heallink/social_sciences.png",
         "url": "//data.humdata.org/organization/unhcr-kenya"
     },
     {
         "title": "Economics & Business",
         "description": "Economics & Business",
-        "graphic": "/images/homepage/Adeso.png",
+        "graphic": "/images/homepage/heallink/economics.png",
         "url": "//data.humdata.org/organization/adeso"
     }
 ]
