@@ -347,7 +347,7 @@ h1 {
   background-color: #f2645a;
 }
 .btn-green {
-  background-color: #1ebfb3;
+  background-color: #08c;
 }
 .btn-empty,
 .btn-empty-black {
@@ -4268,7 +4268,7 @@ label.terms-of-service:after {
 }
 @media (min-width: 1260px) {
   body.responsive {
-    background: #1ebfb3;
+    background: #08c;
     max-width: 1260px;
     margin: auto;
   }

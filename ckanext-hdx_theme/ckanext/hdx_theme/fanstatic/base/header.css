@@ -4186,11 +4186,11 @@ ul.list-horizontal li:first-child:before {
   display: block;
 }
 .hdxLogo .logo .logo-img {
-  background-image: url("/images/homepage/heallink-logo.png");
+  background-image: url("/images/homepage/HARDMIN_new_logo.png");
   background-repeat: no-repeat;
   background-position: left center;
-  background-size: contain;
-  width: 260px;
+  background-size: 330px auto;
+  width: 330px;
   height: 130px;
   margin-top: 3px;
 }
