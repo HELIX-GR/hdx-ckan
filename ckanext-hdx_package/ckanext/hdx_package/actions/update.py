@@ -11,6 +11,7 @@ from six import text_type
 from flask import request
 from sqlalchemy import or_
 from typing import Any
+import json
 
 import ckan.lib.dictization.model_save as model_save
 import ckan.lib.munge as munge
@@ -25,7 +26,8 @@ import ckanext.hdx_package.helpers.resource_triggers.geopreview as geopreview
 import ckanext.hdx_package.helpers.helpers as helpers
 from ckan.types.logic import ActionResult
 from ckan.types import Context, DataDict
-from ckan.common import _
+from ckan.common import _,c,  config
+import ckan.lib.search as search
 from ckanext.hdx_org_group.helpers.org_batch import get_batch_or_generate
 from ckanext.hdx_package.helpers.analytics import QACompletedAnalyticsSender
 from ckanext.hdx_package.helpers.constants import FILE_WAS_UPLOADED, \
@@ -688,3 +690,100 @@ def resource_view_update(context, data_dict):
         resource_view = model.ResourceView.get(data_dict.get('id'))
         data_dict['resource_id'] = resource_view.resource_id
     core_update.resource_view_update(context, data_dict)
+
+
+#Add new uuid for public doi (datasets are now published)
+def add_public_doi(context, datasets):
+    model = context['model']
+    session = context['session']
+    context_copy = {'model': model, 'session': session,
+                   'user': c.user or c.author, 'auth_user_obj': c.userobj, 'ignore_auth' : True}
+    for id in datasets:
+        dataset = _get_action('package_show')(context_copy, {'id': id})
+        if 'datacite_doi' not in dataset:
+            doi = helpers.getDataciteDoi(dataset)
+            dataset['datacite_doi'] = doi
+            package_update(context_copy, dataset)
+    return        
+
+def _bulk_update_dataset(context, data_dict, update_dict):
+    ''' Bulk update shared code for organizations'''
+
+    datasets = data_dict.get('datasets', [])
+    org_id = data_dict.get('org_id')
+
+    model = context['model']
+    model.Session.query(model.package_table) \
+        .filter(
+            # type_ignore_reason: incomplete SQLAlchemy types
+            model.Package.id.in_(datasets)  # type: ignore
+        ) .filter(model.Package.owner_org == org_id) \
+        .update(update_dict, synchronize_session=False)
+
+    model.Session.commit()
+
+    # solr update here
+    psi = search.PackageSearchIndex()
+
+    # update the solr index in batches
+    BATCH_SIZE = 50
+
+    def process_solr(q: str):
+        # update the solr index for the query
+        query = search.PackageSearchQuery()
+        q_dict = {
+            'q': q,
+            'fl': 'data_dict',
+            'wt': 'json',
+            'fq': 'site_id:"%s"' % config.get('ckan.site_id'),
+            'rows': BATCH_SIZE
+        }
+
+        for result in query.run(q_dict)['results']:
+            data_dict = json.loads(result['data_dict'])
+            if data_dict['owner_org'] == org_id:
+                data_dict.update(update_dict)
+                psi.index_package(data_dict, defer_commit=True)
+
+    count = 0
+    q = []
+    for id in datasets:
+        q.append('id:"%s"' % (id))
+        count += 1
+        if count % BATCH_SIZE == 0:
+            process_solr(' OR '.join(q))
+            q = []
+    if len(q):
+        process_solr(' OR '.join(q))
+    # finally commit the changes
+    psi.commit()
+
+    #add after bulk updated for session conflicts
+    add_public_doi(context, datasets)
+
+
+def bulk_update_private(context, data_dict):
+    ''' Make a list of datasets private
+
+    :param datasets: list of ids of the datasets to update
+    :type datasets: list of strings
+
+    :param org_id: id of the owning organization
+    :type org_id: int
+    '''
+
+    _check_access('bulk_update_private', context, data_dict)
+    _bulk_update_dataset(context, data_dict, {'private': True})
+
+def bulk_update_public(context, data_dict):
+    ''' Make a list of datasets public
+
+    :param datasets: list of ids of the datasets to update
+    :type datasets: list of strings
+
+    :param org_id: id of the owning organization
+    :type org_id: int
+    '''
+
+    _check_access('bulk_update_public', context, data_dict)
+    _bulk_update_dataset(context, data_dict, {'private': False})

@@ -4,6 +4,9 @@ import requests
 import re
 import six.moves.urllib.parse as urlparse
 import importlib
+import random
+import datetime
+import string
 
 import ckanext.hdx_package.helpers.custom_validator as vd
 import ckanext.hdx_package.helpers.analytics as analytics
@@ -557,14 +560,13 @@ def remove_previous_package_dict_from_context(context, id):
 def getDataciteDoi(package):
     """Perform HTTP request"""
 
-    package_url = config.get('ckan.site_url') + h.url_for(controller='package', action='read',
-                                id=package['name'])
+    package_url = config.get('ckan.site_url') + h.url_for('dataset.read', id=package['name'])
     random_str = ''.join(random.SystemRandom().choice(string.ascii_lowercase + string.digits) for _ in range(4)) + '-' \
         +''.join(random.SystemRandom().choice(string.ascii_lowercase + string.digits) for _ in range(4))
     doi = config.get('ckanext.hdx_package.datacite.prefix') + random_str
     #event = config.get('ckanext.hdx_package.datacite.publish')
     #format name for datacite (first name, given name)
-    creator_name = package['creator_first_name'] + ' ' + package['creator_last_name']
+    creator_name = package['creator_first_name_1'] + ' ' + package['creator_last_name_1']
     if 'publication_year' in package:
         publication_year =  package['publication_year'] 
     else:
@@ -602,9 +604,9 @@ def getDataciteDoi(package):
         'Content-Type': 'application/vnd.api+json',
     }
     
-    datacite_url = config.get('ckanext.helix.datacite.api_url')
-    client_id = config.get('ckanext.helix.datacite.client_id')
-    password = config.get('ckanext.helix.datacite.password')
+    datacite_url = config.get('ckanext.hdx_package.datacite.api_url')
+    client_id = config.get('ckanext.hdx_package.datacite.client_id')
+    password = config.get('ckanext.hdx_package.datacite.password')
     try:
         response = requests.post(datacite_url, headers=headers, data=data_string, auth=(client_id, password))
         #return auto-generated doi

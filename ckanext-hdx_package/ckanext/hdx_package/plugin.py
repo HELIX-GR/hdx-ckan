@@ -567,7 +567,9 @@ class HDXPackagePlugin(plugins.SingletonPlugin, tk.DefaultDatasetForm):
             'hdx_dataseries_unlink': hdx_patch.hdx_dataseries_unlink,
             'hdx_p_coded_resource_update': hdx_patch.hdx_p_coded_resource_update,
             'hdx_mark_resource_in_hapi': hdx_patch.hdx_mark_resource_in_hapi,
-            'organization_list_for_user': hdx_helpers.organization_list_for_user
+            'organization_list_for_user': hdx_helpers.organization_list_for_user,
+            'bulk_update_public': hdx_update.bulk_update_public,
+            'bulk_update_private': hdx_update.bulk_update_private
         }
 
     # IValidators
