@@ -3224,16 +3224,16 @@ ul.list-horizontal li:first-child:before {
   z-index: 100;
 }
 .hdx-footer .titlePlusVersion {
-  color: #888888;
+  color: #fff;
   font-family: 'Gotham-Book', sans-serif;
   font-display: block;
   font-weight: 400;
-  font-size: 12px;
+  font-size: 14px;
   line-height: 20px;
 }
 .hdx-footer .logo-gray {
   height: 90px;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
 }
 .hdx-footer .match-logo-margin {
   margin-top: 40px;

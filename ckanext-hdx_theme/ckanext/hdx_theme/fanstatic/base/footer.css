@@ -197,6 +197,7 @@
 .hdx-footer .social-footer .terms {
   margin: 30px 0;
   display: flex;
+  font-size: 20px;
 }
 @media (max-width: 768px) {
   .hdx-footer .social-footer .terms {
@@ -204,6 +205,7 @@
     align-items: center;
   }
   .hdx-footer .social-footer .terms .social-actions {
+    font-size: 20px;
     margin-top: 30px;
   }
   .hdx-footer .social-footer .terms .social-actions i {
@@ -231,6 +233,9 @@
   text-transform: uppercase;
   margin-right: 30px;
   color: #eeeeee;
+}
+.hdx-footer .social-footer .terms .fb {
+  vertical-align: middle;
 }
 .hdx-footer .social-footer .terms a:hover {
   text-decoration: underline;

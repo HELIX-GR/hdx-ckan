@@ -34,7 +34,7 @@
                 <div class="col-12 col-md-6">
                   <div class="row">
                     <div class="col-12">
-                      <img class="logo-gray lazyload" data-src="/images/homepage/hardmin_transparent.png" alt="HDX logo">
+                      <img class="logo-gray lazyload" data-src="/images/homepage/HARDMIN_new_logo_grayscale.png" alt="HDX logo">
                     </div>
                   </div>
                   <div class="row">
@@ -47,19 +47,18 @@
                       </div>
                     </div>
                   </div>
-
+                  
                   <div class="row">
                     <div class="col-12">
                       <div class="mailChimpForm">
-                        <div class="subscribeText">Subscribe to our mailing list</div>
+                        <div class="subscribeText">{{ _("Subscribe to our newsletter")}}</div>
+                        <button class="btn btn-primary" onclick="window.open('https://heal-link.us11.list-manage.com/subscribe?u=343e3dcb12943ce73bd101647&id=5052c1cd9b', '_blank')">
+                          {{ _("SUBSCRIBE")}}
+                        </button>
                         <!-- Begin MailChimp Signup Form -->
                         <div id="mc_embed_signup">
                           <form action="//humdata.us14.list-manage.com/subscribe/post?u=ea3f905d50ea939780139789d&amp;id=99796325d1" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate="" _lpchecked="1">
 
-                            <div class="six columns left" style="padding-left: 0px;">
-                              <input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" aria-label="email">
-                              <input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="btn btn-primary">
-                            </div>
                             <div id="mce-responses" class="clear">
                               <div class="response" id="mce-error-response" style="display:none"></div>
                               <div class="response" id="mce-success-response" style="display:none"></div>
@@ -83,13 +82,47 @@
                   <div class="row">
                     <div class="col-12">
                       <div class="titlePlusVersion match-logo-margin mBottom20">
-                        {{ _("OUR OTHER SERVICES") }}
+                        <a href="https://scholarly.heal-link.gr/hardmin/guide/" 
+                        target="_blank" 
+                        data-module="hdx_click_stopper" 
+                        data-module-link_type="footer" 
+                        aria-label="Data deposition policy"
+                        style="text-decoration: none; color: inherit;">
+                        {{ _("Data deposition policy") }}
+                        </a>
                       </div>
                     </div>
-                    <div class="col-12 col-md-4 other-services">
-                      <a href="https://centre.humdata.org" target="_blank" data-module="hdx_click_stopper" data-module-link_type="footer" aria-label="the centre for humanitarian data">
-                        <img class="lazyload logo-centre" data-src="/images/homepage/logo-centre-gray.png" alt="The Centre for Humanitarian Data logo">
-                      </a>
+
+                    <div class="row">
+                      <div class="col-12">
+                        <p><strong>{{ _("Help Desk Contact Information")}}</strong></p>
+
+                        <p>{{ _("Email")}}: <a href="mailto:hardmin@heal-link.gr">hardmin@heal-link.gr</a></p>
+
+                        <p>{{ _("Phone")}}: <a href="tel:+302610969617">+30 2610 969617</a></p>
+
+                        <p>{{ _("Hours: Monday – Friday")}}, 08:30–14:30</p>
+                      </div>
+                </div>
+                    <div class="col-12">
+                      <div class="titlePlusVersion match-logo-margin mBottom20">
+                        {{ _("FOLLOW US") }}
+                      </div>
+                      <section class="info-wrapper social social-footer ">
+                        <div class="terms">
+                          <span class="social-actions">
+                          <a class="fb" href="https://www.facebook.com/heallink" target="_blank">
+                            <i class="humanitarianicons-Social-fb" aria-hidden="true"></i>
+                          </a>
+                          <a href="https://www.linkedin.com/company/heal-link/" target="_blank">
+                            <i class="fa-brands fa-linkedin-in"></i>
+                          </a>
+                          <a href="https://www.youtube.com/@HEAL-Link-zt7ww" target="_blank">
+                            <i class="fa-brands fa-youtube"></i>
+                          </a>
+                      </span>
+                      </div>
+                    </section>
                     </div>
                     {#<div class="col-12 col-md-4 other-services">
                       <a href="https://hxlstandard.org/" target="_blank" data-module="hdx_click_stopper" data-module-link_type="footer" aria-label="hxl">
@@ -112,7 +145,7 @@
       </div>
     </div>
 
-    <div class="{{ firstContainerClass }}" style="background-color: #252525;">
+    {#<div class="{{ firstContainerClass }}" style="background-color: #252525;">
       <div class="{{ secondContainerClass }}">
         <div class="{{ thirdContainerClass }}">
           <div class="col-12 paddingLeftHack paddingRightHack">
@@ -185,7 +218,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> #}
 
   </div>
 </footer>

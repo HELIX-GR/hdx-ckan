@@ -4200,6 +4200,7 @@ ul.list-horizontal li:first-child:before {
 /* HDX Version display */
 .hdxLogo {
   position: relative;
+  width: 250px;
 }
 .hdxLogo .logo #hdxVersion {
   color: #888888;
@@ -4214,11 +4215,12 @@ ul.list-horizontal li:first-child:before {
   display: block;
 }
 .hdxLogo .logo .logo-img {
-  background-image: url("/images/homepage/logo-hdx-accr-blk.svg");
+  background-image: url("/images/homepage/HARDMIN_new_logo.png");
   background-repeat: no-repeat;
   background-position: left center;
-  width: 126px;
-  height: 28px;
+  background-size: 226px auto;
+  width: 245px;
+  height: 50px;
   margin-top: 3px;
 }
 /* END HDX Version display */
