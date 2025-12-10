@@ -4206,3 +4206,40 @@ label.terms-of-service.disabled {
 label.terms-of-service:after {
   content: none;
 }
+
+.language-menu {
+  position: relative;
+}
+
+.lang-current a {
+  display: block;
+}
+
+.lang-dropdown {
+  display: none;
+  position: absolute;
+  color: black;
+  top: 100%;        /* makes dropdown open downward */
+  left: 0;
+  background: black;
+  border: 1px solid #ddd;
+  margin: 0;
+  padding: 5px 0;
+  list-style: none;
+  min-width: 60px;
+  z-index: 1000;
+}
+
+.language-menu:hover .lang-dropdown {
+  display: block;
+}
+
+.lang-dropdown li a {
+  display: block;
+  padding: 6px 12px;
+  white-space: nowrap;
+}
+
+.lang-dropdown li a:hover {
+  background: #f1f1f134;
+}
