@@ -1,12 +1,13 @@
 from flask import Blueprint
 
 import logging
+import json
 import ckan.logic as logic
 import ckan.common as common
 import ckan.model as model
 import ckan.lib.helpers as h
 import ckan.plugins.toolkit as tk
-
+import ckanext.hdx_theme.views.count as count
 
 import ckanext.hdx_org_group.helpers.organization_helper as helper
 from ckanext.hdx_org_group.controller_logic.organization_read_logic import LightOrgReadLogic
@@ -96,6 +97,7 @@ def _index(template_file, show_switch_to_desktop, show_switch_to_mobile):
     # displayed_orgs = c.featured_orgs + [o for o in c.page]
     displayed_orgs = [o for o in page]
     #helper.org_add_last_updated_field(displayed_orgs)
+    organizations = json.loads(count.organization())
     template_data = {
         'q': q,
         'sorting_selected': sort_option,
@@ -103,6 +105,7 @@ def _index(template_file, show_switch_to_desktop, show_switch_to_mobile):
         'page': page,
         'page_has_desktop_version': show_switch_to_desktop,
         'page_has_mobile_version': show_switch_to_mobile,
+        'count': organizations['count']
     }
     return render(template_file, template_data)
 
