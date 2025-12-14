@@ -50,6 +50,7 @@ class HDXThemePlugin(plugins.SingletonPlugin):
     plugins.implements(plugins.IValidators, inherit=True)
     plugins.implements(plugins.IBlueprint)
     plugins.implements(plugins.IClick)
+    plugins.implements(plugins.ITranslation)
 
     def _add_resource(cls, path, name):
         '''OVERRIDE toolkit.add_resource in order to allow adding a resource library
@@ -400,3 +401,21 @@ class HDXThemePlugin(plugins.SingletonPlugin):
     # IClick
     def get_commands(self):
         return [custom_less_compile, analytics_changes_reindex]
+
+    def i18n_directory(self):
+        """Return the directory containing the extension's translations."""
+        return os.path.join(os.path.dirname(__file__), 'i18n')
+
+    def i18n_domain(self):
+        """Return the gettext domain for this extension."""
+        return 'ckanext-hdx_theme'
+
+    def i18n_locales(self):
+        """Return the list of locales supported by this extension."""
+        path = self.i18n_directory()
+        if not os.path.isdir(path):
+            return []
+        return [
+            lang for lang in os.listdir(path)
+            if os.path.isdir(os.path.join(path, lang))
+        ]

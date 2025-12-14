@@ -24,9 +24,18 @@ setup(
     ],
     entry_points=
     """
-        [ckan.plugins]
+    [ckan.plugins]
     hdx_theme=ckanext.hdx_theme.plugin:HDXThemePlugin
     [paste.paster_command]
     analytics-changes-reindex = ckanext.hdx_theme.cli.cli:AnalyticsChangesReindex
+    [babel.extractors]
+    ckan = ckan.lib.extract:extract_ckan
     """,
+    message_extractors={
+        'ckanext.hdx_theme': [
+            ('**/*.py', 'python', None),
+            ('**/*.js', 'javascript', None),
+            ('templates/**/*.html', 'ckan', None),
+        ],
+    },
 )

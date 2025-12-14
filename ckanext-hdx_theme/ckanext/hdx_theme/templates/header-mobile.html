@@ -18,7 +18,7 @@
               <div id="input-search">
                 <div class="header-search-group input-group">
                   <span class="input-group-text"><i class="humanitarianicons-Search"></i></span>
-                  <input type="text" class="searchInput form-control" id="qMobile" name="q" value="" autocomplete="off" placeholder="Search Datasets" aria-label="Search Datasets">
+                  <input type="text" class="searchInput form-control" id="qMobile" name="q" value="" autocomplete="off" placeholder="{{ _('Search Datasets') }}" aria-label="{{ _('Search Datasets') }}">
                   <input type="hidden" value="main-nav" name="ext_search_source" />
                 </div>
                 <div class="search-ahead"></div>
@@ -32,7 +32,7 @@
             {% block header_site_navigation_tabs %}
             <li><a href="{{ dataLink }}" data-module="hdx_click_stopper" data-module-link_type="main nav">{{ _('Data') }}</a></li>
             {#<li><a href="{{ locationLink }}" data-module="hdx_click_stopper" data-module-link_type="main nav">{{ _('Locations') }}</a></li>#}
-            <li><a href="{{ orgLink}}" data-module="hdx_click_stopper" data-module-link_type="main nav">{{ _('Organisations') }}</a></li>
+            <li><a href="{{ orgLink}}" data-module="hdx_click_stopper" data-module-link_type="main nav">{{ _('Organizations') }}</a></li>
             {#<li style="position: relative">
               <a href="#" data-bs-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false">
                 <span id="crises-label" >{{ _('Products') }} <i class="humanitarianicons-Down"></i></span>
@@ -119,9 +119,9 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <li><a href="{{ dataLink }}" data-module="hdx_click_stopper" data-module-link_type="main nav">Data</a></li>
+                <li><a href="{{ dataLink }}" data-module="hdx_click_stopper" data-module-link_type="main nav">{{ _('Data')}}</a></li>
                 <li><a href="{{ locationLink }}" data-module="hdx_click_stopper" data-module-link_type="main nav">Locations</a></li>
-                <li><a href="{{ orgLink }}" data-module="hdx_click_stopper" data-module-link_type="main nav">Organisations</a></li>
+                <li><a href="{{ orgLink }}" data-module="hdx_click_stopper" data-module-link_type="main nav">{{ _('Organizations')}}</a></li>
                 <li class="crisis"><a class="crisis-title"><span>Products</span></a></li>
                 {% set ongoing_links = h.hdx_get_quick_links_list(archived=False) %}
                 {% for on_link in ongoing_links %}
@@ -146,8 +146,8 @@
                 {% endif %}
 
                 <li class="sub-nav login top-pad">
-                  <a onclick="showOnboardingWidget('#loginPopup');" href="#" aria-label="login">Login</a> |
-                  <a href="{{ h.url_for('user.register') }}" aria-label="sign up">Sign up</a>
+                  <a onclick="showOnboardingWidget('#loginPopup');" href="#" aria-label="login">{{ _('Login')}}</a> |
+                  <a href="{{ h.url_for('user.register') }}" aria-label="sign up">{{ _('Sign up')}}</a>
                 </li>
             </ul>
         </div>
