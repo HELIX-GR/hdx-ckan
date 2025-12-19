@@ -39,12 +39,12 @@ Example:
         </span> #}
           <span class="mL30">
 
-              <input autocomplete="off" id="headerSearch" name="q" class="header-search" type="text" placeholder="Search all datasets ..." value="{{searchValue}}">
+              <input autocomplete="off" id="headerSearch" name="q" class="header-search" type="text" placeholder="{{_('Search all datasets ...')}}"value="{{searchValue}}">
           </span>
           <div class="d-inline-block show-filter-switch show-filter-switch--lg">
             <div class="mL20 form-check form-switch ps-0">
               <input class="form-check-input float-end" type="checkbox" id="show-filter-toggle" checked>
-              <label class="form-check-label form-check-label--big text-uppercase" for="show-filter-toggle">Show filter:</label>
+              <label class="form-check-label form-check-label--big text-uppercase" for="show-filter-toggle">{{_('Show filter')}}:</label>
             </div>
           </div>
           {% snippet 'search/snippets/package_search_order.html', sort_param = sorting_selected, admin_view=admin_view, used_default_sort_by=c.used_default_sort_by %}
@@ -81,7 +81,7 @@ Example:
       <form id="search-page-filters-form" autocomplete="off">
         {% if full_facet_info%}  
           <div class="filter-title">
-              Refine your search: <a href="{{current_page_url}}" class="filter-clear float-end">Clear all</a>
+            {{_('Refine your search:')}}<a href="{{current_page_url}}" class="filter-clear float-end">Clear all</a>
           </div>
           
             {% set facet_list = full_facet_info.get('facets') %}

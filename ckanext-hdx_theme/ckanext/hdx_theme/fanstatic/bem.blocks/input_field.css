@@ -54,7 +54,7 @@
   font-size: 14px;
   border-color: #D1D5DB;
   font-weight: 400;
-  font-family: 'Roboto', sans-serif;
+  font-family: sans-serif;
 }
 .input-field__help {
   display: block;
@@ -62,7 +62,7 @@
   color: #000;
   font-weight: 400;
   font-size: 14px;
-  font-family: 'Roboto', sans-serif;
+  font-family: sans-serif;
   letter-spacing: 0.2px;
 }
 .input-field__feedback-message {

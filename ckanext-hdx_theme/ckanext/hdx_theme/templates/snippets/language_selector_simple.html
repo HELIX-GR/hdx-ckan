@@ -1,5 +1,5 @@
-{% set current_url = request.environ.CKAN_CURRENT_URL %}
-{% set current_lang = request.environ.CKAN_LANG %}
+{% set current_url = request.environ['CKAN_CURRENT_URL'] %}
+{% set current_lang = request.environ['CKAN_LANG'] %}
 {% set locales = h.get_available_locales() %}
 
 {% macro lang_code(locale) %}
@@ -15,9 +15,9 @@
 <div class="lang-current">
   {% for locale in locales %}
     {% if locale.identifier == current_lang %}
-      <a class="action" href="#">
+      <span class="action active">
         <span class="action-text">{{ lang_code(locale) }}</span>
-      </a>
+      </span>
     {% endif %}
   {% endfor %}
 </div>
@@ -25,7 +25,8 @@
 <ul class="lang-dropdown">
   {% for locale in locales %}
     <li>
-      <a class="action" href="{{ h.url_for(current_url, locale=locale) }}">
+      <a class="action"
+         href="{{ h.url_for(current_url, locale=locale.identifier) }}">
         <span class="action-text">{{ lang_code(locale) }}</span>
       </a>
     </li>

@@ -1397,3 +1397,12 @@ notification-platform-scripts:
   output: ckanext-hdx_theme/%(version)s_notification-platform-scripts.js
   contents:
     - datasets/notification_platform.js
+
+base-css:
+  output: ckanext-hdx_theme/%(version)s.base.css
+  contents:
+    - base/fonts.css
+    - base/layout.css
+    - base/header.css
+    # … all other CSS …
+    - base/override-fonts.css     # ADD THIS LAST

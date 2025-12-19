@@ -6,7 +6,7 @@
     {% asset 'hdx_theme/organizations-styles' %}
 {% endblock %}
 
-{% block subtitle %}{{ _('Explore Humanitarian Organizations | Data Contributors ') }}{% endblock %}
+{% block subtitle %}{{ _('Organizations | Data Contributors ') }}{% endblock %}
 {% block meta %}
     {{ super() }}
     <meta name="description" content="Discover {{page.item_count}} organizations contributing reliable humanitarian data on HDX. Explore datasets from global NGOs, UN agencies, and research institutions supporting crisis response." />
@@ -21,7 +21,7 @@
 {% set is_sys_admin = c.userobj.sysadmin %}
 
 {% block breadcrumb_content %}
-<li class="breadcrumb-item active">{% link_for _('Organisations'), controller='organization', action='index' %}</li>
+<li class="breadcrumb-item active">{% link_for _('Organizations'), controller='organization', action='index' %}</li>
 {% endblock %}
 
 
@@ -29,7 +29,7 @@
 
 <div class="container">
     <div class="list-items search-form">
-        <h2>All Organisations</h2>
+        <h2>{{_('All Organizations')}}</h2>
     </div>
 
     <a name="organisations"></a>

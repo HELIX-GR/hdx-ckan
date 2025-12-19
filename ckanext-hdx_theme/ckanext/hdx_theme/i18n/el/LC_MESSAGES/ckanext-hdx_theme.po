@@ -4054,7 +4054,7 @@ msgstr "Τα σύνολα δεδομένων μου"
 #: ckan/templates/user/dashboard.html:20
 #: ckan/templates/user/dashboard_organizations.html:12
 msgid "My Organizations"
-msgstr ""
+msgstr "Οι φορείς μου"
 
 #: ckan/templates/user/dashboard.html:21
 #: ckan/templates/user/dashboard_groups.html:12
@@ -6293,3 +6293,74 @@ msgstr "Επιλέξτε τομέα"
 #~ msgid "eg. January 2011 Gold Prices"
 #~ msgstr "π.χ. Τιμές χρυσού Ιανουάριος 2013"
 
+msgid "Refine your search:"
+msgstr "Περιορίστε την αναζήτησή σας"
+
+msgid "Open Science quickstart"
+msgstr "Οδηγός Open Science"
+
+msgid "Tags"
+msgstr "Ετικέτες"
+
+msgid "Categories"
+msgstr "Κατηγορίες"
+
+msgid "Topics"
+msgstr "Θέματα"
+
+msgid "Show filter"
+msgstr "Φίλτρα" 
+
+msgid "Thematic Groups"
+msgstr "Θεματικές Ομάδες"
+
+msgid "Data deposition policy"
+msgstr "Πολιτική Απόθεσης"
+
+msgid "Phone"
+msgstr "Τηλέφωνο"
+
+msgid "Help Desk Contact Information"
+msgstr "Στοιχεία Επικοινωνίας του γραφείου αρωγής"
+
+msgid "Hours: Monday – Friday"
+msgstr "Ωρες επικοινωνιας: Δευτέρα - Παρασκευή"
+
+msgid  "FOLLOW US"
+msgstr "Ακολουθήστε μας"
+
+msgid "Subscribe to our newsletter"
+msgstr "Εγγραφείτε στο newsletter μας"
+
+msgid "SUBSCRIBE"
+msgstr "ΕΓΓΡΑΦΗ"
+
+msgid "Show"
+msgstr "Εμφάνισε"
+
+msgid "Learn more"
+msgstr "Μάθετε περισσότερα"
+
+msgid "More"
+msgstr "Περισσότερα"
+
+msgid "Find, share and use data all in one place"
+msgstr "Βρείτε, μοιραστείτε και αξιοποιήστε δεδομένα σε ένα ενιαίο περιβάλλον"
+
+msgid "Hellenic Academic Research Data Management Initiative"
+msgstr "Εθνικό αποθετήριο ερευνητικών δεδομένων HARDMIN"
+
+msgid "Search all datasets ..."
+msgstr "Αναζήτηση ..."
+
+msgid "All Organizations"
+msgstr "Σύνολο φορέων"
+
+msgid "User Dashboard"
+msgstr "Πίνακας Ελέγχου"
+
+msgid "User Settings"
+msgstr "Ρυθμίσεις χρήστη"
+
+msgid "Newsfeed"
+msgstr "Ροή Ενημερώσεων"

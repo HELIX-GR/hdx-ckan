@@ -132,7 +132,7 @@
   color: #00447a;
 }
 .control-order-by .orderDropdown .dropdown-toggle-text {
-  font-family: 'Gotham-Bold', sans-serif;
+  font-family: 'Source Sans Pro', sans-serif;
   font-weight: 400;
   font-size: 12px;
   color: #007CE0;
@@ -1327,14 +1327,15 @@ ul.dataset-resources li + li.label-icons {
   margin-left: 15px;
   margin-top: 0;
   margin-bottom: 0;
-  font-family: 'Gotham-Bold', sans-serif;
-  font-weight: 400;
+  font-family: 'Roboto', 'Gotham-Bold', sans-serif;
+  font-weight: 700;
   font-size: 14px;
   color: #333333;
   letter-spacing: 0.03em;
   line-height: 31px;
   text-transform: uppercase;
 }
+
 .mainLinks > li > a:hover,
 .mainLinks > li > a:focus {
   color: #000000;
@@ -3225,7 +3226,7 @@ ul.list-horizontal li:first-child:before {
 }
 .hdx-footer .titlePlusVersion {
   color: #fff;
-  font-family: 'Gotham-Book', sans-serif;
+  font-family: 'Source Sans Pro', sans-serif;
   font-display: block;
   font-weight: 400;
   font-size: 14px;
@@ -4186,7 +4187,7 @@ ul.list-horizontal li:first-child:before {
   display: block;
 }
 .hdxLogo .logo .logo-img {
-  background-image: url("/images/homepage/HARDMIN_new_logo.png");
+  background-image: url("/images/homepage/HARDMIN new logo_RDM_antialiased transparent.png");
   background-repeat: no-repeat;
   background-position: left center;
   background-size: 330px auto;

@@ -63,8 +63,10 @@ def get_default_facet_titles():
         'dataseries_name': _('Data series'),
         'organization': _('Organizations'),
         'groups': _('Groups'),
-        # 'tags': _('Tags'),
+        'tags': _('Tags'),
         'vocab_Topics': _('Tags'),
+        'closed_tags': _('Categories'),
+        'dataset_category': _('Topics'),
         'res_format': _('Formats'),
         'license_id': _('Licenses'),
     }

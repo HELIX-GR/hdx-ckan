@@ -87,21 +87,29 @@ def _index(template_file, show_switch_to_desktop, show_switch_to_mobile):
         else:
             url = h.url_for('organizations_index', q=q, page=page, limit=limit) + '#organizationsSection'
         return url
-
+        
+    top_nodes = get_action('group_tree')(
+        context,
+        {'type': 'organization'}
+    )
     page = h.Page(
-        collection=all_orgs,
+        collection=top_nodes,
         page=page,
         url=pager_url,
         items_per_page=limit
     )
+
+    displayed_top_nodes = list(page)
+
     # displayed_orgs = c.featured_orgs + [o for o in c.page]
-    displayed_orgs = [o for o in page]
+    #displayed_orgs = [o for o in page]
     #helper.org_add_last_updated_field(displayed_orgs)
     organizations = json.loads(count.organization())
     template_data = {
         'q': q,
         'sorting_selected': sort_option,
         'limit_selected': limit,
+        'displayed_top_nodes': displayed_top_nodes,
         'page': page,
         'page_has_desktop_version': show_switch_to_desktop,
         'page_has_mobile_version': show_switch_to_mobile,

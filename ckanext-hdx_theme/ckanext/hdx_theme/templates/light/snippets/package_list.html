@@ -6,14 +6,14 @@
     </div>
     <div>
       <div class="">
-        <input class="text-search" autocomplete="off" id="headerSearch" name="q" class="header-search" type="text" placeholder="Search all datasets ..." value="{{searchValue}}">
+        <input class="text-search" autocomplete="off" id="headerSearch" name="q" class="header-search" type="text" placeholder="{{_('Search all datasets ...')}}" value="{{searchValue}}">
       </div>
 
       {% snippet 'search/snippets/package_search_order.html', sort_param = data.sort_by_selected, class='mobile-order-by' %}
 
       {%  set current_page_url = data.other_links.get('current_page_url') if 'current_page_url' in data.other_links else '' %}
       <div class="filter-title">
-        Refine your search: <a href="{{current_page_url}}" class="filter-clear float-end">Clear all</a>
+        {{_('Refine your search:')}} <a href="{{current_page_url}}" class="filter-clear float-end">{{_('Clear All')}}</a>
       </div>
 
       {% snippet 'search/snippets/package_search_facets.html', facet_list=facet_list  %}
