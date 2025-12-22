@@ -68,17 +68,32 @@
         <div class="dataset-details">{{ pkg_dict.dataset_source }}</div>
       </div>
       #}
-      <div class="mb-3" {% if edit_mode %} data-module="hdx-quick-edit" data-module-anchor="field_creator_first_name"
-      data-module-dataset="{{ pkg_dict.id }}"{% endif %}>
-    <div class="dataset-label">{{ _('Creator (first name)') }}</div>
-    <div class="dataset-details">{{ pkg_dict.creator_first_name }}</div>
-      </div>
+      {% set creators = [] %}
 
-      <div class="mb-3" {% if edit_mode %} data-module="hdx-quick-edit" data-module-anchor="field_creator_last_name"
-      data-module-dataset="{{ pkg_dict.id }}"{% endif %}>
-    <div class="dataset-label">{{ _('Creator (last name)') }}</div>
-    <div class="dataset-details">{{ pkg_dict.creator_last_name }}</div>
-      </div>
+      {% for i in range(1, 10) %}
+        {% set first = pkg_dict.get('creator_first_name_' ~ i) %}
+        {% set last = pkg_dict.get('creator_last_name_' ~ i) %}
+      
+        {% if first or last %}
+          {% do creators.append((first ~ ' ' ~ last) | trim) %}
+        {% endif %}
+      {% endfor %}
+      
+      {% if creators %}
+        <div class="mb-3"
+             {% if edit_mode %}
+               data-module="hdx-quick-edit"
+               data-module-anchor="field_creators"
+               data-module-dataset="{{ pkg_dict.id }}"
+             {% endif %}>
+          <div class="dataset-label">
+            {{ _('Creators') }}
+          </div>
+          <div class="dataset-details">
+            {{ creators | join(', ') }}
+          </div>
+        </div>
+      {% endif %}
 
       <div class="mb-3" {% if edit_mode %} data-module="hdx-quick-edit" data-module-anchor="field_contact_email"
       data-module-dataset="{{ pkg_dict.id }}"{% endif %}>
