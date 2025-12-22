@@ -1,4 +1,5 @@
 recursive-include ckanext/hdx_theme/templates *
 recursive-include ckanext/hdx_theme/public *
 recursive-include ckanext/hdx_theme/fanstatic *
+recursive-include ckanext/hdx_theme/i18n * 
 include ckanext/hdx_theme/config_declaration.yaml
