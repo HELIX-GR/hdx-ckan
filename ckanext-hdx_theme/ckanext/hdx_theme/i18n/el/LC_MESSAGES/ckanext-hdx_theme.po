@@ -3280,6 +3280,9 @@ msgstr "Πηγή : <a href=\"%(url)s\">%(dataset)s</a>"
 msgid "Additional Information"
 msgstr "Πρόσθετες Πληροφορίες"
 
+msgid "Additional information"
+msgstr "Πρόσθετες Πληροφορίες"
+
 #: ckan/templates/package/resource_read.html:91
 #: ckan/templates/package/snippets/additional_info.html:6
 #: ckan/templates/revision/diff.html:43
@@ -6496,3 +6499,12 @@ msgstr "Εξερεύνηση"
 
 msgid "Read more about licenses"
 msgstr "Διαβάστε περισσότερα για τις Αδειες"
+
+msgid "Less"
+msgstr "Λιγότερα"
+
+msgid "Downloads"
+msgstr "Λήψεις"
+
+msgid "Export metadata for this dataset"
+msgstr "Εξαγωγή μεταδεδομένων του συνόλου δεδομένων"

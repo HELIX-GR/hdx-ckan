@@ -624,9 +624,23 @@
                                                     error=errors['creator_last_name_' ~ i],
                                                     classes=['mb-3', 'required']
                                                 ) }}
-                                                
                                               </div>
 
+                                              <div data-module="hdx_form_element_manager creator_fields"
+                                                  data-module-element_name="creator_orcid_id_{{ i }}"
+                                                  data-index="{{ i }}"
+                                                  class="creator-field"
+                                                  {% if not show_field %}style="display:none"{% endif %}>
+                                                  {{ form.input(
+                                                    'creator_orcid_id_' ~ i,
+                                                    id='field_creator_orcid_id_' ~ i,
+                                                    label=_('ORCID ID #%(num)s', num=i),
+                                                    placeholder=_('ORCID ID'),
+                                                    value=data['creator_orcid_id_' ~ i],
+                                                    error=errors['creator_orcid_id_' ~ i],
+                                                    classes=['mb-3', 'required']
+                                                ) }}
+                                              </div>
                                               {# Add a separator line between creators, but not after the last one #}
                                               {% if i < 5 %}
                                                 <hr class="creator-separator mb-3" data-index="{{ i }}">
