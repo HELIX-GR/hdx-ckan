@@ -134,6 +134,7 @@ class HDXPackagePlugin(plugins.SingletonPlugin, tk.DefaultDatasetForm):
             # Combine and assign to each field
             fields[f'creator_first_name_{i}'] = converters + validators
             fields[f'creator_last_name_{i}'] = converters + validators
+            fields[f'creator_orcid_id_{i}'] = converters + validators
 
         return fields
 
@@ -253,6 +254,7 @@ class HDXPackagePlugin(plugins.SingletonPlugin, tk.DefaultDatasetForm):
         for i in range(1, 6):
             schema[f'creator_first_name_{i}'] = [tk.get_validator('ignore_missing'),tk.get_converter('convert_to_extras')]
             schema[f'creator_last_name_{i}'] = [ tk.get_validator('ignore_missing'),tk.get_converter('convert_to_extras')]
+            schema[f'creator_orcid_id_{i}'] = [ tk.get_validator('ignore_missing'),tk.get_converter('convert_to_extras')]
 
         schema['tags'].update(
             {
@@ -496,6 +498,7 @@ class HDXPackagePlugin(plugins.SingletonPlugin, tk.DefaultDatasetForm):
         for i in range(1, 6):
             schema[f'creator_first_name_{i}'] = [tk.get_converter('convert_from_extras'),tk.get_validator('ignore_missing')]
             schema[f'creator_last_name_{i}'] = [ tk.get_converter('convert_from_extras'),tk.get_validator('ignore_missing')]
+            schema[f'creator_orcid_id_{i}'] = [ tk.get_converter('convert_from_extras'),tk.get_validator('ignore_missing')]
 
         return schema
 
@@ -756,6 +759,7 @@ class HDXPackagePlugin(plugins.SingletonPlugin, tk.DefaultDatasetForm):
         for i in range(1, 6):
             schema[f'creator_first_name_{i}'] = [tk.get_validator('ignore_missing')] + schema.get(f'creator_first_name_{i}', [])
             schema[f'creator_last_name_{i}'] = [tk.get_validator('ignore_missing')] + schema.get(f'creator_last_name_{i}', [])
+            schema[f'creator_orcid_id_{i}'] = [tk.get_validator('ignore_missing')] + schema.get(f'creator_last_name_{i}', [])
 
 
 

@@ -6508,3 +6508,6 @@ msgstr "Λήψεις"
 
 msgid "Export metadata for this dataset"
 msgstr "Εξαγωγή μεταδεδομένων του συνόλου δεδομένων"
+
+msgid "You can use <a href=\"https://daringfireball.net/projects/markdown/syntax\" target=\"_blank\">Markdown formatting</a> here"
+msgstr "Μπορείτε να χρησιμοποιήσετε <a href=\"https://daringfireball.net/projects/markdown/syntax\" target=\"_blank\">μορφοποίηση Markdown</a> εδώ"
