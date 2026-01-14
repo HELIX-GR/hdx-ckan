@@ -2762,7 +2762,7 @@ textarea {
 .hdx-form .hdx-form-breadcrumb {
   padding: 20px 0;
   background-color: #007CE0;
-  font-family: 'Gotham-Light', sans-serif;
+  font-family: sans-serif;
   font-display: auto;
   font-weight: 400;
   font-size: 20px;
@@ -2826,7 +2826,7 @@ textarea {
   font-size: 16px;
 }
 .hdx-form .mb-3 .control-label {
-  font-family: 'Gotham-Light', sans-serif;
+  font-family:  sans-serif;
   font-display: auto;
   font-weight: 400;
   font-size: 13px;

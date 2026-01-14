@@ -63,7 +63,7 @@
                 {% endif %}
              #}
             {% if not in_review and h.check_access('hdx_resource_download', res) %}
-              {% set btn_dict = {'title':'This will take you outside HDX to access the data', 'value':'Access Data', 'type':'external'} if h.hdx_get_ckan_config('ckan.resource_formats.external_system')==res.format else {'title':'Download', 'value':'Download', 'type':'download'} %}
+              {% set btn_dict = {'title':'This will take you outside HDX to access the data', 'value':'Access Data', 'type':'external'} if h.hdx_get_ckan_config('ckan.resource_formats.external_system')==res.format else {'title':_('Download'), 'value':_('Download'), 'type':'download'} %}
               <a href="{{ res.url }}"
                  class="btn btn-empty btn-empty-blue hdx-btn resource-url-analytics ga-download resource-download-button"
                  title="{{ btn_dict.title }}"

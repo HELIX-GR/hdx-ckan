@@ -547,7 +547,7 @@
 
             selectOrganisation.on("change", function(e){
                 var value = e.val;
-                // console.log(selectMaintainer);
+                //console.log(e.val);
                 var attrValue = "org=" + value;
                 selectMaintainer.attr('data-module-extra-params', attrValue);
                 ckan.module.initializeElement(selectMaintainer[0]);

@@ -27,14 +27,14 @@
                     <strong class="uppercase">{{ h.hdx_follow_link(base_type, follow_id, "", "link-separator", follow_confirm_text) }}</strong>
                 </li>
             {% endif %}
-            {% if not hide_contact_contributor %}
+            {#{% if not hide_contact_contributor %}
                 <li>
                     <a href="{{ h.url_for('hdx_dataset.contact_contributor', id=pkg.name or pkg.id) }}" title="{{ _('Contact the contributor lets users send inquiries directly to data contributors. This feature is available on all ' + base_type + ' pages.') }}" data-module="bs_tooltip" data-module-placement="top" data-bs-toggle="tooltip" data-delay='{"show":"700"}' id="contact-the-contributor">
                         <i class="icon-envelope"></i>
                         <span>Contact the contributor</span>
                     </a>
                 </li>
-            {% endif %}
+            {% endif %}#}
         {% else %}
             {% if not hide_contact_contributor%}
                 {% set onboarding_additional_params = h.dump_json({'dataset_id': pkg.id}) %}
@@ -65,12 +65,12 @@
         {% block user_actions %}
         {% endblock %}
 
-        <li>
+        {#<li>
             <span>
                 {% snippet 'package/snippets/share_button.html', title=title, panel_title=panel_title,
                     plain_body=plain_body, direct=true, disable_pull_left=true, icon_font_size=icon_font_size %}
             </span>
-        </li>
+        </li>#}
     </ul>
 
 </span>

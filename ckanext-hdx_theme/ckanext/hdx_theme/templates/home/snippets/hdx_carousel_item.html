@@ -9,15 +9,19 @@
         {% else %}
           <a href="{{ 'dataset/?dataset_category=' + item.title|lower|replace(' ', '+') }}" class="btn" {% if item.newTab %} target="_blank" {% endif %}
              data-module="hdx_click_stopper" data-module-link_type="carousel">{% if item.buttonText %}
-            {{ item.buttonText }} {% else %} Explore {% endif %}</a>
+            {{ item.buttonText }} {% else %} {{_('Explore')}} {% endif %}</a>
         {% endif %}
       </div>
     </div>
-    <div class="title">{{ item.title }}</div>
+    {% if h.lang() == 'el' and item.title_greek %}
+      <div class="title">{{ item.title_greek }}</div>
+    {% else %}
+      <div class="title">{{ item.title }}</div>
+    {% endif %}
   </div>
   <a href="{{ item.url }}">
     <div class="sub-item-caption">
-      <p class="description">{{ item.description }}</p>
+      {#<p class="description">{{ item.description }}</p>#}
     </div>
   </a>
 </div>

@@ -321,7 +321,7 @@ $(function(){
         },
 
         updateTotal: function() {
-            var total_text = this.collection.length == 1 ? "1 Resource" : this.collection.length + " Resources";
+            var total_text = this.collection.length;
             this.$('.resources_total').text(total_text);
         },
 

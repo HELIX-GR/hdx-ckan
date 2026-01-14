@@ -26,15 +26,15 @@
             {% link_for _('Edit'), controller='organization', action='edit', id=organization.name, class_='' %}
         </li>
     {% endif %}
-    {% if request_membership and request_membership_flag == 'true' %}
+    {# {% if request_membership and request_membership_flag == 'true' %}
         <li>
             <a href="{{h.url_for('hdx_org_join.find_organisation', selected=org_id)}}" class="">
                 {{ _("Request Membership") }}
             </a>
-{#            {% snippet 'organization/snippets/req_membership_new.html',#}
-{#                modal_div_id='req-membership-div', modal_div_class='',#}
-{#                modal_submit_id='req-membership-popup-submit', form_action=h.url_for('ytp_request.new'),#}
-{#                org_id=organization.id %}#}
+            {% snippet 'organization/snippets/req_membership_new.html',
+                modal_div_id='req-membership-div', modal_div_class='',
+                modal_submit_id='req-membership-popup-submit', form_action=h.url_for('ytp_request.new'),
+                org_id=organization.id %}
         </li>
-    {% endif %}
+    {% endif %}#}
 {% endblock %}}

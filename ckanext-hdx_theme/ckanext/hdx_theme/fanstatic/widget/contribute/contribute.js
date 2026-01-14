@@ -36,20 +36,30 @@ function _generateContributeFrame(url) {
   let popup = $("#addDataPopup");
   popup.find(".details-content").html("<iframe id='addDataPopupFrame' src='" + url + "'></iframe>");
 }
-function _getContributeURL(datasetId, anchor) {
-  let url;
-  let popup = $("#addDataPopup");
-  if (datasetId && datasetId !== "null") {
-    url = '/contribute/edit/'+datasetId;
-    popup.addClass('edit-mode');
+
+function _getLocalePrefix() {
+  const parts = window.location.pathname.split('/').filter(Boolean);
+  const maybeLocale = parts[0];
+  if (maybeLocale && maybeLocale.length === 2) {
+    return '/' + maybeLocale;
   }
-  else {
-    url = '/contribute/new';
+  return '';
+}
+
+function _getContributeURL(datasetId, anchor) {
+  let popup = $("#addDataPopup");
+  let prefix = _getLocalePrefix();
+  let url;
+
+  if (datasetId && datasetId !== "null") {
+    url = prefix + '/contribute/edit/' + datasetId;
+    popup.addClass('edit-mode');
+  } else {
+    url = prefix + '/contribute/new';
     popup.removeClass('edit-mode');
   }
-  if (anchor) {
-    url += anchor;
-  }
+
+  if (anchor) url += anchor;
   return url;
 }
 
