@@ -3873,6 +3873,9 @@ msgstr "URL Παρακαολούθησης"
 msgid "Clear All"
 msgstr "Καθαρισμός Όλων"
 
+msgid "Clear all"
+msgstr "Καθαρισμός όλων"
+
 #: ckan/templates/snippets/facet_list.html:73
 msgid "Show More {facet_type}"
 msgstr ""
@@ -6511,3 +6514,15 @@ msgstr "Εξαγωγή μεταδεδομένων του συνόλου δεδο
 
 msgid "You can use <a href=\"https://daringfireball.net/projects/markdown/syntax\" target=\"_blank\">Markdown formatting</a> here"
 msgstr "Μπορείτε να χρησιμοποιήσετε <a href=\"https://daringfireball.net/projects/markdown/syntax\" target=\"_blank\">μορφοποίηση Markdown</a> εδώ"
+
+msgid "Edit dataset"
+msgstr "Επεξέργασία"
+
+msgid "Delete dataset"
+msgstr "Διαγραφή"
+
+msgid "Actions"
+msgstr "Ενέργειες"
+
+msgid "{actor} updated the {dataset_type} {dataset}"
+msgstr "{actor} ενημέρωσε το {dataset_type} {dataset}"

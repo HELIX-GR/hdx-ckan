@@ -36,12 +36,12 @@
                         -
                         <span class="sspBold14" data-module="bs_tooltip" data-module-placement="top"
                               data-bs-toggle="tooltip" data-bs-original-title="{{ _('Total archived public datasets') }}">
-                        {% if organization.archived_package_count %}
+                        {#{% if organization.archived_package_count %}
                           {% set num_of_pack = organization.archived_package_count %}
                             <a class="sspBold14" href="{{ h.url_for('hdx_org.read', id=organization.name, sort='metadata_modified desc', ext_archived=1)}}">{{ num_of_pack }} {% if num_of_pack != 1 %}{{ _('Archived Datasets') }}{% else %}{{ _('Archived Dataset') }}{% endif %}</a>
                         {% else %}
                           {{ _('0 Archived Datasets') }}
-                        {% endif %}
+                        {% endif %} #}
                         </span>
                         -
                         {% if g.user %}
@@ -55,11 +55,11 @@
                     {% endblock %}
                 </div>
 
-                <div class="dataset-updated">
+                {#<div class="dataset-updated">
                     {% block updated %}
-                        Member since {{f_updated_time}}
+                        {{_('Member since ')}}{{f_updated_time}}
                     {% endblock %}
-                </div>
+                </div>#}
             </span>
         </div>
         <div class="col-12 col-md-6">

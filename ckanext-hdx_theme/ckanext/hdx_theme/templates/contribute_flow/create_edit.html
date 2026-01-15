@@ -567,8 +567,9 @@
                                             {% set organisations = [] %}
 
                                             {% for org in top_orgs %}
-                                              {% do organisations.append({'value': org.name, 'text': org.title}) %}
-                                            {% endfor %}
+  {% set label = org.title_greek if h.lang() == 'el' and org.title_greek else org.title %}
+  {% do organisations.append({'value': org.name, 'text': label}) %}
+{% endfor %}
 
                                             {#{% set organisations = h.hdx_organisation_list() %}#}
                                             <div data-module="hdx_form_element_manager" data-module-element_name="owner_org" data-module-required="private,public,requestdata"  data-module-broadcast_change="true">

@@ -81,7 +81,7 @@ Example:
       <form id="search-page-filters-form" autocomplete="off">
         {% if full_facet_info%}  
           <div class="filter-title">
-            {{_('Refine your search:')}}<a href="{{current_page_url}}" class="filter-clear float-end">Clear all</a>
+            {{_('Refine your search:')}}<a href="{{current_page_url}}" class="filter-clear float-end">{{_('Clear all')}}</a>
           </div>
           
             {% set facet_list = full_facet_info.get('facets') %}
@@ -113,7 +113,7 @@ Example:
                               <div class="col-6">
                                 <div class="row">
                                   
-                                  <div class="col-6">Actions:</div>
+                                  <div class="col-6">{{_('Actions')}}:</div>
                                 </div>
                               </div>
                             </div>
