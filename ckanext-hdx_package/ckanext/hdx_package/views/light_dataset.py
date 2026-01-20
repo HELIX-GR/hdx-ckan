@@ -88,8 +88,8 @@ def read(id):
             'dataset_dict': dataset_dict,
             'analytics': analytics_dict,
             'user_survey_url': user_survey_url,
-            'unsubscribe_token': unsubscribe_token,
-            'unsubscribe_token_validated': unsubscribe_token_validated,
+            #'unsubscribe_token': unsubscribe_token,
+            #'unsubscribe_token_validated': unsubscribe_token_validated,
         #   'supports_notifications': supports_notifications,
         }
 
