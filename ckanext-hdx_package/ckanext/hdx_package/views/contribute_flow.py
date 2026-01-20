@@ -155,6 +155,10 @@ def _save_or_update(context, package_type=None):
     data_dict = {}
     try:
         data_dict = _prepare_data_for_saving(context, package_type)
+        resources = data_dict.get('resources') or []
+        for r in resources:
+            if 'allowed_users' in r:
+                r['allowed_users'] = _normalize_allowed_users(r.get('allowed_users'))
 
         pkg_dict = {}
         if data_dict.get('id'):
@@ -173,16 +177,32 @@ def _save_or_update(context, package_type=None):
             incoming_resources = {r['name']: r for r in data_dict.get('resources', []) if r.get('name')}
             # Fetch updated resources from CKAN to get correct IDs
             pkg_updated = _get_action('package_show')(context, {'id': data_dict['id']})
+            # Fetch updated resources from CKAN to get correct IDs
+            pkg_updated = _get_action('package_show')(context, {'id': data_dict['id']})
+
             for res in pkg_dict.get('resources', []):
-                # Look up incoming restricted value from the form
-                incoming_res = next((r for r in data_dict.get('resources', []) if r.get('name') == res['name']), None)
-                if incoming_res and 'restricted' in incoming_res:
-                    restricted_val = incoming_res['restricted']
-                    log.debug("Patching resource %s with restricted=%s", res['id'], restricted_val)
-                    _get_action('resource_patch')(context, {
-                        'id': res['id'],
-                        'restricted': restricted_val
-                    })
+                incoming_res = next(
+                    (r for r in data_dict.get('resources', []) if r.get('name') == res['name']),
+                    None
+                )
+                if not incoming_res:
+                    continue
+
+                patch_dict = {'id': res['id']}
+
+                # restricted
+                if 'restricted' in incoming_res:
+                    patch_dict['restricted'] = incoming_res['restricted']
+
+                # allowed_users
+                if 'allowed_users' in incoming_res:
+                    patch_dict['allowed_users'] = _normalize_allowed_users(incoming_res.get('allowed_users'))
+
+                # only patch if we have something to patch
+                if len(patch_dict) > 1:
+                    log.debug("Patching resource %s with %s", res['id'], patch_dict)
+                    _get_action('resource_patch')(context, patch_dict)
+
 
             if is_req_type:
                 for res in pkg_old.get('resources'):
@@ -259,6 +279,16 @@ def _prepare_data_for_saving(context, package_type):
     write_logic = ContributeFlowWriteLogic(data_dict)
     write_logic.process_all(g.user)
     return data_dict
+
+def _normalize_allowed_users(value):
+    # value can be list, string, None
+    if value is None:
+        return ''
+    if isinstance(value, list):
+        return ','.join([u.strip() for u in value if u and u.strip()])
+    if isinstance(value, str):
+        return ','.join([u.strip() for u in value.split(',') if u.strip()])
+    return ''
 
 
 

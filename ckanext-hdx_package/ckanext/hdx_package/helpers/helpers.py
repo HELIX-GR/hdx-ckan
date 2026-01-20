@@ -634,3 +634,9 @@ def organization_list_for_user(context, data_dict):
         data_dict = {**data_dict, 'permission': 'read'}
 
     return default_org_list(context, data_dict)
+
+def get_user_list():
+    
+    context = {'model': model, 'session': model.Session, 'ignore_auth': True}
+    users = get_action('user_list')(context, {})    
+    return users

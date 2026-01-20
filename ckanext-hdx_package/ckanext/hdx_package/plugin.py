@@ -348,6 +348,9 @@ class HDXPackagePlugin(plugins.SingletonPlugin, tk.DefaultDatasetForm):
                     tk.get_validator('ignore_missing'),
                     tk.get_converter('boolean_validator'),
                 ],
+                'allowed_users': [
+                    tk.get_validator('ignore_missing')
+                ],
             }
         )
 
@@ -413,6 +416,9 @@ class HDXPackagePlugin(plugins.SingletonPlugin, tk.DefaultDatasetForm):
                 'restricted': [
                     tk.get_validator('ignore_missing'),
                     tk.get_validator('boolean_validator')
+                ],
+                'allowed_users': [
+                    tk.get_validator('ignore_missing')
                 ],
             }
         )
@@ -516,6 +522,7 @@ class HDXPackagePlugin(plugins.SingletonPlugin, tk.DefaultDatasetForm):
             'hdx_compute_analytics': hdx_helpers.hdx_compute_analytics,
             'closed_tags': self.closed_tags,
             'dataset_categories': self.dataset_categories,
+            'get_user_list': hdx_helpers.get_user_list
         }
 
     def get_actions(self):

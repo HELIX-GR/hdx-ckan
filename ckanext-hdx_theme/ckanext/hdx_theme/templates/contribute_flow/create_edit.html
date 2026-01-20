@@ -277,12 +277,12 @@
                                                               <ul class="list-horizontal">
                                                                   <li>
                                                                       <label class="control-label">
-                                                                          <input type="radio" class="resource-source" name="resource<%= position %>-upload_type" value="file" checked="checked"> Upload file
+                                                                          <input type="radio" class="resource-source" name="resource<%= position %>-upload_type" value="file" checked="checked"> {{_('Upload file')}}
                                                                       </label>
                                                                   </li>
                                                                   <li>
                                                                       <label class="control-label">
-                                                                          <input type="radio" class="resource-source" name="resource<%= position %>-upload_type" value="url"> Import from URL
+                                                                          <input type="radio" class="resource-source" name="resource<%= position %>-upload_type" value="url"> {{_('Import from URL')}}
                                                                       </label>
                                                                   </li>
                                                                   <li class="or-separator dropbox">
@@ -363,16 +363,56 @@
                                                                   </div>
                                                                 </div>
                                                               </div>
+
+                                                              <div data-module="hdx_form_element_manager" data-module-element_name="closed_tags">
+                                                              <div class="mb-3 tags-select">
+                                                              <div class="allowed-users-wrapper" <% if (!restricted) { %>style="display:none;"<% } %>>
+                                                                <div class="row">
+                                                                  <div class="col-12">
+                                                                    <div class="mb-3 tags-select">
+                                                                      <label for="resource<%= position %>-allowed_users" class="control-label">
+                                                                        {{ _('Allowed users') }}
+                                                                      </label>
+                                                              
+                                                                      <div class="controls">
+                                                                        <select
+                                                                          id="resource<%= position %>-allowed_users"
+                                                                          name="allowed_users"
+                                                                          class="form-control"
+                                                                          data-module="input-select2-subject"
+                                                                          data-module-placeholder="{{ _('A list of allowed users') }}"
+                                                                          data-module-minimumresultsforsearch="0"
+                                                                          data-module-minimuminputlength="0"
+                                                                          multiple
+                                                                        >
+                                                                          {% for user in h.get_user_list() %}
+                                                                            <option value="{{ user.name }}"
+                                                                              <% if (allowed_users && allowed_users.indexOf('{{ user.name }}') !== -1) { %>
+                                                                                selected="selected"
+                                                                              <% } %>
+                                                                            >
+                                                                              {{ user.name }}
+                                                                            </option>
+                                                                          {% endfor %}
+                                                                        </select>
+                                                                      </div>
+                                                                    </div>
+                                                                  </div>
+                                                                </div>
+                                                              </div>
+                                                            </div>
+                                                          </div>
+                                                              
                                                           </div>
                                                           <div class="col-3 source-file-upload">
                                                               <div class="drag-drop-area">
                                                                   <div class="drop-here-mask" style="display: none;"></div>
                                                                   <div class="drag-drop-content">
-                                                                      <span class="drag-text1">Drop file <span class="overwrite-text">to overwrite</span> or</span>
-                                                                      <span class="drag-text2">Incoming file</span>
+                                                                      <span class="drag-text1">{{_('Drop file')}} <span class="overwrite-text">to overwrite</span> or</span>
+                                                                      <span class="drag-text2">{{_('Incoming file')}}</span>
                                                                       <label class="browse-button">
                                                                           <span>
-                                                                              Browse
+                                                                              {{_('Browse')}}
                                                                           </span>
                                                                           <input type="file" name="upload" style="" value="" class="resource_file_field form-control" />
                                                                       </label>

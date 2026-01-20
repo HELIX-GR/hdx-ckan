@@ -19,6 +19,31 @@ $(function(){
 
     // MODELS
 
+    function initAllowedUsersSelect($root) {
+        var $sel = $root.find('select[name=allowed_users]');
+        if (!$sel.length) return;
+      
+        if (!$.fn.select2) {
+          console.warn('select2 is not loaded');
+          return;
+        }
+      
+        // If already initialized, destroy first (covers the hidden-init/broken-init case)
+        try {
+          if ($sel.data('select2') || $sel.hasClass('select2-hidden-accessible') || $sel.hasClass('select2-offscreen')) {
+            $sel.select2('destroy');
+          }
+        } catch (e) {}
+      
+        $sel.select2({
+          width: 'element',
+          placeholder: $sel.attr('data-module-placeholder') || null,
+          minimumResultsForSearch: 0,
+          minimumInputLength: 0
+        });
+      }
+      
+
     var Resource = Backbone.Model.extend({
 
         // A model for CKAN resources. Most of the stuff here is to align
@@ -71,16 +96,24 @@ $(function(){
             var newUpload = this.get('upload') ? 'true' : 'false';
             var dpe = this.get('dataset_preview_enabled') ? 'true' : 'false';
             var microdata = this.get('microdata') ? 'true' : 'false';
+            var restricted = this.get('restricted') ? 'true' : 'false';
+
+            var allowed = this.get('allowed_users') || [];
+            if (typeof allowed === 'string') {
+              allowed = allowed.split(',').map(function(s){ return s.trim(); }).filter(Boolean);
+            }
+            allowed = allowed.slice().sort().join('|'); // stable string for hashing
+            
             var properties = [
                 this.get('name'), this.get('format'), this.get('url'),
                 this.get('description'), this.get('url_type'), this.get('resource_type'),
                 dpe,
                 newUpload,
-                microdata
+                microdata,
+                restricted, allowed
             ];
 
             var hashCode = hdxUtil.compute.strListHash(properties);
-
             console.log('Hash code for ' + this.get('name') + ' is ' + hashCode);
             return hashCode;
 
@@ -317,8 +350,16 @@ $(function(){
         addOne: function(resource) {
             var view = new ResourceItemView({model: resource});
             this.listenTo(view, 'upload progress', this.showUserWaitingMessage);
-            this.resource_list.append(view.render().el);
-        },
+          
+            var el = view.render().el;
+            this.resource_list.append(el);
+          
+            // init modules AFTER insertion
+            $(el).find('[data-module]').each(function(i, node) {
+              ckan.module.initializeElement(node);
+            });
+            initAllowedUsersSelect($(el));
+          },          
 
         updateTotal: function() {
             var total_text = this.collection.length;
@@ -374,6 +415,7 @@ $(function(){
             'change input[type=checkbox][name=pii]': 'onPiiChange',
             'change input[type=checkbox][name=microdata]': 'onMicrodataChange',
             'change input[type=checkbox][name=restricted]': 'onRestrictedChange',
+            'change select[name=allowed_users]': 'onAllowedUsersChange',
             'change .source-file-fields .form-control': 'onFieldEdit',
             'click .dropbox a': 'onDropboxBtn',
             'click .googledrive a': 'onGoogleDriveBtn',
@@ -452,40 +494,49 @@ $(function(){
             var template_data = _.clone(this.model.attributes);
             template_data.template_position = this.model.collection.indexOf(this.model);
             template_data.lower_case_format = template_data.format ? template_data.format.toLowerCase() : null;
+          
             template_data.pii = this._convertToBoolean(this.model.get('pii'));
             template_data.microdata = this._convertToBoolean(this.model.get('microdata'));
             template_data.restricted = this._convertToBoolean(this.model.get('restricted'));
+          
+            // allowed_users always an array
+            template_data.allowed_users = this.model.get('allowed_users') || [];
+            if (typeof template_data.allowed_users === 'string') {
+              template_data.allowed_users = template_data.allowed_users.split(',')
+                .map(function (s) { return s.trim(); })
+                .filter(function (s) { return !!s; });
+            }
+          
             var html = this.template(template_data);
             this.$el.html(html);
 
-            /* Initializing CKAN js modules inside this VIEW */
-            this.$el.find('[data-module]').each(
-                function (i, el) {
-                    //console.log("Initializing ckan module for " + $(el).prop('outerHTML'));
-                    ckan.module.initializeElement(el);
-                }
-            );
-            this._setUpDragAndDrop();
+            var s = this.$('select[name=allowed_users]');
+            console.log('multiple?', s.prop('multiple'));
+            console.log('select2?', !!s.data('select2'));
 
+
+            this._setUpDragAndDrop();
+          
             var modelUrlType = this.model.get('url_type');
             var modelResourceType = this.model.get('resource_type');
             if (modelUrlType || modelResourceType) {
-                if (modelUrlType == 'upload' || modelResourceType == 'file.upload')
-                    this._setUpForSourceType('source-file-selected');
-                else
-                    this._setUpForSourceType('source-url');
+              if (modelUrlType == 'upload' || modelResourceType == 'file.upload')
+                this._setUpForSourceType('source-file-selected');
+              else
+                this._setUpForSourceType('source-url');
             } else {
-                this._setUpForSourceType('source-file');
+              this._setUpForSourceType('source-file');
             }
-
+          
             if (template_data.pii && template_data.pii === 'true') {
               this.$el.addClass('orange');
             }
-
+          
             this._showFormatWarningIfNeeded();
-
+          
             return this;
-        },
+          },
+          
 
         display_errors: function(field_errors) {
             _.each(field_errors, function(error_text, field_name) {
@@ -500,6 +551,11 @@ $(function(){
 
             //this._setUpForSourceType('source-url');
         },
+
+        onAllowedUsersChange: function (e) {
+            var vals = $(e.currentTarget).val() || [];
+            this.model.set({ allowed_users: vals });
+          },
 
         onSourceChange: function(e){
             var sourceClass = "source-" + e.target.value;
@@ -546,12 +602,69 @@ $(function(){
           $(e.target).closest('.controls').find('.item-description').toggle(value);
         },
 
-        onRestrictedChange: function(e) {
-          const value = e.target.checked;
-          this.model.set('restricted', value);
-          const name = this.model.get('name') || '';
-          this.model.set('name', name + ' ');
-        },
+        onRestrictedChange: function (e) {
+            const checked = e.target.checked;
+          
+            // keep existing behavior
+            this.model.set('restricted', checked);
+            const name = this.model.get('name') || '';
+            this.model.set('name', name + ' ');
+          
+            const $wrapper = this.$('.allowed-users-wrapper');
+            if (!$wrapper.length) {
+              return;
+            }
+          
+            const $select = $wrapper.find('select[name=allowed_users]');
+          
+            if (checked) {
+              $wrapper.show();
+          
+              if ($select.length) {
+                try {
+                  if (
+                    $select.data('select2') ||
+                    $select.hasClass('select2-hidden-accessible') ||
+                    $select.hasClass('select2-offscreen')
+                  ) {
+                    $select.select2('destroy');
+                  }
+                } catch (err) {}
+          
+                if ($.fn.select2) {
+                  $select.select2({
+                    width: 'element',
+                    placeholder: $select.attr('data-module-placeholder') || null,
+                    minimumResultsForSearch: 0,
+                    minimumInputLength: 0
+                  });
+                } else {
+                  // fallback: try CKAN module initialization
+                  $wrapper.find('[data-module]').each(function (i, el) {
+                    ckan.module.initializeElement(el);
+                  });
+                }
+              }
+          
+            } else {
+              // hide UI
+              $wrapper.hide();
+          
+              // clear data
+              this.model.set({ allowed_users: [] });
+          
+              // clear UI selection too (and update select2 if present)
+              if ($select.length) {
+                $select.val([]);
+                try {
+                  if ($select.data('select2') || $select.hasClass('select2-hidden-accessible')) {
+                    $select.trigger('change');
+                  }
+                } catch (err) {}
+              }
+            }
+          },
+          
 
         onUpdateBtn: function(e) {
             this.updateResource();
@@ -606,34 +719,51 @@ $(function(){
         },
 
 
-        updateResource: function() {
+        updateResource: function () {
             // Update the Resource from this view's form fields.
-
             var update_form_array = this.$el.find(':input').serializeArray();
-
+          
             // Serialize in the correct JSON format.
-            var form_data = {format: 'txt'};
-            _.map(update_form_array, function(x){
-                if (x.name === 'restricted') {
-                    // use model boolean
-                    form_data[x.name] = this.model.get('restricted');
-                } else {
-                    form_data[x.name] = x.value;
+            var form_data = { format: 'txt' };
+          
+            update_form_array.forEach(function (x) {
+              // Keep restricted as boolean (from model), not "on"/missing
+              if (x.name === 'restricted') {
+                form_data[x.name] = this.model.get('restricted');
+                return;
+              }
+          
+              // ✅ If field repeats (e.g. multi-select), accumulate into array
+              if (Object.prototype.hasOwnProperty.call(form_data, x.name)) {
+                if (!Array.isArray(form_data[x.name])) {
+                  form_data[x.name] = [form_data[x.name]];
                 }
+                form_data[x.name].push(x.value);
+              } else {
+                form_data[x.name] = x.value;
+              }
             }.bind(this));
-            this.model.set('upload', this.$('.resource_file_field')[0].files[0]);
+          
+            // File upload (if any)
+            var fileInput = this.$('.resource_file_field')[0];
+            if (fileInput && fileInput.files && fileInput.files.length) {
+              this.model.set('upload', fileInput.files[0]);
+            } else {
+              this.model.unset('upload', { silent: true });
+            }
+          
             this.model.save(form_data, {
-                wait: true,
-                success: function(model, response, options) {
-                    // console.log('successfully updated model');
-                }.bind(this),
-                error: function(model, response, options) {
-                    // ::TODO:: Handle validation errors returned by server here.
-                    console.log('Could not update the resource');
-                    console.log(response.responseJSON.error);
-                }.bind(this)
+              wait: true,
+              success: function (model, response, options) {
+                // console.log('successfully updated model');
+              }.bind(this),
+              error: function (model, response, options) {
+                console.log('Could not update the resource');
+                console.log(response.responseJSON && response.responseJSON.error);
+              }.bind(this)
             });
-        },
+          },
+          
 
         deleteResource: function(){
             // Remove model from collection and push it to the removedModels
