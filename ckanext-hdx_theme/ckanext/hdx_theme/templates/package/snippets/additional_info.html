@@ -73,27 +73,50 @@
       {% for i in range(1, 10) %}
         {% set first = pkg_dict.get('creator_first_name_' ~ i) %}
         {% set last = pkg_dict.get('creator_last_name_' ~ i) %}
-      
+        {% set orcid = pkg_dict.get('creator_orcid_id_' ~ i) %}
+
         {% if first or last %}
-          {% do creators.append((first ~ ' ' ~ last) | trim) %}
+          {% set name = (first ~ ' ' ~ last) | trim %}
+          {% do creators.append({
+            'name': name,
+            'orcid': orcid
+          }) %}
         {% endif %}
       {% endfor %}
-      
+
       {% if creators %}
         <div class="mb-3"
-             {% if edit_mode %}
-               data-module="hdx-quick-edit"
-               data-module-anchor="field_creators"
-               data-module-dataset="{{ pkg_dict.id }}"
-             {% endif %}>
+            {% if edit_mode %}
+              data-module="hdx-quick-edit"
+              data-module-anchor="field_creators"
+              data-module-dataset="{{ pkg_dict.id }}"
+            {% endif %}>
           <div class="dataset-label">
             {{ _('Creators') }}
           </div>
+
           <div class="dataset-details">
-            {{ creators | join(', ') }}
+            <ul class="list-unstyled mb-0">
+              {% for creator in creators %}
+                <li>
+                  <strong>-{{ creator.name }}</strong>
+                  {% if creator.orcid %}
+                    <span class="text-muted">
+                      — ORCID:
+                      <a href="https://orcid.org/{{ creator.orcid }}"
+                        target="_blank"
+                        rel="noopener noreferrer">
+                        {{ creator.orcid }}
+                      </a>
+                    </span>
+                  {% endif %}
+                </li>
+              {% endfor %}
+            </ul>
           </div>
         </div>
       {% endif %}
+
 
       <div class="mb-3" {% if edit_mode %} data-module="hdx-quick-edit" data-module-anchor="field_contact_email"
       data-module-dataset="{{ pkg_dict.id }}"{% endif %}>
