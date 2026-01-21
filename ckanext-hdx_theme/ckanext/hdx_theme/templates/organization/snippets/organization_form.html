@@ -1,10 +1,12 @@
 {% import 'macros/form.html' as form %}
 
 {% block content_primary_nav %}
+{% if group_dict %}
 <div class="org-actions">
 {{ h.build_nav_icon('organization.edit', _('Edit'), id=group_dict.name) }}
   {{ h.build_nav_icon('organization.bulk_process', _('Datasets'), id=group_dict.name) }}
 </div>
+{% endif %}
 {% endblock %}
 
 
