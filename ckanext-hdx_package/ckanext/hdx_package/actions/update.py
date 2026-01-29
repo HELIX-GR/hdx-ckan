@@ -702,6 +702,11 @@ def add_public_doi(context, datasets):
         dataset = _get_action('package_show')(context_copy, {'id': id})
         if 'datacite_doi' not in dataset:
             doi = helpers.getDataciteDoi(dataset)
+
+            if not doi:
+                log.error("DOI minting failed, dataset not updated")
+                return  
+
             dataset['datacite_doi'] = doi
             package_update(context_copy, dataset)
     return        

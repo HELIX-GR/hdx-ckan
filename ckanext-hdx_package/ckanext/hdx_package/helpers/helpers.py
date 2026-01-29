@@ -6,6 +6,7 @@ import six.moves.urllib.parse as urlparse
 import importlib
 import random
 import datetime
+import uuid
 import string
 
 import ckanext.hdx_package.helpers.custom_validator as vd
@@ -558,64 +559,123 @@ def remove_previous_package_dict_from_context(context, id):
 # Hardmin-related helpers
 
 def getDataciteDoi(package):
-    """Perform HTTP request"""
+    """Create and publish a DataCite DOI"""
 
-    package_url = config.get('ckan.site_url') + h.url_for('dataset.read', id=package['name'])
-    random_str = ''.join(random.SystemRandom().choice(string.ascii_lowercase + string.digits) for _ in range(4)) + '-' \
-        +''.join(random.SystemRandom().choice(string.ascii_lowercase + string.digits) for _ in range(4))
-    doi = config.get('ckanext.hdx_package.datacite.prefix') + random_str
-    #event = config.get('ckanext.hdx_package.datacite.publish')
-    #format name for datacite (first name, given name)
-    creator_name = package['creator_first_name_1'] + ' ' + package['creator_last_name_1']
-    if 'publication_year' in package:
-        publication_year =  package['publication_year'] 
-    else:
-        publication_year =  datetime.date.today().year
-    publisher = package['organization']['name']
-    #                "event":  "''' + event + '''",
-    data_string = '''{
-            "data": {
-                "type": "dois",
-                "attributes": {
-                    "doi": "''' + doi + '''",
-                    "url": "''' + package_url + '''",
-                    "titles": [
-                        {
-                            "title": "''' + package['title'] +'''"
-                        }
-                    ],
-                    "creators": [
-                    {
-                        "name": "''' + creator_name + '''",
-                        "nameType": "Personal",
-                        "affiliation": [],
-                        "nameIdentifiers": []
-                    }],
-                    "publisher": "''' + publisher +'''",
-                    "publicationYear":"''' + str(publication_year) + '''",
-                    "types": {
-                        "resourceTypeGeneral": "Dataset"
-                    }
+    # Build dataset URL
+    package_url = (
+        config.get('ckan.site_url') +
+        h.url_for('dataset.read', id=package['name'])
+    )
+
+    prefix = config.get('ckanext.hdx_package.datacite.prefix')
+    suffix = random_str = ''.join(random.SystemRandom().choice(string.ascii_lowercase + string.digits) for _ in range(4)) + '-' \
+     + ''.join(random.SystemRandom().choice(string.ascii_lowercase + string.digits) for _ in range(4))
+
+    doi = f"{prefix}{suffix}"
+
+    event = config.get('ckanext.hdx_package.datacite.publish')
+    
+    # Creator
+    creators = build_datacite_creators(package)
+
+    # Publication year
+    publication_year = package.get(
+        'publication_year',
+        datetime.date.today().year
+    )
+
+    # Publisher 
+    publisher = package['organization']['title']
+
+    # Build payload 
+    payload = {
+        "data": {
+            "type": "dois",
+            "attributes": {
+                "event": "publish",
+                "doi": doi,
+                "url": package_url,
+                "titles": [
+                    {"title": package['title']}
+                ],
+                "creators": creators,
+                "publisher": publisher,
+                "publicationYear": publication_year,
+                "types": {
+                    "resourceTypeGeneral": "Dataset"
                 }
             }
-        }'''
-    headers = {
-        'Accept': 'application/vnd.api+json',
-        'Content-Type': 'application/vnd.api+json',
+        }
     }
-    
+
+    headers = {
+        "Accept": "application/vnd.api+json",
+        "Content-Type": "application/vnd.api+json",
+    }
+
     datacite_url = config.get('ckanext.hdx_package.datacite.api_url')
     client_id = config.get('ckanext.hdx_package.datacite.client_id')
     password = config.get('ckanext.hdx_package.datacite.password')
+
+
+    doi_result = None
+
     try:
-        response = requests.post(datacite_url, headers=headers, data=data_string, auth=(client_id, password))
-        #return auto-generated doi
-        result = json.loads(response.text)
-        #doi = result['data']['id']
+        response = requests.post(
+            datacite_url,
+            headers=headers,
+            json=payload,           
+            auth=(client_id, password),
+            timeout=10
+        )
+
+        log.info("DataCite status: %s", response.status_code)
+        log.debug("DataCite response: %s", response.text)
+
+        response.raise_for_status()
+
+        result = response.json()
+        doi_result = result['data']['id']
+
     except Exception as ex:
-       log.debug('Datacite request failed: %s', ex)
-    log.debug('Registered doi is %s', doi)
-    return doi
+        log.error("DataCite request failed: %s", ex, exc_info=True)
+        raise
+
+    log.info("Registered DOI is %s", doi)
+    return doi_result
+
+def build_datacite_creators(package):
+    creators = []
+    i = 1
+
+    while True:
+        first = package.get(f'creator_first_name_{i}')
+        last = package.get(f'creator_last_name_{i}')
+        orcid = package.get(f'creator_orcid_id_{i}')
+
+        if not first or not last:
+            break
+
+        creator ={
+            "name": f"{first} {last}",
+            "nameType": "Personal",
+            "givenName": first,
+            "familyName": last
+        }
+
+        if orcid:
+            creator["nameIdentifiers"] = [{
+                "nameIdentifier": orcid,
+                "nameIdentifierScheme": "ORCID",
+                "schemeUri": "https://orcid.org"
+            }]
+
+        creators.append(creator)
+
+        i += 1
+
+    return creators
+
 
 
 def validate_captcha(response):
