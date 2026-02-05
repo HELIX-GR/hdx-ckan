@@ -827,10 +827,12 @@ class HDXPackagePlugin(plugins.SingletonPlugin, tk.DefaultDatasetForm):
         import ckanext.hdx_package.views.dataset_old_links as dataset_old_links
         import ckanext.hdx_package.views.contact as contact
         import ckanext.hdx_package.views.request_tags as request_tags
+        import ckanext.hdx_package.views.dashboard as dashboard
         return [
             light_dataset.hdx_light_dataset,
             light_dataset.hdx_light_search,
             dataset.hdx_dataset,
+            dashboard.hdx_user_dashboard,
             dataset.hdx_search,
             dataset_changes.hdx_dataset_changes,
             contribute_flow.hdx_contribute,
@@ -872,7 +874,7 @@ class HDXPackagePlugin(plugins.SingletonPlugin, tk.DefaultDatasetForm):
                 data = {'name': tag, 'vocabulary_id': vocab['id']}
                 tk.get_action ('tag_create') (context, data)
 
-    DATASET_CATEGORIES = ['bio','geo','stat']
+    DATASET_CATEGORIES = ['Natural Sciences','Humanities', 'Health Sciences', 'Computer Science - Engineering', 'Environmental Sciences', 'Social Sciences', 'Economics - Business']
     def create_dataset_categories(cls):
         '''Create dataset category vocabulary and tags, if they don't exist already.
         Note that you could also create the vocab and tags using CKAN's api,
@@ -899,7 +901,7 @@ class HDXPackagePlugin(plugins.SingletonPlugin, tk.DefaultDatasetForm):
 
     def dataset_categories(cls):
         '''Return the list of all existing types from the dataset_categories vocabulary.'''
-        cls.create_dataset_categories()
+        #cls.create_dataset_categories()
         try:
             dataset_categories = tk.get_action ('tag_list') (data_dict={ 'vocabulary_id': 'dataset_categories'})
             return dataset_categories
