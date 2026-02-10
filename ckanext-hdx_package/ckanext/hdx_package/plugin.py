@@ -827,12 +827,12 @@ class HDXPackagePlugin(plugins.SingletonPlugin, tk.DefaultDatasetForm):
         import ckanext.hdx_package.views.dataset_old_links as dataset_old_links
         import ckanext.hdx_package.views.contact as contact
         import ckanext.hdx_package.views.request_tags as request_tags
-        import ckanext.hdx_package.views.dashboard as dashboard
+        #import ckanext.hdx_package.views.dashboard as dashboard
         return [
             light_dataset.hdx_light_dataset,
             light_dataset.hdx_light_search,
             dataset.hdx_dataset,
-            dashboard.hdx_user_dashboard,
+            #dashboard.hdx_user_dashboard,
             dataset.hdx_search,
             dataset_changes.hdx_dataset_changes,
             contribute_flow.hdx_contribute,
