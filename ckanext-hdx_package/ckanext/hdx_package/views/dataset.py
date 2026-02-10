@@ -420,7 +420,7 @@ def package_metadata(id):
 
         buf = io.StringIO()
         if 'json' in file_format:
-            json.dump(metadata, buf, indent=4)
+            json.dump(metadata, buf, indent=4, ensure_ascii=False)
 
             output = make_response(buf.getvalue())
             output.headers['Content-Type'] = 'application/json'
@@ -486,7 +486,7 @@ def resource_metadata(id, resource_id):
 
         buf = io.StringIO()
         if 'json' in file_format:
-            json.dump(metadata, buf, indent=4)
+            json.dump(metadata, buf, indent=4, ensure_ascii=False)
 
             output = make_response(buf.getvalue())
             output.headers['Content-Type'] = 'application/json'
