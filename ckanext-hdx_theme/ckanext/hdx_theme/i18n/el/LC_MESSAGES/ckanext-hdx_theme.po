@@ -6526,3 +6526,24 @@ msgstr "Ενέργειες"
 
 msgid "{actor} updated the {dataset_type} {dataset}"
 msgstr "{actor} ενημέρωσε το {dataset_type} {dataset}"
+
+msgid "Natural Sciences"
+msgstr "Θετικές Επιστήμες"
+
+msgid "Humanities"
+msgstr "Ανθρωπιστικές Επιστήμες"
+
+msgid "Health Sciences"
+msgstr "Επιστήμες Υγείας"
+
+msgid "Computer Science & Engineering"
+msgstr "Τεχνολογία και Πληροφορική"
+
+msgid "Environmental Sciences"
+msgstr "Περιβαλλοντικές Επιστήμες"
+
+msgid "Social Sciences"
+msgstr "Κοινωνικές Επιστήμες"
+
+msgid "Economics & Business"
+msgstr "Οικονομία και Διοίκηση"

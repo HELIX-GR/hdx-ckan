@@ -901,7 +901,7 @@ class HDXPackagePlugin(plugins.SingletonPlugin, tk.DefaultDatasetForm):
 
     def dataset_categories(cls):
         '''Return the list of all existing types from the dataset_categories vocabulary.'''
-        #cls.create_dataset_categories()
+        cls.create_dataset_categories()
         try:
             dataset_categories = tk.get_action ('tag_list') (data_dict={ 'vocabulary_id': 'dataset_categories'})
             return dataset_categories

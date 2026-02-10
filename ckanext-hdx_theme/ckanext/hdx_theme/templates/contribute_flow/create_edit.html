@@ -719,6 +719,7 @@
                                             </div> #}
 
                                             {# Dataset category (bio, geo etc.)#}
+                                            {{h.dataset_categories()}}
                                             <div class="form-group control-full" >
                                               <div class="mb-3 tags-select">
                                                   <label for="field-dataset_category"   class="control-label field-optional"> {{_('Thematic group')}}</label>
@@ -726,7 +727,10 @@
                                                     <select  class="input-xlarge form-control" id="field-dataset_category"  data-module="autocomplete" name="dataset_category"   placeholder=_('The thematic group of this dataset') >
                                                         <option class="placeholder" value=""   {% if not data.get('dataset_category', []) %} selected {% endif %}  hidden>{{_('The thematic group of this dataset')}} </option>
                                                         {% for dataset_category in h.dataset_categories()  %}
-                                                          <option value="{{ dataset_category}}" {% if dataset_category in data.get('dataset_category', []) %}selected="selected"{% endif %}>{{dataset_category|title}}</option>
+                                                            <option value="{{ dataset_category }}"
+                                                              {% if dataset_category in data.get('dataset_category', []) %}selected{% endif %}>
+                                                              {{ _(dataset_category) }}
+                                                            </option>
                                                         {% endfor %}
                                                     </select>
                                                     <div class="help-block">{{_('Please select only if the dataset belongs to a special category') }}
