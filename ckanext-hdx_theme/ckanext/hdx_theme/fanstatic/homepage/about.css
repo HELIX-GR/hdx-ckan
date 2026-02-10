@@ -29,7 +29,7 @@
 
 .threeSectionTitle p{
     color: #f2645a;
-    font-family: 'Gotham-Medium', sans-serif;
+    font-family: 'Geologica', sans-serif;
     font-weight: 400;
     font-size: 24px;
     line-height: 24px;
@@ -53,14 +53,14 @@
 }
 
 .whatIsHDX{
-    font-family: 'Gotham-Book',sans-serif;
+    font-family: 'Geologica',sans-serif;
     font-weight: 400;
     font-size: 36px;
     color: #333333;
     line-height: 36px;
 }
 .whatIsHDX strong{
-    font-family: 'Gotham-Bold', sans-serif;
+    font-family: 'Geologica', sans-serif;
     font-size: 36px;
     color: #333333;
     line-height: 36px;
@@ -74,7 +74,7 @@
 }
 
 .systemPrinciple{
-    font-family: 'Gotham-Bold', sans-serif;
+    font-family: 'Geologica', sans-serif;
     font-weight: 400;
     font-size: 30px;
     color: #ffffff;

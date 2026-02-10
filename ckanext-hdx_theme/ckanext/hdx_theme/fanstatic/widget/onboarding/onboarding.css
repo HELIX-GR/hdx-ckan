@@ -28,7 +28,7 @@
 }
 .popup.popup-onboarding .error-message {
   color: red;
-  font-family: 'Gotham-Book', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-display: block;
   font-weight: 400;
   font-size: 10px;
@@ -125,7 +125,7 @@
   width: 100%;
 }
 .popup.popup-onboarding .member {
-  font-family: 'Gotham-Book', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-display: block;
   font-weight: 400;
   font-size: 12px;
@@ -133,7 +133,7 @@
   letter-spacing: 0.01em;
 }
 .popup.popup-onboarding .member a {
-  font-family: 'Gotham-Bold', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-weight: 400;
   font-size: 12px;
 }
@@ -156,7 +156,7 @@
   content: "";
 }
 .popup.popup-onboarding .large-title {
-  font-family: 'Gotham-Book', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-display: block;
   font-weight: 400;
   font-size: 36px;
@@ -164,7 +164,7 @@
   letter-spacing: 0.01em;
 }
 .popup.popup-onboarding .large-title strong {
-  font-family: 'Gotham-Bold', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-weight: 400;
   font-size: 36px;
 }
@@ -175,14 +175,14 @@
   min-width: 0;
 }
 .popup.popup-onboarding .bold-regular-text {
-  font-family: 'Gotham-Bold', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-weight: 400;
   font-size: 14px;
   line-height: 20px;
   letter-spacing: 0.01em;
 }
 .popup.popup-onboarding .large-text {
-  font-family: 'Gotham-Book', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-display: block;
   font-weight: 400;
   font-size: 18px;
@@ -196,7 +196,7 @@
   line-height: 20px;
 }
 .popup.popup-onboarding .small-form-title {
-  font-family: 'Gotham-Bold', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-weight: 400;
   font-size: 14px;
   letter-spacing: 0.01em;
@@ -213,7 +213,7 @@
   font-size: 24px;
 }
 #incomplete-profile {
-  font-family: 'Gotham-Medium', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-weight: 400;
   font-size: 12px;
   color: white;

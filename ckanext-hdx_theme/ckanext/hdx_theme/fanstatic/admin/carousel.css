@@ -20,7 +20,7 @@
   height: 40px;
   padding: 10px 15px;
   cursor: all-scroll;
-  font-family: 'Gotham-Bold', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-weight: 400;
   font-size: 14px;
 }
@@ -79,7 +79,7 @@
   margin-right: 0;
 }
 #carousel-config-main .carousel-item .sub-item .title {
-  font-family: 'Gotham-Bold', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-weight: 400;
   font-size: 8px;
   padding: 5px 15px;
@@ -135,7 +135,7 @@
   overflow: hidden;
 }
 #carousel-config-main .carousel-item .sub-item .sub-item-caption .description {
-  font-family: 'Gotham-Book', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-display: block;
   font-weight: 400;
   font-size: 12px;

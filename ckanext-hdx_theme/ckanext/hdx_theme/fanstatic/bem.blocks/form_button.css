@@ -16,7 +16,7 @@
   padding: 10px;
   border-radius: 6px;
   font-weight: 400;
-  font-family: 'Gotham-Bold', sans-serif;
+  font-family: 'Geologica', sans-serif;
   border-color: #007CE1;
   background-color: #007CE1;
 }
@@ -37,7 +37,7 @@
   background-color: #FFF;
   border-color: #007CE1;
   font-weight: 400;
-  font-family: 'Gotham-Bold', sans-serif;
+  font-family: 'Geologica', sans-serif;
 }
 .form-button__btn.btn-outline-primary:hover {
   background-color: #0162DD;

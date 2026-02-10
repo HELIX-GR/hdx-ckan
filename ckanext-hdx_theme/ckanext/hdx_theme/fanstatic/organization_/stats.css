@@ -11,7 +11,7 @@
   color: #333333;
 }
 .topline .indicator-title {
-  font-family: 'Gotham-Bold', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-weight: 400;
   font-size: 14px;
   letter-spacing: 0.01em;
@@ -21,7 +21,7 @@
   height: 40px;
 }
 .topline .indicator-value {
-  font-family: 'Gotham-Light', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-display: auto;
   font-weight: 400;
   font-size: 56px;
@@ -55,7 +55,7 @@
   color: #888888;
 }
 .topline .small {
-  font-family: 'Gotham-Light', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-display: auto;
   font-weight: 400;
   font-size: 37px;
@@ -122,7 +122,7 @@
   background-color: #cccccc;
 }
 .faq-question-mark .question-mark {
-  font-family: 'Gotham-Medium', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-weight: 400;
   font-size: 13px;
   line-height: 13px;

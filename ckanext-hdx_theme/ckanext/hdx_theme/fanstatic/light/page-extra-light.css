@@ -215,7 +215,7 @@ body {
   margin: 0;
 }
 .mainLinks.mainLinks-gray > li > a {
-  font-family: 'Gotham-Book', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-display: block;
   font-weight: 400;
   font-size: 12px;
@@ -233,7 +233,7 @@ body {
   margin-left: 15px;
   margin-top: 0;
   margin-bottom: 0;
-  font-family: 'Gotham-Bold', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-weight: 400;
   font-size: 12px;
   color: #333333;
@@ -307,22 +307,22 @@ body {
 /* END Private dataset label fix */
 /* Fonts */
 .gothamBold20 {
-  font-family: 'Gotham-Bold', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-weight: 400;
   font-size: 20px;
 }
 .gothamBold30 {
-  font-family: 'Gotham-Bold', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-weight: 400;
   font-size: 20px;
 }
 .gothamBook12 {
-  font-family: 'Gotham-Book', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-weight: 400;
   font-size: 12px;
 }
 .gothamBold10 {
-  font-family: 'Gotham-Bold', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-weight: 400;
   font-size: 10px;
 }
@@ -626,7 +626,7 @@ hr.dotted {
   left: 0;
   width: 100%;
   bottom: 0;
-  font-family: 'Gotham-Book', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-display: block;
   font-weight: 400;
   font-size: 14px;
@@ -672,7 +672,7 @@ hr.dotted {
 }
 .hdx-footer .titlePlusVersion {
   color: #888888;
-  font-family: 'Gotham-Book', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-display: block;
   font-weight: 400;
   font-size: 12px;
@@ -710,7 +710,7 @@ hr.dotted {
   }
 }
 .hdx-footer .mailChimpForm .subscribeText {
-  font-family: 'Gotham-Medium', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-weight: 400;
   font-size: 12px;
   margin-bottom: 10px;
@@ -785,7 +785,7 @@ hr.dotted {
 }
 .hdx-footer .links-list ul li,
 .hdx-footer .links-list ul a {
-  font-family: 'Gotham-Bold', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-weight: 400;
   font-size: 12px;
   color: #eeeeee;
@@ -1387,7 +1387,7 @@ hr.dotted {
 }
 .new-header .hdx-header .navbar-collapse .nav > li > a {
   color: #FFF;
-  font-family: 'Gotham-Medium', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-size: 18px;
   line-height: 18px;
   padding: 3px 30px;
@@ -1402,19 +1402,19 @@ hr.dotted {
   line-height: 15px;
 }
 .new-header .hdx-header .navbar-collapse .nav > li.sub-nav a {
-  font-family: 'Gotham-Book', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-size: 15px;
   text-transform: none;
 }
 .new-header .hdx-header .navbar-collapse .nav > li.sub-nav a.action-red {
-  font-family: 'Gotham-Book', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-size: 15px;
   text-transform: none;
   color: #f2645a;
 }
 .new-header .hdx-header .navbar-collapse .nav > li.login a {
   display: inline-block;
-  font-family: 'Gotham-Medium', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-size: 12px;
   padding-right: 5px;
   text-transform: uppercase;
@@ -1444,7 +1444,7 @@ hr.dotted {
   border-radius: 6px;
   display: inline-block;
   padding: 10px 30px;
-  font-family: 'Gotham-Bold', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-weight: 400;
   font-size: 14px;
   color: #fff;
@@ -1551,7 +1551,7 @@ hr.dotted {
 .crises-menu li.crises-group {
   text-transform: uppercase;
   color: #888888;
-  font-family: 'Gotham-Book', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-display: block;
   font-weight: 400;
   font-size: 12px;
@@ -1564,7 +1564,7 @@ hr.dotted {
 .crises-menu li.crises-group a.archive {
   text-transform: uppercase;
   color: #888888;
-  font-family: 'Gotham-Book', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-display: block;
   font-weight: 400;
   font-size: 12px;

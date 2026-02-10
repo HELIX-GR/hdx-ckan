@@ -9,7 +9,7 @@
   padding-bottom: 45px;
 }
 .wrapper-secondary h2 {
-  font-family: 'Gotham-Book', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-size: 12px;
 }
 .activity {
@@ -198,7 +198,7 @@
 /* END Style breadcrumbs */
 /* Button style */
 .btn {
-  font-family: 'Gotham-Bold', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-weight: 400;
   font-size: 12px;
   text-transform: uppercase;
@@ -220,7 +220,7 @@
   opacity: 0.7;
   box-shadow: none;
   color: #fff;
-  font-family: 'Gotham-Bold', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-weight: 400;
   font-size: 12px;
   letter-spacing: 0;
@@ -463,7 +463,7 @@
 }
 span.icn-txt-cods,
 ul.dataset-resources li.label-icons span.icn-txt-cods {
-  font-family: 'Gotham-Bold', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-weight: 400;
   font-size: 10px;
   background-color: #888888;
@@ -483,7 +483,7 @@ ul.dataset-resources li.label-icons span.icn-txt-cods:hover {
 }
 span.icn-txt-p-code,
 ul.dataset-resources li.label-icons span.icn-txt-p-code {
-  font-family: 'Gotham-Bold', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-weight: 400;
   font-size: 10px;
   background-color: #888888;
@@ -558,7 +558,7 @@ ul.dataset-resources li + li.label-icons {
   color: #fff;
 }
 .label.label-small {
-  font-family: 'Gotham-Bold', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-weight: 400;
   font-size: 9px;
   letter-spacing: 0.01em;
@@ -645,7 +645,7 @@ ul.dataset-resources li + li.label-icons {
 }
 .resource-item .under-review {
   color: #f2645a;
-  font-family: 'Gotham-Bold', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-weight: 400;
   font-size: 12px;
   text-transform: uppercase;
@@ -886,7 +886,7 @@ ul.dataset-resources li + li.label-icons {
   height: 90px;
 }
 #error-page .error-message-container h1 {
-  font-family: 'Gotham-Bold', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-weight: 400;
   font-size: 18px;
   text-transform: uppercase;
@@ -904,14 +904,14 @@ ul.dataset-resources li + li.label-icons {
 }
 .module-heading.facet-title {
   cursor: pointer;
-  font-family: 'Gotham-Bold', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-weight: 400;
   font-size: 16px;
   color: #888888;
   border: 0;
 }
 .module-heading .facet-title-counter {
-  font-family: 'Gotham-Bold', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-weight: 400;
   font-size: 16px;
   color: #ffffff;
@@ -953,7 +953,7 @@ ul.dataset-resources li + li.label-icons {
 }
 /* Followers Count */
 .followers-count {
-  font-family: 'Gotham-Light', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-weight: 400;
   font-size: 48px;
   line-height: normal;
@@ -999,7 +999,7 @@ ul.dataset-resources li + li.label-icons {
   margin: 0;
 }
 .mainLinks.mainLinks-gray > li > a {
-  font-family: 'Gotham-Book', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-display: block;
   font-weight: 400;
   font-size: 12px;
@@ -1017,7 +1017,7 @@ ul.dataset-resources li + li.label-icons {
   margin-left: 15px;
   margin-top: 0;
   margin-bottom: 0;
-  font-family: 'Gotham-Bold', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-weight: 400;
   font-size: 12px;
   color: #333333;
@@ -1074,7 +1074,7 @@ ul.dataset-resources li + li.label-icons {
   }
 }
 .modal.show .modal-dialog .modal-content .modal-header {
-  font-family: 'Gotham-Bold', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-weight: 400;
   font-size: 16px;
   color: #fff;
@@ -1214,7 +1214,7 @@ ul.dataset-resources li + li.label-icons {
 .select2-container .select2-choice {
   background-image: none;
   color: #888888;
-  font-family: 'Gotham-Bold', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-weight: 400;
   font-size: 14px;
   height: 44px;
@@ -1308,7 +1308,7 @@ ul.dataset-resources li + li.label-icons {
   background-color: inherit;
 }
 .nav-tabs > li > .nav-link {
-  font-family: 'Gotham-Bold', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-weight: 400;
   font-size: 14px;
   padding-left: 30px;
@@ -1399,22 +1399,22 @@ ul.dataset-resources li + li.label-icons {
 /* END Private dataset label fix */
 /* Fonts */
 .gothamBold20 {
-  font-family: 'Gotham-Bold', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-weight: 400;
   font-size: 20px;
 }
 .gothamBold30 {
-  font-family: 'Gotham-Bold', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-weight: 400;
   font-size: 20px;
 }
 .gothamBook12 {
-  font-family: 'Gotham-Book', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-weight: 400;
   font-size: 12px;
 }
 .gothamBold10 {
-  font-family: 'Gotham-Bold', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-weight: 400;
   font-size: 10px;
 }

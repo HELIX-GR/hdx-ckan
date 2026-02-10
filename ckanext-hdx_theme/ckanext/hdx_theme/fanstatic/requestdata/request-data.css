@@ -41,7 +41,7 @@
 }
 .modal.request-data-modal .request-data-modal-dialog .request-data-modal-content .request-data-modal-body .large-title,
 .modal.show.request-data-modal .request-data-modal-dialog .request-data-modal-content .request-data-modal-body .large-title {
-  font-family: 'Gotham-Book', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-weight: 400;
   font-size: 36px;
   line-height: 40px;
@@ -50,7 +50,7 @@
 }
 .modal.request-data-modal .request-data-modal-dialog .request-data-modal-content .request-data-modal-body .large-text,
 .modal.show.request-data-modal .request-data-modal-dialog .request-data-modal-content .request-data-modal-body .large-text {
-  font-family: 'Gotham-Book', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-weight: 400;
   font-size: 18px;
   line-height: 24px;
@@ -236,7 +236,7 @@
 .modal.request-data-modal .request-data-form-input,
 .modal.show.request-data-modal .request-data-form-input,
 .request-data-module .request-data-form-input {
-  font-family: 'Gotham-Bold', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-size: 15px;
   height: 44px;
   border-radius: 6px;
@@ -304,13 +304,13 @@
 .modal.show.request-data-modal .reply-request-form-large-title,
 .request-data-module .reply-request-form-large-title {
   color: #7C7B7C;
-  font-family: 'Gotham-Bold', sans-serif;
+  font-family: 'Geologica', sans-serif;
   word-wrap: break-word;
 }
 .modal.request-data-modal .reply-request-form-request-info,
 .modal.show.request-data-modal .reply-request-form-request-info,
 .request-data-module .reply-request-form-request-info {
-  font-family: 'Gotham-Bold', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-size: 14px;
   margin-top: 20px;
 }
@@ -331,7 +331,7 @@
 .modal.show.request-data-modal .reply-request-form-sender-message span,
 .request-data-module .reply-request-form-sender-message span {
   color: #fff;
-  font-family: 'Gotham-Bold', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-size: 14px;
 }
 .modal.request-data-modal .reply-request-form-message-content,
@@ -407,7 +407,7 @@
   margin-left: 0px !important;
 }
 .request-data-module .large-title {
-  font-family: 'Gotham-Book', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-weight: 400;
   font-size: 36px;
   line-height: 40px;
@@ -415,7 +415,7 @@
   color: #fff;
 }
 .request-data-module .large-text {
-  font-family: 'Gotham-Book', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-weight: 400;
   font-size: 18px;
   line-height: 24px;
@@ -533,7 +533,7 @@
   margin-bottom: 25px;
 }
 .request-data-module .request-data-form-input {
-  font-family: 'Gotham-Bold', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-size: 15px;
   height: 44px;
   border-radius: 6px;
@@ -580,11 +580,11 @@
 }
 .request-data-module .reply-request-form-large-title {
   color: #7C7B7C;
-  font-family: 'Gotham-Bold', sans-serif;
+  font-family: 'Geologica', sans-serif;
   word-wrap: break-word;
 }
 .request-data-module .reply-request-form-request-info {
-  font-family: 'Gotham-Bold', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-size: 14px;
   margin-top: 20px;
 }
@@ -599,7 +599,7 @@
 }
 .request-data-module .reply-request-form-sender-message span {
   color: #fff;
-  font-family: 'Gotham-Bold', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-size: 14px;
 }
 .request-data-module .reply-request-form-message-content,

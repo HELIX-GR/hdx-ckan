@@ -166,7 +166,7 @@
   margin: 20px;
 }
 .leaflet-container .marker-container .marker-number {
-  font-family: 'Gotham-Light', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-display: auto;
   font-size: 30px;
   line-height: 30px;
@@ -217,7 +217,7 @@
   transform: translate(-50%, -100%);
 }
 #title {
-  font-family: 'Gotham-Bold', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-weight: 400;
   letter-spacing: 0.03em;
   color: #000;
@@ -280,7 +280,7 @@
   min-width: 70px;
 }
 .marker-container .marker-box .marker-number {
-  font-family: 'Gotham-Light', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-size: 30px;
   line-height: 30px;
   font-weight: 400;
@@ -339,7 +339,7 @@
   color: #cccccc;
 }
 .marker-container-large .marker-box .marker-title {
-  font-family: 'Gotham-Light', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-display: auto;
   font-weight: 400;
   font-size: 12px;
@@ -348,7 +348,7 @@
   line-height: 1.2em;
 }
 .marker-container-large .marker-box .marker-number {
-  font-family: 'Gotham-Light', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-display: auto;
   font-size: 30px;
   line-height: 30px;
@@ -393,7 +393,7 @@
   margin: 0 0 38px 0;
 }
 #country_list .char-box .char-label {
-  font-family: 'Gotham-Bold', sans-serif;
+  font-family: 'Geologica', sans-serif;
   color: #007ce0;
   font-size: 24px;
   line-height: 24px;

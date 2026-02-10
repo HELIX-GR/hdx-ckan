@@ -17,7 +17,7 @@
   background-color: #fff;
 }
 .hdx-form .label-title-style {
-  font-family: 'Gotham-Light', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-display: auto;
   font-weight: 400;
   font-size: 13px;
@@ -38,7 +38,7 @@
   color: #888888;
 }
 .hdx-form .form-section .sample-text {
-  font-family: 'Gotham-Light', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-display: auto;
   font-weight: 400;
   font-size: 13px;
@@ -59,7 +59,7 @@
 .hdx-form .hdx-form-breadcrumb {
   padding: 20px 0;
   background-color: #007CE0;
-  font-family: 'Gotham-Light', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-display: auto;
   font-weight: 400;
   font-size: 20px;
@@ -97,7 +97,7 @@
   background-color: #fff;
   color: #007CE0;
   text-align: center;
-  font-family: 'Gotham-Bold', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-weight: 400;
   font-size: 14px;
   margin-right: 5px;
@@ -123,7 +123,7 @@
   font-size: 16px;
 }
 .hdx-form .mb-3 .control-label {
-  font-family: 'Gotham-Light', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-display: auto;
   font-weight: 400;
   font-size: 13px;
@@ -231,7 +231,7 @@
   background-color: #888888;
   background-image: none;
   color: #fff;
-  font-family: 'Gotham-Medium', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-weight: 400;
   font-size: 14px;
   text-transform: uppercase;
@@ -399,7 +399,7 @@ ul.list-horizontal li:first-child:before {
   border: 3px dashed #cccccc;
   background-color: #eeeeee;
   padding: 30px;
-  font-family: 'Gotham-Bold', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-weight: 400;
   font-size: 14px;
   color: #888888;

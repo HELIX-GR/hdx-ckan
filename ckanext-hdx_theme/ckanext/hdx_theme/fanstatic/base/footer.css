@@ -11,7 +11,7 @@
   left: 0;
   width: 100%;
   bottom: 0;
-  font-family: 'Gotham-Book', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-display: block;
   font-weight: 400;
   font-size: 14px;
@@ -57,7 +57,7 @@
 }
 .hdx-footer .titlePlusVersion {
   color: #888888;
-  font-family: 'Gotham-Book', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-display: block;
   font-weight: 400;
   font-size: 12px;
@@ -95,7 +95,7 @@
   }
 }
 .hdx-footer .mailChimpForm .subscribeText {
-  font-family: 'Gotham-Medium', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-weight: 400;
   font-size: 12px;
   margin-bottom: 10px;
@@ -170,7 +170,7 @@
 }
 .hdx-footer .links-list ul li,
 .hdx-footer .links-list ul a {
-  font-family: 'Gotham-Bold', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-weight: 400;
   font-size: 12px;
   color: #eeeeee;

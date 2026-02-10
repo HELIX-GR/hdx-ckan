@@ -13,7 +13,7 @@
   text-decoration: none;
 }
 .info-wrapper .uppercase {
-  font-family: 'Gotham-Book', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-weight: 400;
   font-size: 12px;
   color: #888888;
@@ -84,7 +84,7 @@
 /* Style Additional Info */
 .additional-info .additional-info-content .dataset-label {
   color: #1F2937;
-  font-family: 'Gotham-Bold', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-size: 12px;
   font-weight: 400;
   line-height: 14.4px;

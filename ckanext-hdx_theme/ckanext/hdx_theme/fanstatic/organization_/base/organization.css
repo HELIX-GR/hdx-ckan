@@ -15,7 +15,7 @@
   color: #333333;
 }
 .topline .indicator-title {
-  font-family: 'Gotham-Bold', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-weight: 400;
   font-size: 14px;
   letter-spacing: 0.01em;
@@ -25,7 +25,7 @@
   height: 40px;
 }
 .topline .indicator-value {
-  font-family: 'Gotham-Light', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-display: auto;
   font-weight: 400;
   font-size: 74px;
@@ -59,7 +59,7 @@
   color: #888888;
 }
 .topline .small {
-  font-family: 'Gotham-Light', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-display: auto;
   font-weight: 400;
   font-size: 37px;
@@ -201,7 +201,7 @@
 .module .pagination li a:hover,
 .pagination li a:focus,
 .module .pagination li a:focus {
-  font-family: 'Gotham-Book', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-display: block;
   font-weight: 400;
   font-size: 16px;
@@ -233,7 +233,7 @@
   vertical-align: middle;
 }
 .control-order-by label {
-  font-family: 'Gotham-Bold', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-weight: 400;
   font-size: 12px;
   color: #888888;
@@ -259,7 +259,7 @@
   color: #005299;
 }
 .control-order-by .orderDropdown .dropdown-toggle-text {
-  font-family: 'Gotham-Bold', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-weight: 400;
   font-size: 12px;
   color: #0088FF;
@@ -442,7 +442,7 @@ body {
   padding-bottom: 45px;
 }
 .wrapper-secondary h2 {
-  font-family: 'Gotham-Book', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-size: 12px;
 }
 .activity {
@@ -631,7 +631,7 @@ body {
 /* END Style breadcrumbs */
 /* Button style */
 .btn {
-  font-family: 'Gotham-Bold', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-weight: 400;
   font-size: 12px;
   text-transform: uppercase;
@@ -653,7 +653,7 @@ body {
   opacity: 0.7;
   box-shadow: none;
   color: #fff;
-  font-family: 'Gotham-Bold', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-weight: 400;
   font-size: 12px;
   letter-spacing: 0;
@@ -896,7 +896,7 @@ body {
 }
 span.icn-txt-cods,
 ul.dataset-resources li.label-icons span.icn-txt-cods {
-  font-family: 'Gotham-Bold', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-weight: 400;
   font-size: 10px;
   background-color: #888888;
@@ -916,7 +916,7 @@ ul.dataset-resources li.label-icons span.icn-txt-cods:hover {
 }
 span.icn-txt-p-code,
 ul.dataset-resources li.label-icons span.icn-txt-p-code {
-  font-family: 'Gotham-Bold', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-weight: 400;
   font-size: 10px;
   background-color: #888888;
@@ -991,7 +991,7 @@ ul.dataset-resources li + li.label-icons {
   color: #fff;
 }
 .label.label-small {
-  font-family: 'Gotham-Bold', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-weight: 400;
   font-size: 9px;
   letter-spacing: 0.01em;
@@ -1078,7 +1078,7 @@ ul.dataset-resources li + li.label-icons {
 }
 .resource-item .under-review {
   color: #f2645a;
-  font-family: 'Gotham-Bold', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-weight: 400;
   font-size: 12px;
   text-transform: uppercase;
@@ -1319,7 +1319,7 @@ ul.dataset-resources li + li.label-icons {
   height: 90px;
 }
 #error-page .error-message-container h1 {
-  font-family: 'Gotham-Bold', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-weight: 400;
   font-size: 18px;
   text-transform: uppercase;
@@ -1337,14 +1337,14 @@ ul.dataset-resources li + li.label-icons {
 }
 .module-heading.facet-title {
   cursor: pointer;
-  font-family: 'Gotham-Bold', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-weight: 400;
   font-size: 16px;
   color: #888888;
   border: 0;
 }
 .module-heading .facet-title-counter {
-  font-family: 'Gotham-Bold', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-weight: 400;
   font-size: 16px;
   color: #ffffff;
@@ -1386,7 +1386,7 @@ ul.dataset-resources li + li.label-icons {
 }
 /* Followers Count */
 .followers-count {
-  font-family: 'Gotham-Light', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-weight: 400;
   font-size: 48px;
   line-height: normal;
@@ -1432,7 +1432,7 @@ ul.dataset-resources li + li.label-icons {
   margin: 0;
 }
 .mainLinks.mainLinks-gray > li > a {
-  font-family: 'Gotham-Book', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-display: block;
   font-weight: 400;
   font-size: 12px;
@@ -1450,7 +1450,7 @@ ul.dataset-resources li + li.label-icons {
   margin-left: 15px;
   margin-top: 0;
   margin-bottom: 0;
-  font-family: 'Gotham-Bold', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-weight: 400;
   font-size: 12px;
   color: #333333;
@@ -1507,7 +1507,7 @@ ul.dataset-resources li + li.label-icons {
   }
 }
 .modal.show .modal-dialog .modal-content .modal-header {
-  font-family: 'Gotham-Bold', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-weight: 400;
   font-size: 16px;
   color: #fff;
@@ -1647,7 +1647,7 @@ ul.dataset-resources li + li.label-icons {
 .select2-container .select2-choice {
   background-image: none;
   color: #888888;
-  font-family: 'Gotham-Bold', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-weight: 400;
   font-size: 14px;
   height: 44px;
@@ -1741,7 +1741,7 @@ ul.dataset-resources li + li.label-icons {
   background-color: inherit;
 }
 .nav-tabs > li > .nav-link {
-  font-family: 'Gotham-Bold', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-weight: 400;
   font-size: 14px;
   padding-left: 30px;
@@ -1832,22 +1832,22 @@ ul.dataset-resources li + li.label-icons {
 /* END Private dataset label fix */
 /* Fonts */
 .gothamBold20 {
-  font-family: 'Gotham-Bold', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-weight: 400;
   font-size: 20px;
 }
 .gothamBold30 {
-  font-family: 'Gotham-Bold', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-weight: 400;
   font-size: 20px;
 }
 .gothamBook12 {
-  font-family: 'Gotham-Book', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-weight: 400;
   font-size: 12px;
 }
 .gothamBold10 {
-  font-family: 'Gotham-Bold', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-weight: 400;
   font-size: 10px;
 }
@@ -2586,7 +2586,7 @@ textarea {
   background-color: #edf6fd;
   padding: 15px;
   border-bottom: 1px solid #eeeeee;
-  font-family: 'Gotham-Bold', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-weight: 400;
   font-size: 12px;
   text-transform: uppercase;
@@ -2690,7 +2690,7 @@ textarea {
   background-color: #edf6fd;
 }
 .list-header .list-header-title {
-  font-family: 'Gotham-Bold', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-weight: 400;
   font-size: 16px;
   color: #333333;
@@ -2760,7 +2760,7 @@ textarea {
   background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='rgba%280, 0, 0, 0.25%29'/%3e%3c/svg%3e");
 }
 .list-header .show-filter-switch .form-check-label.form-check-label--big {
-  font-family: 'Gotham-Bold', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-weight: 400;
   font-size: 12px;
   color: #888888;
@@ -2770,7 +2770,7 @@ textarea {
   color: #333333;
 }
 .list-header .list-header-showall.filter-hide-show {
-  font-family: 'Gotham-Bold', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-weight: 400;
   font-size: 12px;
   color: #888888;
@@ -2842,7 +2842,7 @@ textarea {
   background-color: #fff;
 }
 .hdx-form .label-title-style {
-  font-family: 'Gotham-Light', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-display: auto;
   font-weight: 400;
   font-size: 13px;
@@ -2863,7 +2863,7 @@ textarea {
   color: #888888;
 }
 .hdx-form .form-section .sample-text {
-  font-family: 'Gotham-Light', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-display: auto;
   font-weight: 400;
   font-size: 13px;
@@ -2884,7 +2884,7 @@ textarea {
 .hdx-form .hdx-form-breadcrumb {
   padding: 20px 0;
   background-color: #007CE0;
-  font-family: 'Gotham-Light', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-display: auto;
   font-weight: 400;
   font-size: 20px;
@@ -2922,7 +2922,7 @@ textarea {
   background-color: #fff;
   color: #007CE0;
   text-align: center;
-  font-family: 'Gotham-Bold', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-weight: 400;
   font-size: 14px;
   margin-right: 5px;
@@ -2948,7 +2948,7 @@ textarea {
   font-size: 16px;
 }
 .hdx-form .mb-3 .control-label {
-  font-family: 'Gotham-Light', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-display: auto;
   font-weight: 400;
   font-size: 13px;
@@ -3056,7 +3056,7 @@ textarea {
   background-color: #888888;
   background-image: none;
   color: #fff;
-  font-family: 'Gotham-Medium', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-weight: 400;
   font-size: 14px;
   text-transform: uppercase;
@@ -3224,7 +3224,7 @@ ul.list-horizontal li:first-child:before {
   border: 3px dashed #cccccc;
   background-color: #eeeeee;
   padding: 30px;
-  font-family: 'Gotham-Bold', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-weight: 400;
   font-size: 14px;
   color: #888888;
@@ -3302,7 +3302,7 @@ ul.list-horizontal li:first-child:before {
   left: 0;
   width: 100%;
   bottom: 0;
-  font-family: 'Gotham-Book', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-display: block;
   font-weight: 400;
   font-size: 14px;
@@ -3348,7 +3348,7 @@ ul.list-horizontal li:first-child:before {
 }
 .hdx-footer .titlePlusVersion {
   color: #888888;
-  font-family: 'Gotham-Book', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-display: block;
   font-weight: 400;
   font-size: 12px;
@@ -3386,7 +3386,7 @@ ul.list-horizontal li:first-child:before {
   }
 }
 .hdx-footer .mailChimpForm .subscribeText {
-  font-family: 'Gotham-Medium', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-weight: 400;
   font-size: 12px;
   margin-bottom: 10px;
@@ -3461,7 +3461,7 @@ ul.list-horizontal li:first-child:before {
 }
 .hdx-footer .links-list ul li,
 .hdx-footer .links-list ul a {
-  font-family: 'Gotham-Bold', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-weight: 400;
   font-size: 12px;
   color: #eeeeee;
@@ -4063,7 +4063,7 @@ ul.list-horizontal li:first-child:before {
 }
 .new-header .hdx-header .navbar-collapse .nav > li > a {
   color: #FFF;
-  font-family: 'Gotham-Medium', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-size: 18px;
   line-height: 18px;
   padding: 3px 30px;
@@ -4078,19 +4078,19 @@ ul.list-horizontal li:first-child:before {
   line-height: 15px;
 }
 .new-header .hdx-header .navbar-collapse .nav > li.sub-nav a {
-  font-family: 'Gotham-Book', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-size: 15px;
   text-transform: none;
 }
 .new-header .hdx-header .navbar-collapse .nav > li.sub-nav a.action-red {
-  font-family: 'Gotham-Book', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-size: 15px;
   text-transform: none;
   color: #f2645a;
 }
 .new-header .hdx-header .navbar-collapse .nav > li.login a {
   display: inline-block;
-  font-family: 'Gotham-Medium', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-size: 12px;
   padding-right: 5px;
   text-transform: uppercase;
@@ -4120,7 +4120,7 @@ ul.list-horizontal li:first-child:before {
   border-radius: 6px;
   display: inline-block;
   padding: 10px 30px;
-  font-family: 'Gotham-Bold', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-weight: 400;
   font-size: 14px;
   color: #fff;
@@ -4227,7 +4227,7 @@ ul.list-horizontal li:first-child:before {
 .crises-menu li.crises-group {
   text-transform: uppercase;
   color: #888888;
-  font-family: 'Gotham-Book', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-display: block;
   font-weight: 400;
   font-size: 12px;
@@ -4240,7 +4240,7 @@ ul.list-horizontal li:first-child:before {
 .crises-menu li.crises-group a.archive {
   text-transform: uppercase;
   color: #888888;
-  font-family: 'Gotham-Book', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-display: block;
   font-weight: 400;
   font-size: 12px;
@@ -4368,12 +4368,12 @@ label.terms-of-service:after {
  */
 .hdx-modal .modal-header {
   background-color: #FFFFFF;
-  font-family: 'Gotham-Book', sans-serif;
+  font-family: 'Geologica', sans-serif;
   border-top-left-radius: 6px;
   border-top-right-radius: 6px;
 }
 .hdx-modal .modal-body {
-  font-family: 'Gotham-Book', sans-serif;
+  font-family: 'Geologica', sans-serif;
 }
 .hdx-modal .modal-footer {
   background-color: #FFFFFF;
@@ -4408,7 +4408,7 @@ label.terms-of-service:after {
   max-width: 300px;
 }
 .intro-section .org-title {
-  font-family: 'Gotham-Book', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-display: block;
   font-weight: 400;
   font-size: 36px;
@@ -4420,7 +4420,7 @@ label.terms-of-service:after {
   padding-left: 0;
 }
 .intro-section .mainLinks.org-info-links > li > a {
-  font-family: 'Gotham-Bold', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-weight: 400;
   font-size: 14px;
   letter-spacing: 0;
@@ -4454,7 +4454,7 @@ label.terms-of-service:after {
 .org-section-title {
   margin-top: 30px;
   margin-bottom: 30px;
-  font-family: 'Gotham-Book', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-display: block;
   font-weight: 400;
   font-size: 28px;
@@ -4512,7 +4512,7 @@ label.terms-of-service:after {
 }
 .dropdown-toggle-org .dropdown-toggle-text {
   color: #888888;
-  font-family: 'Gotham-Bold', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-weight: 400;
   font-size: 14px;
 }
@@ -4555,7 +4555,7 @@ label.terms-of-service:after {
   line-height: 12px;
 }
 #floatingLogo .title-share .floating-org-title {
-  font-family: 'Gotham-Book', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-display: block;
   font-weight: 400;
   font-size: 14px;
@@ -4564,7 +4564,7 @@ label.terms-of-service:after {
   height: 32px;
 }
 #floatingLogo .title-share .floating-org-links > a {
-  font-family: 'Gotham-Bold', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-weight: 400;
   font-size: 10px;
   text-transform: uppercase;

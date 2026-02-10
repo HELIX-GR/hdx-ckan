@@ -9,7 +9,7 @@
 /* Facet groups */
 .facet-section-title {
   margin-bottom: 15px;
-  font-family: 'Gotham-Book', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-size: 12px;
   letter-spacing: 0.1em;
   line-height: 14px;
@@ -29,7 +29,7 @@
 .facet-name a,
 .facet-name a:hover,
 .facet-name a:focus {
-  font-family: 'Gotham-Bold', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-size: 14px;
   letter-spacing: 0em;
   line-height: 20px;
@@ -39,7 +39,7 @@
   text-align: right;
 }
 .facet-count a {
-  font-family: 'Gotham-Book', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-size: 28px;
   color: #0088FF;
   letter-spacing: 0em;
@@ -54,7 +54,7 @@
   border-radius: 8px;
 }
 .facet-item-name a {
-  font-family: 'Gotham-Book', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-size: 13px;
   letter-spacing: 0em;
   color: #888888;
@@ -68,7 +68,7 @@
 }
 .facet-item-count a,
 .facet-item-remove a {
-  font-family: 'Gotham-Book', sans-serif;
+  font-family: 'Geologica', sans-serif;
   letter-spacing: 0em;
   color: #0088FF;
 }

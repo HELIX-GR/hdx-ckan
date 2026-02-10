@@ -28,18 +28,18 @@
   }
 }
 .qa-process .hero .hero-title {
-  font-family: 'Gotham-Bold', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-weight: 400;
   font-size: 36px;
 }
 .qa-process .hero .hero-sub-title {
-  font-family: 'Gotham-Medium', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-weight: 400;
   font-size: 36px;
 }
 .qa-process .hero .hero-description {
   margin-top: 30px;
-  font-family: 'Gotham-Book', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-display: block;
   font-weight: 400;
   font-size: 14px;
@@ -59,7 +59,7 @@
 }
 .qa-process .qa-intro .qa-intro-title {
   color: #333333;
-  font-family: 'Gotham-Medium', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-weight: 400;
   font-size: 24px;
   line-height: 1.4;
@@ -95,7 +95,7 @@
   }
 }
 .qa-process .qa-intro .qa-intro-item .qa-intro-item-title {
-  font-family: 'Gotham-Bold', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-weight: 400;
   font-size: 18px;
   text-transform: uppercase;
@@ -180,7 +180,7 @@
   text-align: center;
 }
 .qa-process .qa-process-intro .qa-intro-title {
-  font-family: 'Gotham-Medium', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-weight: 400;
   font-size: 36px;
   margin-top: 85px;
@@ -188,7 +188,7 @@
   color: #333333;
 }
 .qa-process .qa-process-intro .qa-intro-section-title {
-  font-family: 'Gotham-Medium', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-weight: 400;
   font-size: 24px;
   color: #007CE0;
@@ -254,7 +254,7 @@
   width: 100%;
 }
 .qa-process .qa-process-steps .qa-process-step .qa-process-title {
-  font-family: 'Gotham-Medium', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-weight: 400;
   font-size: 24px;
   color: #007CE0;
@@ -270,7 +270,7 @@
 }
 .qa-process .qa-doc-section .qa-doc-section-title {
   color: #333333;
-  font-family: 'Gotham-Medium', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-weight: 400;
   font-size: 24px;
   text-align: center;
@@ -302,7 +302,7 @@
 .qa-process .qa-doc-section .qa-doc-item .qa-doc-title {
   color: #007CE0;
   line-height: 1.3;
-  font-family: 'Gotham-Bold', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-weight: 400;
   font-size: 24px;
   margin: 32px 0;
@@ -319,7 +319,7 @@
   padding-bottom: 32px;
 }
 .qa-process .qa-learn .qa-learn-title {
-  font-family: 'Gotham-Medium', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-weight: 400;
   font-size: 22px;
   margin-bottom: 40px;

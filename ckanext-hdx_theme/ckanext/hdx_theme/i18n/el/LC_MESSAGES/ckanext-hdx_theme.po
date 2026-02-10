@@ -3033,6 +3033,16 @@ msgstr "Όνομα (Φθίνουσα)"
 msgid "Last Modified"
 msgstr "Τελευταία τροποποίηση"
 
+msgid "Last Added"
+msgstr "Τελευταία προσθήκη"
+
+msgid "Trending"
+msgstr "Δημοφιλή"
+
+msgid "Most Downloads"
+msgstr "Περοσσότερες λήψεις"
+
+
 #: ckan/templates/organization/confirm_delete.html:11
 msgid "Are you sure you want to delete organization - {name}?"
 msgstr "Είστε σίγουροι ότι θέλετε να διαγράψετε τον Φορέα - {name} ;"
@@ -6536,7 +6546,7 @@ msgstr "Ανθρωπιστικές Επιστήμες"
 msgid "Health Sciences"
 msgstr "Επιστήμες Υγείας"
 
-msgid "Computer Science & Engineering"
+msgid "Computer Science - Engineering"
 msgstr "Τεχνολογία και Πληροφορική"
 
 msgid "Environmental Sciences"
@@ -6545,5 +6555,14 @@ msgstr "Περιβαλλοντικές Επιστήμες"
 msgid "Social Sciences"
 msgstr "Κοινωνικές Επιστήμες"
 
-msgid "Economics & Business"
+msgid "Economics - Business"
 msgstr "Οικονομία και Διοίκηση"
+
+msgid "The publication this dataset is derived from"
+msgstr "Η δημοσίευση από την οποία προήλθε το σύνολο δεδομένων"
+
+msgid "The DOI of a related publication"
+msgstr "Το DOI μιας σχετικής δημοσίευσης"
+
+msgid "The thematic group of this dataset"
+msgstr "Η θεματική ομάδα του συνόλου δεδομένων"

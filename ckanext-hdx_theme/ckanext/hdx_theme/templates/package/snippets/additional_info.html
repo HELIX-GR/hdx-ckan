@@ -124,10 +124,10 @@
     <div class="dataset-details">{{ pkg_dict.contact_email }}</div>
       </div>
 
-      <div class="mb-3">
+      {#<div class="mb-3">
         <a href="#" id="show-extra-fields">... {{ _('More') }}</a>
-      </div>
-      <div class="additional-info-extra-fields d-none">
+      </div>#}
+      <div class="additional-info-extra-fields">
 
         <div class="mb-3" {% if edit_mode %} data-module="hdx-quick-edit" data-module-anchor="s2id_field_owner_org"
              data-module-dataset="{{ pkg_dict.id }}" {% endif %}>

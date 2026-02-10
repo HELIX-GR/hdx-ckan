@@ -51,7 +51,7 @@
 /* END Style breadcrumbs */
 /* Button style */
 .btn {
-  font-family: 'Gotham-Bold', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-weight: 400;
   font-size: 12px;
   text-transform: uppercase;
@@ -73,7 +73,7 @@
   opacity: 0.7;
   box-shadow: none;
   color: #fff;
-  font-family: 'Gotham-Bold', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-weight: 400;
   font-size: 12px;
   letter-spacing: 0;
@@ -258,7 +258,7 @@
 .select2-container .select2-choice {
   background-image: none;
   color: #888888;
-  font-family: 'Gotham-Bold', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-weight: 400;
   font-size: 14px;
   height: 44px;

@@ -27,7 +27,7 @@
   background-size: auto 100%;
   background-repeat: no-repeat;
   background-position: center;
-  font-family: 'Gotham-Bold', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-weight: 400;
   position: relative;
   min-height: calc(100vh - 100px);
@@ -40,7 +40,7 @@
   align-items: center;
 }
 .homepage-main .homepage-section .section-title {
-  font-family: 'Source Sans Pro', sans-serif;
+  font-family: 'Geologica';
   font-weight: 400;
   font-size: 48px;
   color: white;
@@ -75,7 +75,7 @@
   padding-top: 160px;
 }
 .homepage-main .hero-section .btn-faq {
-  font-family: 'Gotham-Bold', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-weight: 400;
   font-size: 14px;
   color: #1ebfb3;
@@ -169,7 +169,7 @@
   border-right: none;
 }
 .homepage-main .hero-section .hero-boxes-container .hero-boxes .action-box .count-items .item-count a {
-  font-family: 'Gotham-Light', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-display: auto;
   font-weight: 400;
   font-size: 30px;
@@ -182,7 +182,7 @@
   color: #888888;
 }
 .homepage-main .hero-section .hero-boxes-container .hero-boxes .action-box .count-items .item-name {
-  font-family: 'Gotham-Light', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-display: auto;
   font-weight: 400;
   font-size: 12px;
@@ -239,7 +239,7 @@
   margin-bottom: 30px;
   text-align: center;
   color: #fff;
-  font-family: 'Gotham-Book', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-display: block;
   font-weight: 400;
   font-size: 26px;
@@ -254,7 +254,7 @@
   margin-right: 0;
 }
 .homepage-main .carousel-section .carousel-items .sub-item .title {
-  font-family: 'Gotham-Bold', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-weight: 400;
   font-size: 12px;
   padding: 5px 15px;
@@ -310,7 +310,7 @@
   overflow: hidden;
 }
 .homepage-main .carousel-section .carousel-items .sub-item .sub-item-caption .description {
-  font-family: 'Gotham-Book', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-display: block;
   font-weight: 400;
   font-size: 16px;
@@ -389,7 +389,7 @@
   vertical-align: middle;
 }
 .newFooter .text {
-  font-family: 'Gotham-Bold', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-weight: 400;
   font-size: 14px;
   color: #888888;

@@ -16,7 +16,7 @@
   background-color: #edf6fd;
   padding: 15px;
   border-bottom: 1px solid #eeeeee;
-  font-family: 'Gotham-Bold', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-weight: 400;
   font-size: 12px;
   text-transform: uppercase;
@@ -120,7 +120,7 @@
   background-color: #edf6fd;
 }
 .list-header .list-header-title {
-  font-family: 'Gotham-Bold', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-weight: 400;
   font-size: 16px;
   color: #333333;
@@ -190,7 +190,7 @@
   background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='rgba%280, 0, 0, 0.25%29'/%3e%3c/svg%3e");
 }
 .list-header .show-filter-switch .form-check-label.form-check-label--big {
-  font-family: 'Gotham-Bold', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-weight: 400;
   font-size: 12px;
   color: #888888;
@@ -200,7 +200,7 @@
   color: #333333;
 }
 .list-header .list-header-showall.filter-hide-show {
-  font-family: 'Gotham-Bold', sans-serif;
+  font-family: 'Geologica', sans-serif;
   font-weight: 400;
   font-size: 12px;
   color: #888888;
