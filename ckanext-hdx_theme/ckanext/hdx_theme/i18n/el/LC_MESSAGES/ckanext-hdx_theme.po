@@ -3277,7 +3277,7 @@ msgstr "Μετάβαση στον πόρο"
 #: ckan/templates/package/snippets/resource_item.html:40
 #: ckan/templates_legacy/package/resource_read.html:76
 msgid "Download"
-msgstr "Download"
+msgstr "Λήψη"
 
 #: ckan/templates/package/resource_read.html:58
 msgid "URL:"
@@ -3302,6 +3302,12 @@ msgstr "Πηγή : <a href=\"%(url)s\">%(dataset)s</a>"
 #: ckan/templates_legacy/package/resource_read.html:158
 msgid "Additional Information"
 msgstr "Πρόσθετες Πληροφορίες"
+
+msgid "Additional information"
+msgstr "Πρόσθετες πληροφορίες"
+
+msgid "File Format"
+msgstr "Τύπος Αρχείου"
 
 #: ckan/templates/package/resource_read.html:91
 #: ckan/templates/package/snippets/additional_info.html:6
@@ -3881,6 +3887,9 @@ msgstr "URL Παρακαολούθησης"
 #: ckan/templates/snippets/facet_list.html:53
 msgid "Clear All"
 msgstr "Καθαρισμός Όλων"
+
+msgid "Clear all"
+msgstr "Καθαρισμός όλων"
 
 #: ckan/templates/snippets/facet_list.html:73
 msgid "Show More {facet_type}"
@@ -6573,3 +6582,12 @@ msgstr "Το DOI μιας σχετικής δημοσίευσης"
 
 msgid "The thematic group of this dataset"
 msgstr "Η θεματική ομάδα του συνόλου δεδομένων"
+
+msgid "Activity"
+msgstr "Δραστηριότητα"
+
+msgid "Modified"
+msgstr "Τελευταία Επεξεργασία"
+
+msgid "Search %(count)s organisations ..."
+msgstr "Αναζητήστε %(count)s οργανισμούς ..."

@@ -37,7 +37,7 @@
                 <span class="mL15 list-header-title">{{ _("Organizations") }} [{{ count }}]</span>
                 <span class="mL30">
                     {% set searchValue = q if q else '' %}
-                    <input id="headerSearch" class="header-search" type="text" placeholder="Search {{page.item_count}} organisations ..." value="{{searchValue}}">
+                    <input id="headerSearch" class="header-search" type="text" placeholder="{{ _('Search %(count)s organisations ...', count=page.item_count) }}" value="{{searchValue}}">
                 </span>
                 {% set sorting = [(_('Name Ascending'), 'title asc'), (_('Name Descending'), 'title desc'), (_('Dataset Count Descending'), 'datasets desc'), (_('Dataset Count Ascending'), 'datasets asc')] %}
                 <div class="control-order-by float-end">
@@ -81,6 +81,7 @@
                     {% endfor %}
                 </ul>
             #}
+            
             <div data-module="org-tree-toggle">
                 <ul class="hdx-bs3 list-items hierarchy-tree-top {{ list_class or 'dataset-list unstyled' }}">
                     {{ h.render_tree(displayed_top_nodes)|safe }}

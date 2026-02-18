@@ -131,7 +131,7 @@
 
         <div class="mb-3" {% if edit_mode %} data-module="hdx-quick-edit" data-module-anchor="s2id_field_owner_org"
              data-module-dataset="{{ pkg_dict.id }}" {% endif %}>
-          <div class="dataset-label">{{ _('Contributor') }}</div>
+          <div class="dataset-label">{{ _('Organization') }}</div>
           <div class="dataset-details metadata-link">
             {% if pkg_dict.owner_org %}
               {% set org_id = pkg_dict.owner_org or pkg_dict.organization.name %}
