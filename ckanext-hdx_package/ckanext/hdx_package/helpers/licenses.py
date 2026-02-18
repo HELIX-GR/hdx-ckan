@@ -94,8 +94,48 @@ class LicenseHdxOpenDataCommonsPublicdomainDedicationAndLicense(DefaultLicense):
 class LicenseHDXCreativeCommonsAttributionInternational(DefaultLicense):
     id = "cc-by"
     od_conformance = 'approved'
-    url = "http://www.opendefinition.org/licenses/cc-by"
+    url = "https://creativecommons.org/licenses/by/4.0/"
 
     @property
     def title(self):
-        return _("Creative Commons Attribution International")
+        return _("Creative Commons Attribution International 4.0 (cc-by)")
+
+class LicenseCreativeCommonsAttributionShareAlike(DefaultLicense):
+    domain_content = True
+    id = "cc-by-sa"
+    od_conformance = 'approved'
+    url = "https://creativecommons.org/licenses/by-sa/4.0/"
+
+    @property
+    def title(self):
+        return _("Creative Commons Attribution Share-Alike 4.0 (cc-by-sa)")
+
+class LicenseCreativeCommonsAttributionNonCommercial(DefaultLicense):
+    domain_content = True
+    id = "cc-by-nc"
+    od_conformance = 'approved'
+    url = "https://creativecommons.org/licenses/by-nc/4.0/"
+
+    @property
+    def title(self):
+        return _("Creative Commons Attribution-NonCommercial 4.0 (cc-by-nc)") 
+
+class LicenseCreativeCommonsAttributionNonCommercialShareAlike(DefaultLicense):
+    domain_content = True
+    id = "cc-by-nc-sa"
+    od_conformance = 'approved'
+    url = "https://creativecommons.org/licenses/by-nc-sa/4.0/"
+
+    @property
+    def title(self):
+        return _("Creative Commons Attribution-NonCommercial-ShareAlike 4.0 (cc-by-nc-sa)")        
+
+class LicenseCreativeCommonsZero(DefaultLicense):
+    domain_content = True
+    id = "cc0"
+    od_conformance = 'approved'
+    url = "https://creativecommons.org/public-domain/cc0/"
+
+    @property
+    def title(self):
+        return _("No Rights Reserved (cc0)")        
