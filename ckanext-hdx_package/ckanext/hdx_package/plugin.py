@@ -71,6 +71,10 @@ def _generate_license_list():
         license.License(
             hdx_licenses.LicenseCreativeCommonsIntergovernmentalOrgs()),
         license.License(hdx_licenses.LicenseHDXCreativeCommonsAttributionInternational()),
+        license.License(hdx_licenses.LicenseCreativeCommonsAttributionShareAlike()),
+        license.License(hdx_licenses.LicenseCreativeCommonsAttributionNonCommercial()),
+        license.License(hdx_licenses.LicenseCreativeCommonsAttributionNonCommercialShareAlike()),
+        license.License(hdx_licenses.LicenseCreativeCommonsZero()),
         license.License(license.LicenseCreativeCommonsAttributionShareAlike()),
         license.License(hdx_licenses.LicenseHdxOpenDatabaseLicense()),
         license.License(
@@ -236,7 +240,7 @@ class HDXPackagePlugin(plugins.SingletonPlugin, tk.DefaultDatasetForm):
             # Add heallink metadata
             'title_optional': [tk.get_validator('ignore_missing'), tk.get_converter('convert_to_extras')],
             'notes_optional': [tk.get_validator('ignore_missing'), tk.get_converter('convert_to_extras')],
-            'contact_email': [tk.get_validator('ignore_missing'), tk.get_converter('convert_to_extras')],
+            'contact_email': [tk.get_validator('not_empty'), tk.get_converter('convert_to_extras')],
             'publication_year': [tk.get_validator('ignore_missing'), tk.get_converter('convert_to_extras')],
             'related_publication': [tk.get_validator('ignore_missing'), tk.get_converter('convert_to_extras')],
             'is_derived_from': [tk.get_validator('ignore_missing'), tk.get_converter('convert_to_extras')],
@@ -244,8 +248,8 @@ class HDXPackagePlugin(plugins.SingletonPlugin, tk.DefaultDatasetForm):
             'creator_last_name': [tk.get_validator('ignore_missing'), tk.get_converter('convert_to_extras')],
             'datacite_doi': [tk.get_validator('ignore_missing'), tk.get_converter('convert_to_extras')],
             'language': [tk.get_validator('ignore_missing'), tk.get_converter('convert_to_extras')],
-            'closed_tags': [tk.get_validator('not_empty'), tk.get_validator('convert_to_tags')('closed_tags')],
-            'dataset_category': [tk.get_validator('ignore_missing'), tk.get_validator('convert_to_tags')('dataset_categories')],
+            'closed_tags': [tk.get_validator('ignore_missing'), tk.get_validator('convert_to_tags')('closed_tags')],
+            'dataset_category': [tk.get_validator('not_empty'), tk.get_validator('convert_to_tags')('dataset_categories')],
             'resource_type': [tk.get_validator('ignore_missing'), tk.get_converter('convert_to_extras')],
             'embargo_date': [tk.get_validator('ignore_missing'),
                              tk.get_converter('convert_to_extras')],
@@ -486,7 +490,7 @@ class HDXPackagePlugin(plugins.SingletonPlugin, tk.DefaultDatasetForm):
                 tk.get_converter('convert_from_extras'),
                 tk.get_validator('ignore_missing')
             ],
-            'contact_email': [tk.get_converter('convert_from_extras'), tk.get_validator('ignore_missing')],
+            'contact_email': [tk.get_converter('convert_from_extras'), tk.get_validator('not_empty')],
             'publication_year': [tk.get_converter('convert_from_extras'), tk.get_validator('ignore_missing')],
             'related_publication': [tk.get_converter('convert_from_extras'), tk.get_validator('ignore_missing')],
             'is_derived_from': [tk.get_converter('convert_from_extras'), tk.get_validator('ignore_missing')],
@@ -494,9 +498,9 @@ class HDXPackagePlugin(plugins.SingletonPlugin, tk.DefaultDatasetForm):
             'creator_last_name': [tk.get_converter('convert_from_extras'), tk.get_validator('ignore_missing')],
             'datacite_doi': [tk.get_converter('convert_from_extras'), tk.get_validator('ignore_missing')],
             'language': [tk.get_converter('convert_from_extras'), tk.get_validator('ignore_missing')],
-            'closed_tags': [tk.get_converter('convert_from_tags')('closed_tags'),tk.get_validator('not_empty')],
+            'closed_tags': [tk.get_converter('convert_from_tags')('closed_tags'),tk.get_validator('ignore_missing')],
             #'tags': [tk.get_validator('remove_vocab_tags'({'closed_tags'})],
-            'dataset_category': [tk.get_converter('convert_from_tags')('dataset_categories'), tk.get_validator('ignore_missing')],
+            'dataset_category': [tk.get_converter('convert_from_tags')('dataset_categories'), tk.get_validator('not_empty')],
             'resource_type': [tk.get_converter('convert_from_extras'), tk.get_validator('ignore_missing')],
             'embargo_date': [tk.get_converter('convert_from_extras'), tk.get_validator('ignore_missing')],
         })
@@ -750,15 +754,15 @@ class HDXPackagePlugin(plugins.SingletonPlugin, tk.DefaultDatasetForm):
         schema['data_update_frequency'] = [tk.get_validator('ignore_missing')] + schema['data_update_frequency']
         schema['title_optional'] = [tk.get_validator('ignore_missing')] + schema['title_optional']
         schema['notes_optional'] = [tk.get_validator('ignore_missing')] + schema['notes_optional']
-        schema['contact_email'] = [tk.get_validator('ignore_missing')] + schema['contact_email']
+        schema['contact_email'] = [tk.get_validator('not_empty')] + schema['contact_email']
         schema['publication_year'] = [tk.get_validator('ignore_missing')] + schema['publication_year']
         schema['related_publication'] = [tk.get_validator('ignore_missing')] + schema['related_publication']
         schema['is_derived_from'] = [tk.get_validator('ignore_missing')] + schema['is_derived_from']
         schema['creator_first_name'] = [tk.get_validator('ignore_missing')] + schema['creator_first_name']
         schema['creator_last_name'] = [tk.get_validator('ignore_missing')] + schema['creator_last_name']
         schema['datacite_doi'] = [tk.get_validator('ignore_missing')] + schema['datacite_doi']
-        schema['closed_tags'] = [tk.get_validator('not_empty')] + schema['closed_tags']
-        schema['dataset_category'] = [tk.get_validator('ignore_missing')] + schema['dataset_category']
+        schema['closed_tags'] = [tk.get_validator('ignore_missing')] + schema['closed_tags']
+        schema['dataset_category'] = [tk.get_validator('not_empty')] + schema['dataset_category']
         schema['embargo_date'] = [tk.get_validator('ignore_missing')] + schema['embargo_date']
         schema['language'] = [tk.get_validator('ignore_missing')] + schema['language']
         schema['resource_type'] = [tk.get_validator('ignore_missing')] + schema['resource_type']

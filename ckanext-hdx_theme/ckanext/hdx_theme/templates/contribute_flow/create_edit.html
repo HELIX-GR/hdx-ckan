@@ -471,7 +471,7 @@
                                               </div>
 
                                               <div data-module="hdx_form_element_manager" data-module-element_name="title_optional" data-module-broadcast_change="true">
-                                                {{ form.input('title_optional', id='field_title_optional', label=_('Title (Greek)'), placeholder=_('eg. A descriptive title'), value=data.title_optional, error=errors.title_optional, classes=['mb-3']) }}
+                                                {{ form.input('title_optional', id='field_title_optional', label=_('Title (Greek)'), placeholder=_('eg. A descriptive title'), value=data.title_optional, error=errors.title_optional, is_required=true, classes=['mb-3']) }}
                                                 </div>
                                               {% set prefix = h.url_for('dataset.read', id='') %}
                                               {% set domain = h.url_for('dataset.read', id='', qualified=true) %}
@@ -483,7 +483,7 @@
                                               </div>
 
                                               <div data-module="hdx_form_element_manager" data-module-element_name="notes" data-module-required="public,requestdata">
-                                              {{ form.markdown('notes', id='field_notes', label=_('Description'), placeholder=_('What type of data is included in this dataset ? For example, This data is about an assessment in x region'), value=data.notes, error=errors.notes, classes=['mb-3'], attrs={'style': 'height: 80px;'}) }}
+                                              {{ form.markdown('notes', id='field_notes', label=_('Description'), placeholder=_('What type of data is included in this dataset ? For example, This data is about an assessment in x region'), value=data.notes, error=errors.notes, is_required=true, classes=['mb-3'], attrs={'style': 'height: 80px;'}) }}
                                               </div>
 
                                               <div data-module="hdx_form_element_manager" data-module-element_name="notes_optional" data-module-required="public,requestdata">
@@ -696,7 +696,7 @@
                                             <script type="module" src="{{ h.url_for_static('/js/creator_fields.js') }}"></script>
 
                                             <div data-module="hdx_form_element_manager" data-module-element_name="contact_email" data-module-required="private,public,requestdata">
-                                              {{ form.input('contact_email', id='field_contact_email', label=_('Contact email'), placeholder=_("Contact email"), value=data.contact_email, error=errors.contact_email, classes=['mb-3', 'required'] ) }}
+                                              {{ form.input('contact_email', id='field_contact_email', label=_('Contact email'), placeholder=_("Contact email"), value=data.contact_email, error=errors.contact_email, is_required=true, classes=['mb-3', 'required'] ) }}
                                             </div>
                                             <div data-module="hdx_form_element_manager" data-module-element_name="is_derived_from">
                                               {{ form.input('is_derived_from', id='field_is_derived_from', label=_('Derived from'), placeholder=_("The publication this dataset is derived from"), value=data.is_derived_from, error=errors.is_derived_from, classes=['mb-3'] ) }}
@@ -722,7 +722,7 @@
                                             
                                             <div class="form-group control-full" >
                                               <div class="mb-3 tags-select">
-                                                  <label for="field-dataset_category"   class="control-label field-optional"> {{_('Thematic group')}}</label>
+                                                  <label for="field-dataset_category"   class="control-label field-optional"> <span title="This field is required" class="control-required">*</span> {{_('Thematic group')}}</label>
                                                   <div class="controls" >
                                                     <select  class="input-xlarge form-control" id="field-dataset_category"  data-module="autocomplete" name="dataset_category"   placeholder=_('The thematic group of this dataset') >
                                                         <option class="placeholder" value=""   {% if not data.get('dataset_category', []) %} selected {% endif %}  hidden>{{_('The thematic group of this dataset')}} </option>
@@ -743,7 +743,7 @@
                                             {% set error = errors.closed_tags %} 
                                             <div data-module="hdx_form_element_manager" data-module-element_name="closed_tags">
                                               <div class="mb-3 tags-select">
-                                              <label for="field-closed_tags" class="control-label"> <span title="This field is required" class="control-required">*</span> {{_('Subject')}}</label>
+                                              <label for="field-closed_tags" class="control-label"> {{_('Subject')}}</label>
                                                 <div class="controls" >
                                                   <select  id="field-closed_tags" class="form-control" name="closed_tags"  data-module="input-select2-subject" multiple  placeholder="{{_('A categorization of this dataset')}}" >
                                                     {% for closed_tag in h.closed_tags() %}

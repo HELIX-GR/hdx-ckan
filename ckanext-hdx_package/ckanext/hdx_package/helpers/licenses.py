@@ -98,7 +98,7 @@ class LicenseHDXCreativeCommonsAttributionInternational(DefaultLicense):
 
     @property
     def title(self):
-        return _("Creative Commons Attribution International 4.0 (cc-by)")
+        return _("Creative Commons Attribution International 4.0 (CC-BY)")
 
 class LicenseCreativeCommonsAttributionShareAlike(DefaultLicense):
     domain_content = True
@@ -108,7 +108,7 @@ class LicenseCreativeCommonsAttributionShareAlike(DefaultLicense):
 
     @property
     def title(self):
-        return _("Creative Commons Attribution Share-Alike 4.0 (cc-by-sa)")
+        return _("Creative Commons Attribution Share-Alike 4.0 (CC-BY-SA)")
 
 class LicenseCreativeCommonsAttributionNonCommercial(DefaultLicense):
     domain_content = True
@@ -118,7 +118,7 @@ class LicenseCreativeCommonsAttributionNonCommercial(DefaultLicense):
 
     @property
     def title(self):
-        return _("Creative Commons Attribution-NonCommercial 4.0 (cc-by-nc)") 
+        return _("Creative Commons Attribution-NonCommercial 4.0 (CC-BY-NC)") 
 
 class LicenseCreativeCommonsAttributionNonCommercialShareAlike(DefaultLicense):
     domain_content = True
@@ -128,7 +128,7 @@ class LicenseCreativeCommonsAttributionNonCommercialShareAlike(DefaultLicense):
 
     @property
     def title(self):
-        return _("Creative Commons Attribution-NonCommercial-ShareAlike 4.0 (cc-by-nc-sa)")        
+        return _("Creative Commons Attribution-NonCommercial-ShareAlike 4.0 (CC-BY-NC-SA)")        
 
 class LicenseCreativeCommonsZero(DefaultLicense):
     domain_content = True
@@ -138,4 +138,4 @@ class LicenseCreativeCommonsZero(DefaultLicense):
 
     @property
     def title(self):
-        return _("No Rights Reserved (cc0)")        
+        return _("No Rights Reserved (CC0)")        
