@@ -467,11 +467,11 @@
                                           </div>
                                           <div class="col-9">
                                               <div data-module="hdx_form_element_manager" data-module-element_name="title" data-module-required="private,public,requestdata" data-module-broadcast_change="true">
-                                              {{ form.input('title', id='field_title', label=_('Title (English)'), placeholder=_('eg. A descriptive title'), value=data.title, error=errors.title, classes=['mb-3', 'required'], attrs={'data-module': 'slug-preview-target'}) }}
+                                              {{ form.input('title', id='field_title', label=_('Title (English)'), placeholder=_('eg. A descriptive title'), value=data.title, error=errors.title, classes=['mb-3', 'required'], is_required=true, attrs={'data-module': 'slug-preview-target'}) }}
                                               </div>
 
                                               <div data-module="hdx_form_element_manager" data-module-element_name="title_optional" data-module-broadcast_change="true">
-                                                {{ form.input('title_optional', id='field_title_optional', label=_('Title (Greek)'), placeholder=_('eg. A descriptive title'), value=data.title_optional, error=errors.title_optional, is_required=true, classes=['mb-3']) }}
+                                                {{ form.input('title_optional', id='field_title_optional', label=_('Title (Greek)'), placeholder=_('eg. A descriptive title'), value=data.title_optional, error=errors.title_optional, classes=['mb-3']) }}
                                                 </div>
                                               {% set prefix = h.url_for('dataset.read', id='') %}
                                               {% set domain = h.url_for('dataset.read', id='', qualified=true) %}
@@ -604,19 +604,32 @@
                                             {{ form.input('dataset_source', id='field_dataset_source', label=_('Source'), placeholder=_('Who collected the data?'), value=data.dataset_source, error=errors.dataset_source, classes=['mb-3'], attrs={}) }}
                                             </div> #}
                                             {% set top_orgs = h.group_tree() %}
+                                            {% set available_orgs = h.organizations_available('create_dataset') %}
+                                            {% set allowed_org_names = [] %}
                                             {% set organisations = [] %}
 
-                                            {% for org in top_orgs %}
-  {% set label = org.title_greek if h.lang() == 'el' and org.title_greek else org.title %}
-  {% do organisations.append({'value': org.name, 'text': label}) %}
-{% endfor %}
+                                            {% for org in top_orgs recursive %}
+                                              {% if org.name not in allowed_org_names %}
+                                                {% do allowed_org_names.append(org.name) %}
+                                              {% endif %}
+                                              {% if org.children %}
+                                                {{ loop(org.children) }}
+                                              {% endif %}
+                                            {% endfor %}
+
+                                            {% for org in available_orgs %}
+                                              {% if org.name in allowed_org_names %}
+                                                {% set label = org.title_greek if h.lang() == 'el' and org.title_greek else org.title %}
+                                                {% do organisations.append({'value': org.name, 'text': label}) %}
+                                              {% endif %}
+                                            {% endfor %}
 
                                             {#{% set organisations = h.hdx_organisation_list() %}#}
                                             <div data-module="hdx_form_element_manager" data-module-element_name="owner_org" data-module-required="private,public,requestdata"  data-module-broadcast_change="true">
                                             {{ form.select('owner_org', id='field_owner_org', label=_('Organization'), options=organisations, selected=data.owner_org_name, error=errors.owner_org, classes=['mb-3'], attrs={'data-placeholder':_('Which institution the dataset belongs to?')}) }}
                                             </div>
 
-                                            {% set first_org = organisations[0].value if organisations[0] else None %}
+                                            {% set first_org = organisations[0].value if organisations|length else None %}
                                             {% set selected_org_name = data.owner_org_name or first_org %}
 
                                             {% set maintainer_attrs = {'data-module': 'hdx_autocomplete',
