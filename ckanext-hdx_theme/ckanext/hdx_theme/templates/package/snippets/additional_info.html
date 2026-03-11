@@ -237,7 +237,14 @@
             </div>
           </div>
         {% endif %}
-
+      {% if pkg_dict.datacite_doi %}
+          <div class="mb-3">
+            <div class="dataset-label">{{ _('DOI') }}</div>
+            <div class="dataset-details">
+              {{ pkg_dict.datacite_doi }}
+            </div>
+          </div>
+        {% endif %}
         {# Metadata-only datasets are public, so this option is only for full datasets #}
         {% if not pkg_dict.is_requestdata_type %}
           {% if h.check_access('package_update', {'id':pkg_dict.id }) %}
