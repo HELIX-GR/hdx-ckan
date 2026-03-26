@@ -872,8 +872,11 @@ def hdx_update_last_modified_if_url_changed(key: FlattenKey, data: FlattenDataDi
         package_id = data.get(('id',))
 
         # resource_id can be None if we're just creating the resource
-        if resource_id and url_value:
+        if resource_id and package_id and url_value:
             prev_resource_dict = __get_previous_resource_dict(context, package_id, resource_id)
+            if not prev_resource_dict:
+                return
+
             prev_url_value = prev_resource_dict.get('url')
             if prev_url_value != url_value:
                 data[key] = datetime.datetime.utcnow()
