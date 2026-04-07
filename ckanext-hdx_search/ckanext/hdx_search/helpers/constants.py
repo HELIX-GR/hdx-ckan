@@ -1,4 +1,4 @@
-DEFAULT_SORTING = 'last_modified desc'
+DEFAULT_SORTING = 'metadata_created desc'
 DEFAULT_NUMBER_OF_ITEMS_PER_PAGE = 25
 
 NEW_DATASETS_FACET_NAME = 'new_datasets'

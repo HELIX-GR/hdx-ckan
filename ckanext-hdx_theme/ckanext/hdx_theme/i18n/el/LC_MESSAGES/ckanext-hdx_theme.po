@@ -6591,3 +6591,6 @@ msgstr "Τελευταία Επεξεργασία"
 
 msgid "Search %(count)s organisations ..."
 msgstr "Αναζητήστε %(count)s οργανισμούς ..."
+
+msgid "Contact the contributor"
+msgstr "Επικοινωνήστε με τον φορέα"
