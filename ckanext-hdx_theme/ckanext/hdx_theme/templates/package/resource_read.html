@@ -3,6 +3,32 @@
 {% set res = resource %}
 {% set pkg = pkg_dict %}
 {% set analytics = h.hdx_compute_analytics(pkg_dict) %}
+{% set can_edit_dataset = h.check_access('package_update', {'id': pkg.id}) %}
+{% set is_anonymous_user = (not g.userobj) or g.userobj.is_anonymous %}
+{% set restricted_flag = res.restricted if res.restricted is defined else false %}
+{% set allowed_users_flag = res.allowed_users if res.allowed_users is defined else '' %}
+{% set is_restricted = false %}
+{% if restricted_flag %}
+  {% if restricted_flag is string %}
+    {% set restricted_flag_normalized = restricted_flag|lower|trim %}
+    {% set is_restricted = restricted_flag_normalized in ['true', '1', 'yes', 'registered', 'only_allowed_users', 'same_organization', 'any_organization']
+      or 'only_allowed_users' in restricted_flag_normalized
+      or 'registered' in restricted_flag_normalized
+      or 'same_organization' in restricted_flag_normalized
+      or 'any_organization' in restricted_flag_normalized %}
+  {% else %}
+    {% set is_restricted = true %}
+  {% endif %}
+{% endif %}
+{% if not is_restricted and allowed_users_flag %}
+  {% if allowed_users_flag is string %}
+    {% if allowed_users_flag|trim %}
+      {% set is_restricted = true %}
+    {% endif %}
+  {% elif allowed_users_flag|length > 0 %}
+    {% set is_restricted = true %}
+  {% endif %}
+{% endif %}
 
 {# The lines below are for analytics #}
 {% block analytics_org_name %}{{ package.organization.name }}{% endblock %}
@@ -51,9 +77,17 @@
                 <li>{% link_for _('Edit'), controller='package', action='resource_edit', id=pkg.name, resource_id=res.id, class_='btn hdx-btn resource-btn' %}</li>
               {% endif %}
              #}
-            {% if res.url and h.is_url(res.url) and h.check_access('hdx_resource_download', res) %}
+            {% if res.url and h.is_url(res.url) and is_restricted and not can_edit_dataset and is_anonymous_user %}
               <li>
-                <a class="btn hdx-btn ga-download resource-btn resource-icon-btn resource-url-analytics resource-type-{{ res.resource_type }}" href="{{ res.hdx_rel_url }}">
+                <a href="#" class="btn hdx-btn resource-btn resource-restricted-button"
+                   style="cursor: default;" onclick="return false;"
+                   title="{{ _('This resource is restricted') }}">
+                  <i class="fa fa-lock"></i> {{ _('Restricted') }}
+                </a>
+              </li>
+            {% elif res.url and h.is_url(res.url) and (can_edit_dataset or h.check_access('hdx_resource_download', res)) %}
+              <li>
+                <a class="btn hdx-btn ga-download resource-btn resource-icon-btn resource-url-analytics resource-type-{{ res.resource_type }}" href="{{ res.url if res.url_type == 'upload' else res.hdx_rel_url }}" {{ 'download' if res.url_type == 'upload' else '' }}>
                 {#
                   {% if res.resource_type in ('listing', 'service') %}
                     <i class="icon-eye-open"></i> {{ _('View') }}
@@ -68,6 +102,14 @@
                   <img src="/images/homepage/download-white.svg" alt=" {{ _('Download') }}" style="width: 14px;" />
                   <span class="ga-download-resource-title" style="display: none">{{ res.name }}</span>
                   <span class="ga-download-resource-id" style="display: none">{{ res.id }}</span>
+                </a>
+              </li>
+            {% elif res.url and h.is_url(res.url) %}
+              <li>
+                <a href="#" class="btn hdx-btn resource-btn resource-restricted-button"
+                   style="cursor: default;" onclick="return false;"
+                   title="{{ _('This resource is restricted') }}">
+                  <i class="fa fa-lock"></i> {{ _('Restricted') }}
                 </a>
               </li>
             {% endif %}
@@ -85,9 +127,9 @@
              <p class="muted ellipsis">{{ _('URL:') }}
               {% if h.check_access('hdx_resource_download', res) %}
                 {% if res.url and h.is_url(res.url) %}
-                  <a href="{{ res.hdx_rel_url }}" title="{{ res.hdx_rel_url }}">{{ res.url }}</a>
+                  <a href="{{ res.url if res.url_type == 'upload' else res.hdx_rel_url }}" title="{{ res.url if res.url_type == 'upload' else res.hdx_rel_url }}">{{ res.url }}</a>
                 {% elif res.url %}
-                  {{ res.hdx_rel_url }}
+                  {{ res.url if res.url_type == 'upload' else res.hdx_rel_url }}
                 {% endif %}
               {% else %}
                 <a href="/faq#auto-faq-Metadata_and_Data_Quality-What_does_it_mean_for_a_dataset_to_be__under_review__-a" class="under-review">[ under review ]</a>

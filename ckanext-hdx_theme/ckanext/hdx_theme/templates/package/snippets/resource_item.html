@@ -5,6 +5,32 @@
 {% set resource_display_name = h.resource_display_name(res) %}
 
 {% set in_review = res.in_quarantine %}
+{% set can_edit_dataset = h.check_access('package_update', {'id': pkg.id}) %}
+{% set is_anonymous_user = (not g.userobj) or g.userobj.is_anonymous %}
+{% set restricted_flag = res.restricted if res.restricted is defined else false %}
+{% set allowed_users_flag = res.allowed_users if res.allowed_users is defined else '' %}
+{% set is_restricted = false %}
+{% if restricted_flag %}
+  {% if restricted_flag is string %}
+    {% set restricted_flag_normalized = restricted_flag|lower|trim %}
+    {% set is_restricted = restricted_flag_normalized in ['true', '1', 'yes', 'registered', 'only_allowed_users', 'same_organization', 'any_organization']
+      or 'only_allowed_users' in restricted_flag_normalized
+      or 'registered' in restricted_flag_normalized
+      or 'same_organization' in restricted_flag_normalized
+      or 'any_organization' in restricted_flag_normalized %}
+  {% else %}
+    {% set is_restricted = true %}
+  {% endif %}
+{% endif %}
+{% if not is_restricted and allowed_users_flag %}
+  {% if allowed_users_flag is string %}
+    {% if allowed_users_flag|trim %}
+      {% set is_restricted = true %}
+    {% endif %}
+  {% elif allowed_users_flag|length > 0 %}
+    {% set is_restricted = true %}
+  {% endif %}
+{% endif %}
 
 {% asset 'hdx_theme/resource-list-scripts' %}
 
@@ -62,12 +88,21 @@
                     </a>
                 {% endif %}
              #}
-            {% if not in_review and h.check_access('hdx_resource_download', res) %}
+            {% set btn_dict = {'type': ''} %}
+            {% if not in_review and is_restricted and not can_edit_dataset and is_anonymous_user %}
+              <a href="#" class="btn btn-empty btn-empty-blue hdx-btn resource-restricted-button"
+                 style="cursor: default;" onclick="return false;"
+                 title="{{ _('This resource is restricted') }}">
+                <i class="fa fa-lock"></i> {{ _('Restricted') }}
+              </a>
+            {% elif not in_review and (can_edit_dataset or h.check_access('hdx_resource_download', res)) %}
               {% set btn_dict = {'title':'This will take you outside HDX to access the data', 'value':'Access Data', 'type':'external'} if h.hdx_get_ckan_config('ckan.resource_formats.external_system')==res.format else {'title':_('Download'), 'value':_('Download'), 'type':'download'} %}
-              <a href="{{ res.url }}"
+                      <a href="{{ res.url }}"
                  class="btn btn-empty btn-empty-blue hdx-btn resource-url-analytics ga-download resource-download-button"
                  title="{{ btn_dict.title }}"
-                 target="_blank"
+                    target="{{ '_blank' if res.url_type != 'upload' else '_self' }}"
+                    rel="{{ 'noopener noreferrer' if res.url_type != 'upload' else 'noreferrer' }}"
+                    {{ 'download' if res.url_type == 'upload' else '' }}
                  data-resource-id="{{ res.id }}"
                  data-dataset-id="{{ pkg.id }}"
                  data-dataset-name="{{ pkg.name }}"
@@ -142,7 +177,13 @@
                   </li>
                 </ul>
             {% endif %}
-          {% endif %}
+            {% elif not in_review %}
+              <a href="#" class="btn btn-empty btn-empty-blue hdx-btn resource-restricted-button"
+                 style="cursor: default;" onclick="return false;"
+                 title="{{ _('This resource is restricted') }}">
+                <i class="fa fa-lock"></i> {{ _('Restricted') }}
+              </a>
+            {% endif %}
 
             {% if in_review %}
               <a href="/faq#auto-faq-Metadata_and_Data_Quality-What_does_it_mean_for_a_dataset_to_be__under_review__-a"
