@@ -30,6 +30,16 @@ from ckan.types import Context, DataDict
 
 log = logging.getLogger(__name__)
 
+DATASET_CATEGORIES_CANONICAL = {
+    'natural sciences': 'Natural Sciences',
+    'humanities': 'Humanities',
+    'health sciences': 'Health Sciences',
+    'computer science - engineering': 'Computer Science - Engineering',
+    'environmental sciences': 'Environmental Sciences',
+    'social sciences': 'Social Sciences',
+    'economics - business': 'Economics - Business',
+}
+
 g = tk.g
 config = tk.config
 get_action = tk.get_action
@@ -345,7 +355,26 @@ def get_tag_vocabulary(tags):
     """
     for item in tags:
         topic = None
-        tag_name = item['name'].lower()
+        original_tag_name = item.get('name', '')
+        if not original_tag_name:
+            continue
+
+        item_vocabulary_id = item.get('vocabulary_id')
+        item_vocabulary = model.Vocabulary.get(item_vocabulary_id) if item_vocabulary_id else None
+
+        # Keep canonical casing for dataset_categories tags and do not remap their vocabulary
+        if item_vocabulary and item_vocabulary.name == 'dataset_categories':
+            normalized_name = DATASET_CATEGORIES_CANONICAL.get(
+                original_tag_name.strip().lower(),
+                original_tag_name
+            )
+            item['name'] = normalized_name
+            existing_tag = model.Tag.by_name(name=normalized_name, vocab=item_vocabulary)
+            if existing_tag:
+                item['id'] = existing_tag.as_dict().get('id')
+            continue
+
+        tag_name = original_tag_name.lower()
         vocabulary = model.Vocabulary.get('Topics')
         if vocabulary:
             item['vocabulary_id'] = vocabulary.id

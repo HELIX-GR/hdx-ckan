@@ -46,6 +46,34 @@ _DATASET_PREVIEW_NO_PREVIEW = 'no_preview'
 DATASET_PREVIEW_VALUES_LIST = [_DATASET_PREVIEW_FIRST_RESOURCE, _DATASET_PREVIEW_RESOURCE_ID,
                                _DATASET_PREVIEW_NO_PREVIEW]
 
+DATASET_CATEGORIES_CANONICAL = [
+    'Natural Sciences',
+    'Humanities',
+    'Health Sciences',
+    'Computer Science - Engineering',
+    'Environmental Sciences',
+    'Social Sciences',
+    'Economics - Business'
+]
+
+
+def _is_dataset_categories_vocabulary(vocabulary_id, context):
+    if not vocabulary_id or isinstance(vocabulary_id, Missing):
+        return False
+
+    vocabulary_text = six.text_type(vocabulary_id).strip()
+    if not vocabulary_text:
+        return False
+
+    if vocabulary_text.lower() == 'dataset_categories':
+        return True
+
+    try:
+        vocabulary = tk.get_action('vocabulary_show')(context, {'id': vocabulary_text})
+        return vocabulary.get('name', '').strip().lower() == 'dataset_categories'
+    except Exception:
+        return False
+
 
 # same as not_empty, but ignore whitespaces
 def not_empty_ignore_ws(key, data, errors, context):
@@ -156,6 +184,90 @@ def to_lower(current_value):
     if current_value:
         return current_value.lower()
     return current_value
+
+
+def hdx_canonicalize_dataset_category(key, data, errors, context):
+    current_value = data.get(key)
+    if current_value is missing or current_value is None:
+        return current_value
+
+    canonical_map = {name.strip().lower(): name for name in DATASET_CATEGORIES_CANONICAL}
+
+    def _canonicalize_name(name):
+        if name is None:
+            return name
+        name_text = six.text_type(name).strip()
+        if not name_text:
+            return name_text
+        return canonical_map.get(name_text.lower(), name_text)
+
+    def _normalize_item(item):
+        if item is None:
+            return None
+
+        if isinstance(item, dict):
+            normalized = dict(item)
+            if normalized.get('name') is not None:
+                normalized_name = _canonicalize_name(normalized.get('name'))
+                normalized['name'] = normalized_name
+                if 'display_name' in normalized:
+                    normalized['display_name'] = normalized_name
+            elif normalized.get('display_name') is not None:
+                normalized_display = _canonicalize_name(normalized.get('display_name'))
+                normalized['display_name'] = normalized_display
+                normalized['name'] = normalized_display
+            return normalized
+
+        if isinstance(item, six.string_types):
+            return _canonicalize_name(item)
+
+        return _canonicalize_name(item)
+
+    if isinstance(current_value, (list, tuple, set)):
+        normalized_values = []
+        seen_keys = set()
+        for item in current_value:
+            normalized_item = _normalize_item(item)
+            if not normalized_item:
+                continue
+
+            if isinstance(normalized_item, dict):
+                dedupe_key = six.text_type(normalized_item.get('name', '')).strip().lower()
+            else:
+                dedupe_key = six.text_type(normalized_item).strip().lower()
+
+            if dedupe_key and dedupe_key not in seen_keys:
+                seen_keys.add(dedupe_key)
+                normalized_values.append(normalized_item)
+
+        data[key] = normalized_values
+    else:
+        data[key] = _normalize_item(current_value)
+
+    return data[key]
+
+
+def hdx_canonicalize_dataset_category_tag_name(key, data, errors, context):
+    current_value = data.get(key)
+    if current_value is missing or current_value is None:
+        return current_value
+
+    canonical_map = {name.strip().lower(): name for name in DATASET_CATEGORIES_CANONICAL}
+
+    if not isinstance(key, tuple) or len(key) < 3 or key[0] != 'tags' or key[2] != 'name':
+        return current_value
+
+    vocabulary_id = data.get((key[0], key[1], 'vocabulary_id'))
+    if not _is_dataset_categories_vocabulary(vocabulary_id, context):
+        return current_value
+
+    value_text = six.text_type(current_value).strip()
+    if not value_text:
+        return current_value
+
+    canonical_value = canonical_map.get(value_text.lower(), value_text)
+    data[key] = canonical_value
+    return data[key]
 
 
 def hdx_show_subnational(key, data, errors, context):

@@ -249,7 +249,11 @@ class HDXPackagePlugin(plugins.SingletonPlugin, tk.DefaultDatasetForm):
             'datacite_doi': [tk.get_validator('ignore_missing'), tk.get_converter('convert_to_extras')],
             'language': [tk.get_validator('ignore_missing'), tk.get_converter('convert_to_extras')],
             'closed_tags': [tk.get_validator('ignore_missing'), tk.get_validator('convert_to_tags')('closed_tags')],
-            'dataset_category': [tk.get_validator('not_empty'), tk.get_validator('convert_to_tags')('dataset_categories')],
+            'dataset_category': [
+                tk.get_validator('not_empty'),
+                tk.get_validator('hdx_canonicalize_dataset_category'),
+                tk.get_validator('convert_to_tags')('dataset_categories')
+            ],
             'resource_type': [tk.get_validator('ignore_missing'), tk.get_converter('convert_to_extras')],
             'embargo_date': [tk.get_validator('ignore_missing'),
                              tk.get_converter('convert_to_extras')],
@@ -266,6 +270,7 @@ class HDXPackagePlugin(plugins.SingletonPlugin, tk.DefaultDatasetForm):
                     tk.get_validator('hdx_keep_crisis_tags_if_not_sysadmin'),
                     tk.get_validator('not_missing'),
                     tk.get_validator('not_empty'),
+                    tk.get_validator('hdx_canonicalize_dataset_category_tag_name'),
                     tk.get_validator('unicode_safe'),
                     tk.get_validator('tag_length_validator'),
                     #tk.get_validator('hdx_tag_name_approved_validator'),
@@ -591,6 +596,8 @@ class HDXPackagePlugin(plugins.SingletonPlugin, tk.DefaultDatasetForm):
         return {
             'hdx_detect_format': vd.detect_format,  
             'hdx_to_lower': vd.to_lower,
+            'hdx_canonicalize_dataset_category': vd.hdx_canonicalize_dataset_category,
+            'hdx_canonicalize_dataset_category_tag_name': vd.hdx_canonicalize_dataset_category_tag_name,
             'find_package_creator': vd.find_package_creator,
             'not_empty_if_methodology_other': vd.general_not_empty_if_other_selected('methodology', 'Other'),
             'not_empty_if_license_other': vd.general_not_empty_if_other_selected('license_id', 'hdx-other'),
@@ -897,8 +904,9 @@ class HDXPackagePlugin(plugins.SingletonPlugin, tk.DefaultDatasetForm):
         data = {'id': 'dataset_categories'}
         vocab = tk.get_action ('vocabulary_show') (context, data)
         categories = tk.get_action ('tag_list') (data_dict={ 'vocabulary_id': 'dataset_categories'})
+        categories_lower = {category.strip().lower() for category in categories if category and category.strip()}
         for tag in cls.DATASET_CATEGORIES:
-            if tag not in categories:
+            if tag.strip().lower() not in categories_lower:
                 log.info("Adding tag {0} to vocab 'dataset categories'".format(tag))
                 data = {'name': tag, 'vocabulary_id': vocab['id']}
                 tk.get_action ('tag_create') (context, data)  
