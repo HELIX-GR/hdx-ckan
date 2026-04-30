@@ -7,7 +7,7 @@
           <a href="{{ item.url }}" class="btn" target="_blank" data-module="hdx_click_stopper"
              data-module-link_type="carousel">Watch</a>
         {% else %}
-          <a href="{{ 'dataset/?dataset_category=' + item.title|lower|replace(' ', '+') }}" class="btn" {% if item.newTab %} target="_blank" {% endif %}
+          <a href="{{ 'dataset/?dataset_category=' + item.title|replace(' ', '+') }}" class="btn" {% if item.newTab %} target="_blank" {% endif %}
              data-module="hdx_click_stopper" data-module-link_type="carousel">{% if item.buttonText %}
             {{ item.buttonText }} {% else %} {{_('Explore')}} {% endif %}</a>
         {% endif %}
