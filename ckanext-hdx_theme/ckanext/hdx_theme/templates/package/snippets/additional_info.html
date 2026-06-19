@@ -207,11 +207,17 @@
              data-module-dataset="{{ pkg_dict.id }}"{% endif %}>
           <div class="dataset-label">{{ _('Tags') }}</div>
           <div class="dataset-details">
+            {% set _dataset_categories = h.dataset_categories() %}
             {% for tag in pkg_dict.tags %}
               <div class="tag-wrapper">
                 {% if tag.vocabulary_id %}
-                  <a class="label tag" title="{{ tag.display_name }}"
-                     href="{% url_for 'hdx_dataset.search', vocab_Topics=tag.name %}">{{ tag.display_name }}</a>
+                  {% if tag.name in _dataset_categories %}
+                    <a class="label tag" title="{{ tag.display_name }}"
+                       href="{% url_for 'hdx_dataset.search', dataset_category=tag.name %}">{{ tag.display_name }}</a>
+                  {% else %}
+                    <a class="label tag" title="{{ tag.display_name }}"
+                       href="{% url_for 'hdx_dataset.search', vocab_closed_tags=tag.name %}">{{ tag.display_name }}</a>
+                  {% endif %}
                 {% else %}
                   <a class="label tag" title="{{ tag.display_name }}"
                      href="{% url_for 'hdx_dataset.search', tags=tag.name %}">{{ tag.display_name }}</a>

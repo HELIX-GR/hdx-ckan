@@ -74,9 +74,9 @@ INITIAL_CAROUSEL_DATA = [
         "url": "//data.humdata.org/organization/ocha-south-sudan"
     },
     {
-        "title": "Computer Science & Engineering",
+        "title": "Computer Science - Engineering",
         "title_greek": "Τεχνολογία και Πληροφορική",
-        "description": "Computer Science & Engineering",
+        "description": "Computer Science - Engineering",
         "graphic": "/images/homepage/heallink/computer_science.png",
         "url": "https://centre.humdata.org/new-features-contact-the-contributor-and-group-message/"
     },
@@ -95,9 +95,9 @@ INITIAL_CAROUSEL_DATA = [
         "url": "//data.humdata.org/organization/unhcr-kenya"
     },
     {
-        "title": "Economics & Business",
+        "title": "Economics - Business",
         "title_greek": "Οικονομία και Διοίκηση",
-        "description": "Economics & Business",
+        "description": "Economics - Business",
         "graphic": "/images/homepage/heallink/economics.png",
         "url": "//data.humdata.org/organization/adeso"
     }
