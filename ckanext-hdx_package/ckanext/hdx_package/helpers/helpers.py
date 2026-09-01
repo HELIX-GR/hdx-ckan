@@ -374,6 +374,13 @@ def get_tag_vocabulary(tags):
                 item['id'] = existing_tag.as_dict().get('id')
             continue
 
+        # avoid tag_name_vocabulary_id_key collisions
+        if item_vocabulary and item_vocabulary.name == 'closed_tags':
+            existing_tag = model.Tag.by_name(name=original_tag_name, vocab=item_vocabulary)
+            if existing_tag:
+                item['id'] = existing_tag.as_dict().get('id')
+            continue
+
         tag_name = original_tag_name.lower()
         vocabulary = model.Vocabulary.get('Topics')
         if vocabulary:
