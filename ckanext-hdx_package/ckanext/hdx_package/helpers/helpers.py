@@ -594,8 +594,21 @@ def remove_previous_package_dict_from_context(context, id):
 
 # Hardmin-related helpers
 
-def getDataciteDoi(package):
-    """Create and publish a DataCite DOI"""
+def generate_doi():
+    """Build a new DOI string, without registering it anywhere.
+
+    Kept separate from publishDataciteDoi() so a dataset can be saved with its
+    future DOI before that DOI is actually published at DataCite.
+    """
+    prefix = config.get('ckanext.hdx_package.datacite.prefix')
+    suffix = ''.join(random.SystemRandom().choice(string.ascii_lowercase + string.digits) for _ in range(4)) + '-' \
+     + ''.join(random.SystemRandom().choice(string.ascii_lowercase + string.digits) for _ in range(4))
+
+    return f"{prefix}{suffix}"
+
+
+def publishDataciteDoi(package, doi):
+    """Publish (register) an already-chosen DOI at DataCite"""
 
     # Build dataset URL
     package_url = (
@@ -603,14 +616,8 @@ def getDataciteDoi(package):
         h.url_for('dataset.read', id=package['name'])
     )
 
-    prefix = config.get('ckanext.hdx_package.datacite.prefix')
-    suffix = random_str = ''.join(random.SystemRandom().choice(string.ascii_lowercase + string.digits) for _ in range(4)) + '-' \
-     + ''.join(random.SystemRandom().choice(string.ascii_lowercase + string.digits) for _ in range(4))
-
-    doi = f"{prefix}{suffix}"
-
     event = config.get('ckanext.hdx_package.datacite.publish')
-    
+
     # Creator
     creators = build_datacite_creators(package)
 

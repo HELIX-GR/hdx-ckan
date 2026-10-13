@@ -408,7 +408,6 @@ def package_update(
     if new_qa_completed != prev_qa_completed and new_data_dict.get('type') == 'dataset':
         QACompletedAnalyticsSender(new_data_dict, prev_last_modified,
                                    mark_as_set=new_qa_completed).send_to_queue()
-        log.debug('new QA COMPLETED value: {}'.format(new_qa_completed))
 
     return data_dict['id'] if return_id_only else new_data_dict
 
@@ -700,16 +699,34 @@ def add_public_doi(context, datasets):
                    'user': c.user or c.author, 'auth_user_obj': c.userobj, 'ignore_auth' : True}
     for id in datasets:
         dataset = _get_action('package_show')(context_copy, {'id': id})
-        if 'datacite_doi' not in dataset:
-            doi = helpers.getDataciteDoi(dataset)
-
-            if not doi:
-                log.error("DOI minting failed, dataset not updated")
-                return  
-
+        if not dataset.get('datacite_doi'):
+            # Save the DOI onto the dataset BEFORE publishing it at DataCite,
+            # as publishing at DataCite is effectively irreversible 
+            doi = helpers.generate_doi()
             dataset['datacite_doi'] = doi
-            package_update(context_copy, dataset)
-    return        
+            try:
+                package_update(context_copy, dataset)
+            except Exception as ex:
+                # Nothing was published at DataCite yet, so there's nothing to clean up -
+                # just skip this dataset and move on to the rest of the batch.
+                log.error("Failed to save DOI %s to dataset %s before publishing it "
+                          "at DataCite; skipping: %s", doi, id, ex)
+                continue
+
+            try:
+                helpers.publishDataciteDoi(dataset, doi)
+            except Exception as ex:
+                log.error("DataCite publish failed for dataset %s, DOI %s - "
+                          "reverting the saved DOI so it can be retried: %s", id, doi, ex)
+                dataset['datacite_doi'] = ''
+                try:
+                    package_update(context_copy, dataset)
+                except Exception as revert_ex:
+                    log.error("Failed to revert DOI %s on dataset %s after a failed "
+                              "DataCite publish - this dataset now has an unpublished "
+                              "DOI recorded and needs manual attention: %s",
+                              doi, id, revert_ex)
+    return
 
 def _bulk_update_dataset(context, data_dict, update_dict):
     ''' Bulk update shared code for organizations'''
