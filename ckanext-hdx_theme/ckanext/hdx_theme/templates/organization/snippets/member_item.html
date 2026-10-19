@@ -12,7 +12,7 @@ Example:
 
 {% snippet 'organization/snippets/edit_member.html', form_url=h.url_for(controller='organization',
 	action='member_new', id=group_id, user=id),
-	user=member.name, role=role, roles=roles, modal_div_id='edit-member-div-'+member.name, member=member %}
+	user=member.name, role=role, roles=roles, modal_div_id='edit-member-div-'+member.id, member=member %}
 
 {% set disable_change = (role == 'admin') and ((sysadmin==False and non_sysadmin_admins < 2) or (no_admins < 2)) %}
 
@@ -32,7 +32,7 @@ Example:
 					{% if authorized %}
 						{% if not disable_change %}
 							  <div class="">
-								<a class="" href="#edit-member-div-{{member.name}}" data-bs-toggle="modal"
+								<a class="" href="#edit-member-div-{{member.id}}" data-bs-toggle="modal"
 									title="{{ _('Change role') }}">
 								  {{ _('Change role') }}
 								</a>
@@ -75,8 +75,8 @@ Example:
 				<span class="count"> {{ h.hdx_show_singular_plural(member.ds_num, _('Dataset'), _('Datasets')) }}</span>
 				-
 				<span class="count"> {{ h.hdx_show_singular_plural(member.org_num, _('Organisation'), _('Organisations')) }}</span>
-				-
-				<span class="count"> {{ h.hdx_show_singular_plural(member.grp_num, _('Countries'),  _('Countries')) }}</span>
+				{#-
+				<span class="count"> {{ h.hdx_show_singular_plural(member.grp_num, _('Countries'),  _('Countries')) }}</span> #}
 			</div>
 		</div>
 		</div>
