@@ -45,7 +45,11 @@ def package_update(context, data_dict=None):
                 owner_org = pkg.owner_org
         role = users_role_for_group_or_org(owner_org, user.name)
         if role == 'member':
-            return {'success': True}
+            pkg = model.Package.get(data_dict.get('id') or data_dict.get('name') or '')
+            if pkg is None or pkg.creator_user_id == user.id:
+                return {'success': True}
+            return {'success': False,
+                    'msg': _('Members can only edit their own datasets')}
     if data_dict and 'groups' in data_dict:
         temp_groups = data_dict['groups']
         del data_dict['groups']

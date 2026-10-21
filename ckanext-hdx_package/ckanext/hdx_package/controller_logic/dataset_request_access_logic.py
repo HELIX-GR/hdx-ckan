@@ -47,13 +47,10 @@ class DatasetRequestAccessLogic(object):
 
         pkg_dict = get_action('package_show')(self.context, {'id': data['package_id']})
 
-        maintainer_id = pkg_dict['maintainer']
-        if maintainer_id is None:
-            return False, 'Dataset maintainer email not found.'
+        # requests go to the dataset creator, who sees them in their dashboard
+        owner_id = pkg_dict.get('creator_user_id')
 
-        user_obj = self.context['auth_user_obj']
-
-        # Get users objects from maintainers list
+        # Get users objects from the dataset owner
         context_user_show = {
             'model': model,
             'session': model.Session,
@@ -68,9 +65,10 @@ class DatasetRequestAccessLogic(object):
         recipients = []
         maintainer_dict = {}
         try:
-            maintainer_dict = get_action('user_show')(context_user_show, {'id': maintainer_id})
+            maintainer_dict = get_action('user_show')(context_user_show, {'id': owner_id})
             data_dict['users'].append(maintainer_dict)
-            recipients.append({'display_name': maintainer_dict.get('fullname'), 'email': maintainer_dict.get('email')})
+            if maintainer_dict.get('email'):
+                recipients.append({'display_name': maintainer_dict.get('fullname'), 'email': maintainer_dict.get('email')})
         except NotFound:
             pass
 

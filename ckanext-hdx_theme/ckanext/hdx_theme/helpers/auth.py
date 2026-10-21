@@ -25,14 +25,12 @@ def _simple_logged_in_auth(context, fail_message):
 ## ORGS
 @auth_sysadmins_check
 def group_member_create(context, data_dict):
-    try:
-        group_dict = tk.get_action('organization_show')(context, {'id': data_dict['id']})
-        # if the above call returns we already know it is an organization
-        # otherwise a NotFound is raised
+    # a lightweight lookup is enough to check that the group is an organization
+    group = context['model'].Group.get(data_dict['id'])
+    if group and group.is_organization and group.state != 'deleted':
         return create.group_member_create(context, data_dict)
-    except NotFound:
-        # means the specific group is surely not an org or doesn't exist at all
-        return {'success': False, 'msg': _('Nobody can add a member to a country in HDX')}
+    # means the specific group is surely not an org or doesn't exist at all
+    return {'success': False, 'msg': _('Nobody can add a member to a country in HDX')}
 
 
 ## ORGS
