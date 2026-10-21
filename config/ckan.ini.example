@@ -193,6 +193,8 @@ ckanext.hdx_package.datacite.api_url =
 ckanext.hdx_package.datacite.client_id =
 ckanext.hdx_package.datacite.password =
 
+ckanext.hdx_package.orgs_allowing_public_datasets_from_members = 
+
 ## Front-End Settings ##########################################################
 ckan.site_title = HARDMIN (DEVELOPMENT)
 ckan.site_description = HARDMIN Repository

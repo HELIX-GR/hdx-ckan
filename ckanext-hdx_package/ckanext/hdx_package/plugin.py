@@ -705,6 +705,9 @@ class HDXPackagePlugin(plugins.SingletonPlugin, tk.DefaultDatasetForm):
                 # Remove 'private' from form data to avoid overwriting existing value
                 data_dict.pop('private', None)
 
+            if action == 'package_create' and 'id' not in data_dict:
+                self._force_private_for_members(context, data_dict)
+
             #if private:
             self._update_with_private_modify_package_schema(schema)
 
@@ -726,6 +729,21 @@ class HDXPackagePlugin(plugins.SingletonPlugin, tk.DefaultDatasetForm):
             if is_requestdata_type:
                 self._update_with_requestdata_show_package_schema(schema)
         return navl_validate(data_dict, schema, context)
+
+    def _force_private_for_members(self, context, data_dict):
+        '''
+        Plain members can only create private datasets (editors/admins review and publish them).
+        The orgs listed in 'ckanext.hdx_package.orgs_allowing_public_datasets_from_members' (comma separated names) are an exception.
+        '''
+        user = context.get('auth_user_obj')
+        owner_org = data_dict.get('owner_org')
+        if not user or not owner_org or user.sysadmin:
+            return
+        if authz.users_role_for_group_or_org(owner_org, user.name) != 'member':
+            return
+        if hdx_helpers.org_allows_public_datasets_from_members(owner_org):
+            return
+        data_dict['private'] = True
 
     def _user_allowed_to_skip_validation(self, username):
         return authz.is_sysadmin(username)

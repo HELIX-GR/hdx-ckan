@@ -22,7 +22,8 @@ import ckanext.hdx_package.helpers.helpers as helpers
 from ckan.types import Context, DataDict, Schema
 from ckan.types.logic import ActionResult
 from ckanext.hdx_org_group.helpers.org_batch import get_batch_or_generate
-from ckanext.hdx_package.actions.update import process_batch_mode, flag_if_file_uploaded, run_action_without_geo_preview
+from ckanext.hdx_package.actions.update import process_batch_mode, flag_if_file_uploaded, run_action_without_geo_preview, \
+    add_public_doi
 from ckanext.hdx_package.helpers.constants import BATCH_MODE, BATCH_MODE_DONT_GROUP
 from ckanext.hdx_package.helpers.resource_triggers import BEFORE_PACKAGE_UPDATE_LISTENERS, \
     AFTER_PACKAGE_UPDATE_LISTENERS, VERSION_CHANGE_ACTIONS
@@ -295,6 +296,11 @@ def package_create(
 
     if not context.get('defer_commit'):
         model.repo.commit()
+
+        # Datasets created directly as public (allowed for some orgs) skip the usual publishing flow
+        # (bulk_update_public), so they need their DOI here
+        if not pkg.private and helpers.org_allows_public_datasets_from_members(pkg.owner_org):
+            add_public_doi(context, [pkg.id])
 
     return_id_only = context.get('return_id_only', False)
 

@@ -594,6 +594,13 @@ def remove_previous_package_dict_from_context(context, id):
 
 # Hardmin-related helpers
 
+def org_allows_public_datasets_from_members(org_id_or_name):
+    allowed_orgs = [o.strip() for o in
+                    config.get('ckanext.hdx_package.orgs_allowing_public_datasets_from_members', '').split(',')]
+    org = model.Group.get(org_id_or_name) if org_id_or_name else None
+    return bool(org and org.name in allowed_orgs)
+
+
 def generate_doi():
     """Build a new DOI string, without registering it anywhere.
 
@@ -616,7 +623,8 @@ def publishDataciteDoi(package, doi):
         h.url_for('dataset.read', id=package['name'])
     )
 
-    event = config.get('ckanext.hdx_package.datacite.publish')
+    # DataCite state: 'publish' (findable), 'register' (registered, not findable) or draft (no event sent)
+    event = (config.get('ckanext.hdx_package.datacite.publish') or 'publish').strip().lower()
 
     # Creator
     creators = build_datacite_creators(package)
@@ -635,7 +643,6 @@ def publishDataciteDoi(package, doi):
         "data": {
             "type": "dois",
             "attributes": {
-                "event": "publish",
                 "doi": doi,
                 "url": package_url,
                 "titles": [
@@ -650,6 +657,9 @@ def publishDataciteDoi(package, doi):
             }
         }
     }
+
+    if event in ('publish', 'register'):
+        payload['data']['attributes']['event'] = event
 
     headers = {
         "Accept": "application/vnd.api+json",
