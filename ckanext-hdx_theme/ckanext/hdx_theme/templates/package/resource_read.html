@@ -79,10 +79,10 @@
              #}
             {% if res.url and h.is_url(res.url) and is_restricted and not can_edit_dataset and is_anonymous_user %}
               <li>
-                <a href="#" class="btn hdx-btn resource-btn resource-restricted-button"
-                   style="cursor: default;" onclick="return false;"
+                <a href="{{ h.url_for('restricted.restricted_request_access_form', package_id=pkg.name, resource_id=res.id) }}"
+                   class="btn hdx-btn resource-btn resource-restricted-button"
                    title="{{ _('This resource is restricted') }}">
-                  <i class="fa fa-lock"></i> {{ _('Restricted') }}
+                  <i class="fa fa-unlock-alt"></i> {{ _('Request Access') }}
                 </a>
               </li>
             {% elif res.url and h.is_url(res.url) and (can_edit_dataset or h.check_access('hdx_resource_download', res)) %}

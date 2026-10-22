@@ -82,10 +82,10 @@
           <div class="actions">
             {% block resource_item_explore_links %}
               {% if not in_review and is_restricted and not can_edit_dataset and is_anonymous_user %}
-                <a href="#" class="btn btn-primary btn-download hdx-btn resource-restricted-button"
-                   style="cursor: default;" onclick="return false;"
+                <a href="{{ h.url_for('restricted.restricted_request_access_form', package_id=pkg.name, resource_id=res.id) }}"
+                   class="btn btn-primary btn-download hdx-btn resource-restricted-button"
                    title="{{ _('This resource is restricted') }}">
-                  <i class="fa fa-lock"></i> {{ _('Restricted') }}
+                  <i class="fa fa-lock"></i> {{ _('Request Access') }}
                 </a>
               {% elif not in_review and (can_edit_dataset or h.check_access('hdx_resource_download', res)) %}
                 {% set btn_dict = {'title':'This will take you outside HDX to access the data', 'value':'Access Data', 'type':'external'} if h.hdx_get_ckan_config('ckan.resource_formats.external_system')==res.format else {'title':'Download', 'value':'Download', 'type':'download'} %}
@@ -111,6 +111,12 @@
                 <span class="ga-download-resource-title" style="display: none">{{ res.name }}</span>
                 <span class="ga-download-resource-id" style="display: none">{{ res.id }}</span>
               </a>
+              {% elif not in_review and is_restricted %}
+                <a href="{{ h.url_for('restricted.restricted_request_access_form', package_id=pkg.name, resource_id=res.id) }}"
+                   class="btn btn-primary btn-download hdx-btn resource-restricted-button"
+                   title="{{ _('This resource is restricted') }}">
+                  <i class="fa fa-lock"></i> {{ _('Request Access') }}
+                </a>
               {% elif not in_review %}
                 <a href="#" class="btn btn-primary btn-download hdx-btn resource-restricted-button"
                    style="cursor: default;" onclick="return false;"

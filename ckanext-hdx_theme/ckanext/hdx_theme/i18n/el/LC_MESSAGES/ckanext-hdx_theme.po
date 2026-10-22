@@ -6594,3 +6594,95 @@ msgstr "Αναζητήστε %(count)s οργανισμούς ..."
 
 msgid "Contact the contributor"
 msgstr "Επικοινωνήστε με τον φορέα"
+
+# Restricted resources: access requests dashboard
+
+msgid "Accepted"
+msgstr "Εγκρίθηκε"
+
+msgid "Rejected"
+msgstr "Απορρίφθηκε"
+
+msgid "Pending"
+msgstr "Σε εκκρεμότητα"
+
+msgid "Requests for my datasets"
+msgstr "Αιτήματα για τα σύνολα δεδομένων μου"
+
+msgid "Message"
+msgstr "Μήνυμα"
+
+msgid "Accept"
+msgstr "Αποδοχή"
+
+msgid "Reject"
+msgstr "Απόρριψη"
+
+msgid "No access requests for your datasets."
+msgstr "Δεν υπάρχουν αιτήματα πρόσβασης για τα σύνολα δεδομένων σας."
+
+msgid "My requests"
+msgstr "Τα αιτήματά μου"
+
+msgid "You have not requested access to any resource."
+msgstr "Δεν έχετε ζητήσει πρόσβαση σε κανέναν πόρο."
+
+msgid "Access Requests"
+msgstr "Αιτήματα Πρόσβασης"
+
+msgid "Request Access"
+msgstr "Αίτημα Πρόσβασης"
+
+msgid "How to get access to data resources?"
+msgstr "Πώς να αποκτήσετε πρόσβαση στους πόρους δεδομένων;"
+
+msgid "Some data has restricted access due to embargo periods, sensitivity of the data, unpublished material, etc. Please fill up this form to send a mail request to the dataset owner indicating as detailed as possible who you are and what do you plan to use the data for."
+msgstr "Ορισμένα δεδομένα έχουν περιορισμένη πρόσβαση λόγω περιόδων εμπάργκο, ευαισθησίας των δεδομένων, αδημοσίευτου υλικού κ.λπ. Συμπληρώστε αυτή τη φόρμα για να στείλετε αίτημα μέσω email στον ιδιοκτήτη του συνόλου δεδομένων, αναφέροντας όσο το δυνατόν πιο αναλυτικά ποιοι είστε και για ποιο σκοπό σκοπεύετε να χρησιμοποιήσετε τα δεδομένα."
+
+msgid "Request Access to: "
+msgstr "Αίτημα πρόσβασης στον πόρο: "
+
+msgid "User Email"
+msgstr "Email χρήστη"
+
+msgid "Your email"
+msgstr "Το email σας"
+
+msgid "Message to request data (project, research group, planned usage, etc.)"
+msgstr "Μήνυμα αιτήματος δεδομένων (έργο, ερευνητική ομάδα, προβλεπόμενη χρήση κ.λπ.)"
+
+msgid "The <i>data license</i> applies to the contents of any resource files that you request from this dataset. By submitting this form, you agree to usage restrictions under the <a href=%(license_url)s>%(license_title)s</a>."
+msgstr "Η <i>άδεια χρήσης των δεδομένων</i> ισχύει για το περιεχόμενο κάθε αρχείου πόρου που ζητάτε από αυτό το σύνολο δεδομένων. Υποβάλλοντας αυτή τη φόρμα, συμφωνείτε με τους περιορισμούς χρήσης της άδειας <a href=%(license_url)s>%(license_title)s</a>."
+
+msgid "Send Request"
+msgstr "Αποστολή αιτήματος"
+
+msgid "Request Access Form Sent"
+msgstr "Η φόρμα αιτήματος πρόσβασης στάλθηκε"
+
+msgid "Your request has been sent, please check your provided mail account."
+msgstr "Το αίτημά σας στάλθηκε, παρακαλούμε ελέγξτε το email που δηλώσατε."
+
+msgid "WARNING: There were problems sending your request, please contact the administrator providing the information below."
+msgstr "ΠΡΟΣΟΧΗ: Παρουσιάστηκαν προβλήματα κατά την αποστολή του αιτήματός σας, παρακαλούμε επικοινωνήστε με τον διαχειριστή παρέχοντας τα παρακάτω στοιχεία."
+
+msgid "Access Request Data"
+msgstr "Στοιχεία αιτήματος πρόσβασης"
+
+msgid "Close"
+msgstr "Κλείσιμο"
+
+msgid "Institutions"
+msgstr "Οργανισμοί"
+
+msgid "Please provide a valid email address"
+msgstr "Παρακαλούμε εισάγετε μια έγκυρη διεύθυνση email"
+
+msgid "You have already requested access to this resource."
+msgstr "Έχετε ήδη ζητήσει πρόσβαση σε αυτόν τον πόρο."
+
+msgid "Revoked"
+msgstr "Ανακλήθηκε"
+
+msgid "Revoke access"
+msgstr "Ανάκληση πρόσβασης"
