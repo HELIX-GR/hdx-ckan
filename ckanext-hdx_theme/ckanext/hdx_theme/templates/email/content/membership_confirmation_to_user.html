@@ -1,6 +1,6 @@
 <p>Dear {{ data.user_fullname }},</p>
 
-<p>Your request to join the HDX organisation {{ data.org_name }} was approved by the organisation administrator(s).</p>
+<p>Your request to join the HEAL-Link organisation {{ data.org_name }} was approved by the organisation administrator(s).</p>
 
 <p>You have been assigned the role of
   {% if data.capacity == 'admin' %} <strong>administrator</strong>: add, edit, delete, and publish datasets, and manage organisation membership
@@ -10,10 +10,10 @@
 </p>
 
 <p>If your role has been set to editor or administrator, you are now ready to share data. There are three ways to share
-  data on HDX: public, private, and by request. <a
-    href="https://data.humdata.org/faq#auto-faq-Sharing_and_Using_Data-How_do_I_share_data_on_HDX_-a" target="_blank">Learn
+  data on HEAL-Link: public, private, and by request. <a
+    href="{{ config.get('ckan.site_url') }}/faq" target="_blank">Learn
     more in our FAQ</a>.</p>
 
-<p>Thank you for being part of the HDX community!</p>
+<p>Thank you for being part of the HEAL-Link community!</p>
 
 

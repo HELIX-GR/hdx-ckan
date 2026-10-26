@@ -68,7 +68,7 @@ def hdx_send_reset_link(context, data_dict):
         'expiration_in_minutes': expiration_in_minutes,
     }
     if recipient_mail:
-        subject = u'HDX password reset'
+        subject = u'HEAL-Link password reset'
         hdx_mailer.mail_recipient([{'display_name': user_fullname, 'email': recipient_mail}], subject,
                                   email_data, footer=recipient_mail,
                                   snippet='email/content/password_reset.html')

@@ -77,7 +77,7 @@
       }
 
       .hdx-email .hdx-logo img {
-        width: 90px;
+        width: 220px;
         height: auto;
         display: block;
       }
@@ -142,8 +142,8 @@
     <div class="hdx-email">
       <div class="hdx-container">
         <div class="hdx-logo">
-          <a href="{{ h.url_for('hdx_splash.index', qualified=True) }}" target="_blank">
-            <img src="{{ data.logo_hdx_email }}" alt="HDX">
+          <a href="{{ config.get('ckan.site_url') }}" target="_blank">
+            <img src="{{ data.logo_hdx_email }}" alt="HEAL-Link">
           </a>
         </div>
         <div class="hdx-space">
@@ -151,13 +151,7 @@
             {% snippet data._snippet, data=data.data %}
           </div>
           <div class="hdx-footer">
-            <p>{% if data.footer %}You are receiving this email because you are a registered HDX user. {% endif %}<a href="https://data.humdata.org" title="HDX" target="_blank">HDX</a> is a product of the <a href="https://www.unocha.org" title="OCHA" target="_blank">United Nations Office for the Coordination of Humanitarian Affairs</a> (OCHA) - <a href="https://centre.humdata.org/" title="Centre for Humanitarian Data" target="_blank">Centre for Humanitarian Data</a>. Keep in touch by <a href="https://twitter.com/humdata" title="X" target="_blank">following us on X</a>, <a href="https://humdata.us14.list-manage.com/subscribe?u=ea3f905d50ea939780139789d&amp;id=99796325d1" title="MailChimp" target="_blank">signing up for our mailing list</a>, or replying to this email. </p>
-            <a href="https://twitter.com/humdata" title="X" class="social-icon" target="_blank">
-              <img src="{{ config.get('ckan.site_url', '#') + '/images/homepage/social-x.png' }}" alt="X">
-            </a>
-            <a href="https://linkedin.com/company/ocha-centre-for-humanitarian-data" class="social-icon" title="LinkedIn" target="_blank">
-              <img src="{{ config.get('ckan.site_url', '#') + '/images/homepage/social-linkedin.png' }}" alt="LinkedIn">
-            </a>
+            <p>{% if data.footer %}You are receiving this email because you are a registered HEAL-Link user. {% endif %}<a href="{{ config.get('ckan.site_url') }}" title="HEAL-Link" target="_blank">HEAL-Link</a> - HARDMIN, the Hellenic Academic Research Data Management Initiative.</p>
           </div>
         </div>
       </div>

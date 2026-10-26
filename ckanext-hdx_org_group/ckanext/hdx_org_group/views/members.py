@@ -188,7 +188,7 @@ def member_delete(id):
             admins_with_email = [{'display_name': admin.get('display_name'), 'email': admin.get('email')} for
                                  admin in admins if admin['email']]
             user_display_name = usr_obj.display_name or usr_obj.fullname
-            subject = u'HDX Organisation ' + org_obj.display_name + ' membership removal'
+            subject = u'HEAL-Link Organisation ' + org_obj.display_name + ' membership removal'
             email_data = {
                 'user_fullname': user_display_name,
                 'user_username': usr_obj.name,
@@ -384,7 +384,7 @@ def _send_analytics_info(org_obj, new_members, invited_members):
 
 
 def _send_membership_confirmation(org_display_name, org_id, role, user_info):
-    subject = u'Your request to join '+org_display_name+' on HDX has been accepted'
+    subject = u'Your request to join '+org_display_name+' on HEAL-Link has been accepted'
     email_data = {
         'user_fullname': user_info.display_name or user_info.fullname,
         'org_name': org_display_name,
@@ -403,7 +403,7 @@ def _send_membership_confirmation(org_display_name, org_id, role, user_info):
         admins.append(h.hdx_get_user_info(admin_id))
     admins_with_email = [{'display_name': admin.get('display_name'), 'email': admin.get('email')} for admin in
                          admins if admin['email']]
-    subject = u'New ' + role + ' added to HDX organisation ' + org_display_name
+    subject = u'New ' + role + ' added to HEAL-Link organisation ' + org_display_name
     email_data = {
         'user_fullname': user_info.display_name or user_info.fullname,
         'user_username': user_info.name,

@@ -80,10 +80,10 @@ def contact_us():
         }
 
         if topic is None:
-            subject = u'HDX contact form submission (COVID-19 data responsibility)'
+            subject = u'HEAL-Link contact form submission (COVID-19 data responsibility)'
             snippet = 'email/content/data_responsability_faq_request.html'
         else:
-            subject = u'HDX contact form submission'
+            subject = u'HEAL-Link contact form submission'
             email_data['topic'] = topic
             snippet = 'email/content/faq_request.html'
 

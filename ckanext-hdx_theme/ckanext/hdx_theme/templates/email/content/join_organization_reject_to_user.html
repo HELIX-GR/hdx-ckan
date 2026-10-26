@@ -1,5 +1,5 @@
 <p>Dear {{ data.user_fullname }},</p>
 
-<p>Your request to join {{ data.org_name }} on HDX has not been accepted by the organisation's administrator.</p>
+<p>Your request to join {{ data.org_name }} on HEAL-Link has not been accepted by the organisation's administrator.</p>
 
-<p>If you think there has been a mistake in this process, please contact <a href="mailto:hdx@un.org">hdx@un.org</a>.</p>
+<p>If you think there has been a mistake in this process, please contact <a href="mailto:{{ config.get('email_to') }}">{{ config.get('email_to') }}</a>.</p>

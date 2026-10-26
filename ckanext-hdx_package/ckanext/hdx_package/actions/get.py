@@ -902,7 +902,7 @@ def hdx_send_mail_contributor(context, data_dict):
     _check_access('hdx_send_mail_contributor', context, data_dict)
 
     pkg_title = data_dict.get('pkg_title')
-    subject = u'[HDX] {fullname} {topic} for \"[Dataset] {pkg_title}\"'.format(
+    subject = u'[HEAL-Link] {fullname} {topic} for \"[Dataset] {pkg_title}\"'.format(
         fullname=data_dict.get('fullname'), topic=data_dict.get('topic'), pkg_title=pkg_title)
     requester_body_html = __create_body_for_contributor(data_dict, False)
 
@@ -927,7 +927,7 @@ def hdx_send_mail_contributor(context, data_dict):
             recipients_list.append({'email': m_user.get('email'), 'display_name': m_user.get('display_name')})
 
     org_dict = get_action('hdx_light_group_show')(context, {'id': data_dict.get('pkg_owner_org')})
-    subject = u'HDX dataset inquiry: ' + pkg_title
+    subject = u'HEAL-Link dataset inquiry: ' + pkg_title
     email_data = {
         'org_name': org_dict.get('title'),
         'user_fullname': data_dict.get('fullname'),
@@ -1010,7 +1010,7 @@ def hdx_send_mail_members(context, data_dict):
         users_role = 'editor(s)'
     elif data_dict.get('topic_key') == 'members':
         users_role = 'member(s)'
-    subject = u'HDX group message from ' + data_dict.get('pkg_owner_org')
+    subject = u'HEAL-Link group message from ' + data_dict.get('pkg_owner_org')
     email_data = {
         'org_name': data_dict.get('pkg_owner_org'),
         'user_fullname': data_dict.get('fullname'),

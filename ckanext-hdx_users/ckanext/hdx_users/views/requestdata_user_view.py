@@ -24,7 +24,7 @@ hdx_requestdata_user = Blueprint(u'hdx_requestdata_user', __name__)
 _REQUESTDATA_REJECT = 'reject'
 _REQUESTDATA_REPLY = 'reply'
 
-_SUBJECT_REQUESTDATA_REPLY = u'''[HDX] Data request reply: "{dataset_name}" '''
+_SUBJECT_REQUESTDATA_REPLY = u'''[HEAL-Link] Data request reply: "{dataset_name}" '''
 _MESSAGE_REQUESTDATA_REPLY = \
     u'''
     Dear {requested_by},<br/>
@@ -37,7 +37,7 @@ _MESSAGE_REQUESTDATA_REPLY = \
     the HDX Team <br/>
     '''
 
-_SUBJECT_REQUESTDATA_REJECT = u'''[HDX] Data request denied: "{dataset_name}" '''
+_SUBJECT_REQUESTDATA_REJECT = u'''[HEAL-Link] Data request denied: "{dataset_name}" '''
 _MESSAGE_REQUESTDATA_REJECT = \
     u'''
     Dear {requested_by},<br/>
@@ -144,7 +144,7 @@ def handle_new_request_action(username, request_action):
                'auth_user_obj': g.userobj}
     if request_action == _REQUESTDATA_REJECT:
         try:
-            subject = u'Request for access to HDX "metadata-only" dataset'
+            subject = u'Request for access to HEAL-Link "metadata-only" dataset'
             pkg_dict = get_action('package_show')(context, {'id': data.get('package_id')})
             org_dict = get_action('organization_show')(context, {'id': pkg_dict.get('owner_org')})
             email_data = {
@@ -158,7 +158,7 @@ def handle_new_request_action(username, request_action):
                                       subject, email_data, footer=data.get('send_to'),
                                       snippet='email/content/request_data_rejection_to_user.html')
 
-            subject = u'Request for access to HDX "metadata only" dataset denied'
+            subject = u'Request for access to HEAL-Link "metadata only" dataset denied'
             maintainer_obj = model.User.get(pkg_dict.get('maintainer'))
             email_data = {
                 'user_fullname': data.get('requested_by'),
@@ -183,7 +183,7 @@ def handle_new_request_action(username, request_action):
             return json.dumps(error)
 
     if request_action == _REQUESTDATA_REPLY:
-        subject = u'Request for access to HDX "metadata-only" dataset'
+        subject = u'Request for access to HEAL-Link "metadata-only" dataset'
         pkg_dict = get_action('package_show')(context, {'id': data.get('package_id')})
         org_dict = get_action('organization_show')(context, {'id': pkg_dict.get('owner_org')})
         email_data = {
@@ -201,7 +201,7 @@ def handle_new_request_action(username, request_action):
                                   snippet='email/content/request_data_approval_to_user.html',
                                   file=data.get('file_upload'))
 
-        subject = u'Request for access to HDX "metadata only" dataset'
+        subject = u'Request for access to HEAL-Link "metadata only" dataset'
         maintainer_obj = model.User.get(pkg_dict.get('maintainer'))
         email_data = {
             'user_fullname': data.get('requested_by'),

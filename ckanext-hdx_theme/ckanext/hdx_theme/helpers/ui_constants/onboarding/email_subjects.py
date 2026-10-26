@@ -1,4 +1,4 @@
 CONSTANTS = {
-    'EMAIL_CONFIRMATION': '''Verify your email address to confirm your HDX account''',
-    'EMAIL_USERNAME_CONFIRMATION': '''Your new HDX account details'''
+    'EMAIL_CONFIRMATION': '''Verify your email address to confirm your HEAL-Link account''',
+    'EMAIL_USERNAME_CONFIRMATION': '''Your new HEAL-Link account details'''
 }

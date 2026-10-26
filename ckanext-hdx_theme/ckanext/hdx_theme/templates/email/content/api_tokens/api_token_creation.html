@@ -1,13 +1,13 @@
 <p>Dear {{ data.full_name }},</p>
 
-<p>A new API token has been created for your HDX account. If you created the token yourself, then you can disregard this email.</p>
+<p>A new API token has been created for your HEAL-Link account. If you created the token yourself, then you can disregard this email.</p>
 
 <div>
-  <p>Otherwise, it's possible that someone else has access to your HDX account. In this case you should:</p>
+  <p>Otherwise, it's possible that someone else has access to your HEAL-Link account. In this case you should:</p>
   <ol>
-    <li>change the password of your HDX account</li>
+    <li>change the password of your HEAL-Link account</li>
     <li>revoke all your API tokens and then create new ones. <a href="{{ data.api_tokens_url }}">Manage tokens here.</a></li>
-    <li>let us know about this issue at <a href="mailto:hdx@humdata.org" target="_blank">hdx@humdata.org</a></li>
+    <li>let us know about this issue at <a target="_blank" href="mailto:{{ config.get('email_to') }}">{{ config.get('email_to') }}</a></li>
   </ol>
 </div>
 

@@ -3,4 +3,4 @@
 <p>We have submitted your request to join {{ data.org_name }}.</p>
 
 <p>The organisation's administrator will review your request and respond as soon as possible. If you do not hear from
-  the organisation within two working days, contact us directly at <a href="mailto:hdx@un.org">hdx@un.org</a></p>
+  the organisation within two working days, contact us directly at <a href="mailto:{{ config.get('email_to') }}">{{ config.get('email_to') }}</a></p>

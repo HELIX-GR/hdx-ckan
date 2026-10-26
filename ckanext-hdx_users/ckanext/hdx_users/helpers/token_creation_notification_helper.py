@@ -17,12 +17,12 @@ log = logging.getLogger(__name__)
 
 MAIL_TEXT_TEMPLATE = '''
 Dear {full_name},\n
-A new API token has been created for your HDX account.\n
+A new API token has been created for your HEAL-Link account.\n
 If you created the token then you can disregard this email.\n
-Otherwise, it's possible that someone else has access to your HDX account. In this case you should: \n
-  1) change the password of your HDX account \n
+Otherwise, it's possible that someone else has access to your HEAL-Link account. In this case you should: \n
+  1) change the password of your HEAL-Link account \n
   2) revoke all your API tokens and then create new ones, {api_tokens_url} \n
-  3) let us know about this issue at hdx@humdata.org \n
+  3) let us know about this issue at {support_email} \n
 \n
 Token details: \n
   - Token Name: {token_name} \n
@@ -48,6 +48,7 @@ def send_email_on_token_creation(username, token_name, expiration_in_millis):
         'token_name': token_name,
         'expires': isodate,
         'api_tokens_url': api_tokens_url,
+        'support_email': config.get('email_to'),
     }
 
     rendered_text = MAIL_TEXT_TEMPLATE.format(**token_info)
@@ -57,14 +58,14 @@ def send_email_on_token_creation(username, token_name, expiration_in_millis):
             'data': token_info,
             'footer': True,
             '_snippet': 'email/content/api_tokens/api_token_creation.html',
-            'logo_hdx_email': config.get('ckan.site_url', '#') + '/images/homepage/logo-hdx.png',
+            'logo_hdx_email': config.get('ckan.site_url', '#') + '/images/homepage/heallink-logo.png',
         }
     }
     rendered_html = _render('email/email.html', html_data_dict)
     _mail_recipient(
         full_name,
         email,
-        'Security Notification: HDX API Token Created',
+        'Security Notification: HEAL-Link API Token Created',
         rendered_text,
         body_html=rendered_html
     )

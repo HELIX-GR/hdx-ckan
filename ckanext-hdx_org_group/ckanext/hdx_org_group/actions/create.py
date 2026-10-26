@@ -92,7 +92,7 @@ def hdx_user_invite(context, data_dict):
     try:
         expiration_in_hours = config.get('hdx.password.invitation_reset_key.expiration_in_hours')
         #reset_password.create_reset_key(user, expiration_in_minutes=60 * expiration_in_hours)
-        subject = u'HDX account creation'
+        subject = u'HEAL-Link account creation'
         email_data = {
             'org_name': group_dict.get('display_name'),
             'capacity': data['role'],
@@ -108,7 +108,7 @@ def hdx_user_invite(context, data_dict):
                                   subject, email_data,
                                   snippet='email/content/new_account_confirmation_to_user.html')
 
-        subject = u'New HDX user confirmation'
+        subject = u'New HEAL-Link user confirmation'
         email_data = {
             'org_name': group_dict.get('display_name'),
             'capacity': data['role'],

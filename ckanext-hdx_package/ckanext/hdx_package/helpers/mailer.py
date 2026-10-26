@@ -25,8 +25,8 @@ _ = tk._
 CHARSET = 'utf-8'
 
 
-def mail_recipient(recipients_list, subject, body, sender_name='Humanitarian Data Exchange (HDX)',
-                   sender_email='hdx@humdata.org', cc_recipients_list=None, bcc_recipients_list=None,
+def mail_recipient(recipients_list, subject, body, sender_name=None,
+                   sender_email=None, cc_recipients_list=None, bcc_recipients_list=None,
                    footer=None, headers={}, reply_wanted=False, snippet='email/email.html', file=None):
     if recipients_list is None and bcc_recipients_list is None:
         raise MailerException('There are no recipients to send email')
@@ -35,8 +35,8 @@ def mail_recipient(recipients_list, subject, body, sender_name='Humanitarian Dat
                                 footer=footer, headers=headers, reply_wanted=reply_wanted, snippet=snippet, file=file)
 
 
-def _mail_recipient_html(sender_name='Humanitarian Data Exchange (HDX)',
-                         sender_email='hdx@humdata.org',
+def _mail_recipient_html(sender_name=None,
+                         sender_email=None,
                          recipients_list=None,
                          subject=None,
                          content_dict=None,
@@ -51,13 +51,16 @@ def _mail_recipient_html(sender_name='Humanitarian Data Exchange (HDX)',
     #     mail_from = sender_email
     # else:
     mail_from = config.get('smtp.mail_from')
+    site_name = config.get('ckanext.restricted.email_site_title', 'HEAL-Link')
+    sender_name = sender_name or site_name
+    sender_email = sender_email or config.get('email_to') or mail_from
 
     template_data = {
         'data': {
             'data': content_dict,
             'footer': footer,
             '_snippet': snippet,
-            'logo_hdx_email': config.get('ckan.site_url', '#') + '/images/homepage/logo-hdx.png'
+            'logo_hdx_email': config.get('ckan.site_url', '#') + '/images/homepage/heallink-logo.png'
         },
     }
     # body_html = render_jinja2('email/email.html', template_data)
@@ -68,7 +71,7 @@ def _mail_recipient_html(sender_name='Humanitarian Data Exchange (HDX)',
     for k, v in headers.items(): msg[k] = v
     subject = Header(subject.encode(CHARSET), CHARSET)
     msg['Subject'] = subject
-    msg['From'] = u'"{display_name}" <{email}>'.format(display_name='Humanitarian Data Exchange (HDX)', email=mail_from)
+    msg['From'] = u'"{display_name}" <{email}>'.format(display_name=site_name, email=mail_from)
     recipient_email_list = []
     recipients = None
     if recipients_list:

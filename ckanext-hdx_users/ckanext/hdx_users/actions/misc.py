@@ -22,8 +22,8 @@ def hdx_send_new_org_request(context, data_dict):
 
     email = config.get('hdx.orgrequest.email', None)
     if not email:
-        email = 'hdx@un.org'
-    display_name = 'HDX Feedback'
+        email = config.get('email_to')
+    display_name = 'HEAL-Link Feedback'
 
     ckan_username = g.user
     ckan_email = ''
@@ -49,13 +49,13 @@ def hdx_send_new_org_request(context, data_dict):
             'requestor_hdx_email': ckan_email,
             'request_time': datetime.datetime.now().isoformat(),
         }
-        subject = u'Request to create a new organisation on HDX'
-        hdx_mailer.mail_recipient([{'display_name': 'Humanitarian Data Exchange (HDX)', 'email': hdx_email}],
+        subject = u'Request to create a new organisation on HEAL-Link'
+        hdx_mailer.mail_recipient([{'display_name': 'HEAL-Link', 'email': hdx_email}],
                                   subject, email_data, sender_name=user_fullname,
                                   sender_email=ckan_email,
                                   snippet='email/content/new_org_request_hdx_team_notification.html')
 
-        subject = u'Thank you for your request to create an organisation on HDX'
+        subject = u'Thank you for your request to create an organisation on HEAL-Link'
         email_data = {
             'user_fullname': user_fullname,
         }
