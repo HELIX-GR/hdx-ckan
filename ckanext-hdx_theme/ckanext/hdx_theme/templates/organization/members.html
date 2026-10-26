@@ -203,10 +203,10 @@
                                 <form class="hdx-form" action="/organization/bulk_member_new/{{group_dict.id}}" method="post">
                                     {{ h.csrf_input() }}
                                     <div class="role-categ uppercase">
-                                        Add / invite colleagues to this organisation
+                                        Add colleagues to this organisation
                                     </div>
                                     <div class="invite-box">
-                                        <span>To invite your colleagues to join this organisation, please enter their email(s) below. Multiple email addresses can be entered if separated by comma ',' :</span>
+                                        <span>To add your colleagues to this organisation, please enter their email(s) below. Multiple email addresses can be entered if separated by comma ',' :</span>
                                         {% set tag_attrs = {'data-module': 'hdx_autocomplete', 'data-module-tags': '',
                                            'style':'width: 100% !important;',
                                            'data-module-label': 'fullname',
@@ -220,7 +220,7 @@
                                         classes=[], attrs=tag_attrs) }}
                                         <!--<textarea name="emails" placeholder="Enter email(s) of whom you'd like to add to this organisation. Multiple email addresses can be entered if separated by comma ',' "></textarea>-->
                                         <p>
-                                            <strong>If you add user who is already registered on HDX</strong>, they will be automatically added to your organisation. If you invite someone who is not registered on HDX, a temporary account will be created for them and they will receive an invitation to sign up.
+                                            Only users who are already registered can be added, they will be automatically added to your organisation. Colleagues who do not have an account yet need to register first.
                                         </p>
 
 

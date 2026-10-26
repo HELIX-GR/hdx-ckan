@@ -18,6 +18,8 @@ import ckanext.hdx_org_group.helpers.org_meta_dao as org_meta_dao
 
 log = logging.getLogger(__name__)
 
+NOT_REGISTERED_MSG = 'There is no registered user with the email %s. Users must register before they can be added to an organisation.'
+
 _ = tk._
 g = tk.g
 h = tk.h
@@ -254,17 +256,9 @@ def member_new(id):
                         flash_message = 'That email is already associated with user ' + data_dict[
                             'username'] + ', who has been added as ' + data_dict['role']
                     else:
-                        user_data_dict = {
-                            'email': email,
-                            'group_id': id,
-                            'role': data_dict['role'],
-                            'id': id  # This is something staging/prod need
-                        }
-                        del data_dict['email']
-                        user_dict = get_action('hdx_user_invite')(context, user_data_dict)
-                        invited = True
-                        data_dict['username'] = user_dict['name']
-                        h.flash_success(email + ' has been invited as ' + data_dict['role'])
+                        # inviting emails that have no account is disabled: users must register first
+                        h.flash_error(_(NOT_REGISTERED_MSG) % email)
+                        return redirect('hdx_members.members', id=id)
                 else:
                     flash_message = data_dict['username'] + ' has been added as ' + data_dict['role']
                 get_action('group_member_create')(context, data_dict)
@@ -319,16 +313,8 @@ def bulk_member_new(id):
                             if added:
                                 new_members.append(_user_obj)
                         else:
-                            user_data_dict = {
-                                'email': email,
-                                'group_id': id,
-                                'role': role,
-                                'id': id  # This is something staging/prod need
-                            }
-                            user_dict = get_action('hdx_user_invite')(context, user_data_dict)
-                            invited_members.append(email)
-                            # h.flash_success(email + ' has been invited as ' + role)
-                            log.info('{} was invited as a new user'.format(email))
+                            # inviting emails that have no account is disabled: users must register first
+                            h.flash_error(_(NOT_REGISTERED_MSG) % email)
                 except Invalid as e:
                     h.flash_error(_('Invalid email address or unknown username provided: ') + email)
 

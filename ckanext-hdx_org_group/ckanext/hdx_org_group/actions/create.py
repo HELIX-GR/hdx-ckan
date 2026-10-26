@@ -41,6 +41,9 @@ def hdx_user_invite(context, data_dict):
     :returns: the newly created user
     :rtype: dictionary
     '''
+    # Inviting emails that do not have an account yet is disabled: users must register first
+    raise ValidationError({'message': [_('Inviting new users is disabled, users must register first')]})
+
     import string
     _check_access('user_invite', context, data_dict)
 
