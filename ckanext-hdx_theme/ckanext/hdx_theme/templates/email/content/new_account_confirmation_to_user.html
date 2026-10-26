@@ -5,9 +5,9 @@
   <a href="https://centre.humdata.org">Centre for Humanitarian Data</a>. We welcome you to join the HDX community.</p>
 
 <p>Your account has been assigned the role of
-  {% if data.capacity == 'admin' %} <strong>administrator</strong>: add, edit, and delete datasets, and manage organisation membership.
-  {% elif data.capacity == 'editor' %} <strong>editor</strong>: add, edit, and delete datasets.
-  {% elif data.capacity == 'member'  %} <strong>member</strong>: view all of an organisation's datasets (including private datasets).
+  {% if data.capacity == 'admin' %} <strong>administrator</strong>: add, edit, delete, and publish datasets, and manage organisation membership.
+  {% elif data.capacity == 'editor' %} <strong>editor</strong>: add, edit, delete, and publish datasets.
+  {% elif data.capacity == 'member'  %} <strong>member</strong>: add, edit, and delete datasets (they stay private until an editor or administrator publishes them).
   {% endif %}
 </p>
 

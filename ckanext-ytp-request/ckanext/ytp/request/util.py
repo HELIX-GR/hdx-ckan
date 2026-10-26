@@ -23,10 +23,10 @@ _MESSAGE_MEMBERSHIP_REQUEST = \
     
     <br/><br/>If approved, you can assign the user one of the following roles:
     <ul>
-    <li>Admin: The user can add, edit and delete datasets, and manage organisation membership. </li>
-    <li>Editor: The user can add, edit and delete datasets. They cannot manage organisation membership. </li>
-    <li>Member: The user can view the organisation's private datasets. They cannot add new datasets or manage 
-    membership.</li>
+    <li>Admin: The user can add, edit, delete and publish datasets, and manage organisation membership. </li>
+    <li>Editor: The user can add, edit, delete and publish datasets. They cannot manage organisation membership. </li>
+    <li>Member: The user can add, edit and delete datasets (they stay private until an editor or administrator publishes 
+    them). They cannot publish datasets or manage membership.</li>
     </ul>
     
     For more details on how to manage organisational members, 

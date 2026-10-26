@@ -24,6 +24,7 @@ from ckanext.hdx_package.helpers.custom_validator import hdx_owner_org_validator
 import ckanext.hdx_package.config as ext_data
 
 import ckan.logic as logic
+import ckan.model as model
 import ckan.model.license as license
 import ckan.model.package as package
 import ckan.authz as authz
@@ -32,6 +33,8 @@ import ckan.plugins as plugins
 import ckan.plugins.toolkit as tk
 import ckanext.resourceproxy.plugin as resourceproxy_plugin
 from ckan.lib import uploader
+from ckan.lib.plugins import DefaultPermissionLabels
+from ckan.logic.action.get import organization_list_for_user as core_org_list_for_user
 from ckan.common import c
 from ckanext.hdx_package.helpers.constants import UNWANTED_DATASET_PROPERTIES, COD_VALUES_MAP, IN_HAPI_FLAG_VALUES
 from ckanext.hdx_package.helpers.freshness_calculator import UPDATE_FREQ_INFO
@@ -91,8 +94,9 @@ def cached_group_list():
     return tk.get_action('cached_group_list')()
 
 @tk.blanket.config_declarations
-class HDXPackagePlugin(plugins.SingletonPlugin, tk.DefaultDatasetForm):
+class HDXPackagePlugin(plugins.SingletonPlugin, tk.DefaultDatasetForm, DefaultPermissionLabels):
     plugins.implements(plugins.IAuthFunctions)
+    plugins.implements(plugins.IPermissionLabels)
     plugins.implements(plugins.IConfigurer, inherit=False)
     # plugins.implements(plugins.IRoutes, inherit=True)
     plugins.implements(plugins.IDatasetForm, inherit=False)
@@ -533,6 +537,22 @@ class HDXPackagePlugin(plugins.SingletonPlugin, tk.DefaultDatasetForm):
             'dataset_categories': self.dataset_categories,
             'get_user_list': hdx_helpers.get_user_list
         }
+
+    # IPermissionLabels
+    def get_user_dataset_labels(self, user_obj):
+        """Only editors and admins see the private datasets of their organizations.
+        """
+        labels = [l for l in super(HDXPackagePlugin, self).get_user_dataset_labels(user_obj)
+                  if not l.startswith('member-')]
+        if not user_obj or user_obj.is_anonymous:
+            return labels
+
+        # call the core action directly: the hdx override of organization_list_for_user
+        # widens 'update_dataset' to 'read' so that members can create datasets
+        orgs = core_org_list_for_user({'model': model, 'session': model.Session, 'user': user_obj.name},
+                                      {'permission': 'update_dataset'})
+        labels.extend(u'member-%s' % o[u'id'] for o in orgs)
+        return labels
 
     def get_actions(self):
         from ckanext.hdx_package.helpers import helpers as hdx_actions
