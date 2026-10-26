@@ -539,6 +539,20 @@ class HDXPackagePlugin(plugins.SingletonPlugin, tk.DefaultDatasetForm, DefaultPe
         }
 
     # IPermissionLabels
+    def get_dataset_labels(self, dataset_obj):
+        """Creators must keep access to their own private datasets.
+
+        The default implementation only gives datasets without an organization a "creator-<user id>" label.
+        Now that plain members don't get the "member-<org id>" label, a member would not even be able to read
+        the private dataset he just created (nor edit it later).
+        """
+        labels = super(HDXPackagePlugin, self).get_dataset_labels(dataset_obj)
+        if dataset_obj.creator_user_id and u'public' not in labels:
+            creator_label = u'creator-%s' % dataset_obj.creator_user_id
+            if creator_label not in labels:
+                labels.append(creator_label)
+        return labels
+
     def get_user_dataset_labels(self, user_obj):
         """Only editors and admins see the private datasets of their organizations.
         """
