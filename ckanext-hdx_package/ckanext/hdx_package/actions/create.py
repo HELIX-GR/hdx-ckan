@@ -10,7 +10,10 @@ import six
 
 from flask import request
 
+import ckan.authz as authz
 import ckan.lib.plugins as lib_plugins
+import ckan.model as model
+import ckan.plugins.toolkit as tk
 import ckan.logic as logic
 import ckan.logic.action.create as core_create
 import ckan.logic.action.update as core_update
@@ -19,6 +22,7 @@ import ckanext.hdx_package.helpers.analytics as analytics
 import ckanext.hdx_package.helpers.resource_triggers.common
 import ckanext.hdx_package.helpers.resource_triggers.geopreview as geopreview
 import ckanext.hdx_package.helpers.helpers as helpers
+import ckanext.hdx_package.helpers.mailer as hdx_mailer
 from ckan.types import Context, DataDict, Schema
 from ckan.types.logic import ActionResult
 from ckanext.hdx_org_group.helpers.org_batch import get_batch_or_generate
@@ -302,6 +306,9 @@ def package_create(
         if not pkg.private and helpers.org_allows_public_datasets_from_members(pkg.owner_org):
             add_public_doi(context, [pkg.id])
 
+        if pkg.private and pkg.owner_org:
+            _notify_org_admins_of_private_dataset(pkg)
+
     return_id_only = context.get('return_id_only', False)
 
     if return_id_only:
@@ -311,6 +318,37 @@ def package_create(
         context.copy(),
         {'id': pkg.id, 'include_plugin_data': include_plugin_data}
     )
+
+
+def _notify_org_admins_of_private_dataset(pkg):
+    '''
+    Members can only create private datasets. Let the organisation's admins know, so that they can review and publish
+    them. Datasets created by users who can publish them anyway (editors, admins, sysadmins) are skipped.
+    A failure to send the email never prevents the dataset from being created.
+    '''
+    try:
+        creator = model.User.get(pkg.creator_user_id) if pkg.creator_user_id else None
+        if creator is None or creator.sysadmin or authz.users_role_for_group_or_org(pkg.owner_org, creator.name) != 'member':
+            return
+
+        from ckanext.hdx_org_group.actions.create import get_organization_admins
+        recipients = get_organization_admins(pkg.owner_org)
+        if not recipients:
+            return
+
+        org = model.Group.get(pkg.owner_org)
+        email_data = {
+            'org_name': org.display_name,
+            'creator_name': creator.display_name,
+            'creator_email': creator.email,
+            'dataset_title': pkg.title or pkg.name,
+            'dataset_url': tk.h.url_for('dataset.read', id=pkg.name, qualified=True),
+        }
+        hdx_mailer.mail_recipient(recipients, u'New private dataset to review: {}'.format(email_data['dataset_title']),
+                                  email_data, snippet='email/content/new_private_dataset_to_admins.html')
+    except Exception:
+        log.exception('Could not notify the admins of organisation %s about the new private dataset %s',
+                      pkg.owner_org, pkg.id)
 
 
 # def hdx_create_screenshot_for_cod(context, data_dict):
