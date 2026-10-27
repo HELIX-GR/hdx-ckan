@@ -22,7 +22,7 @@ def hdx_send_new_org_request(context, data_dict):
 
     email = config.get('hdx.orgrequest.email', None)
     if not email:
-        email = config.get('ckanext.restricted.admin_email')
+        email = config.get('admin_email')
     display_name = 'HEAL-Link Feedback'
 
     ckan_username = g.user
