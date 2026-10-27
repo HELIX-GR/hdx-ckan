@@ -53,7 +53,7 @@ def _mail_recipient_html(sender_name=None,
     mail_from = config.get('smtp.mail_from')
     site_name = config.get('ckanext.restricted.email_site_title', 'HEAL-Link')
     sender_name = sender_name or site_name
-    sender_email = sender_email or config.get('email_to') or mail_from
+    sender_email = sender_email or mail_from
 
     template_data = {
         'data': {

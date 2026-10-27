@@ -48,7 +48,7 @@ def send_email_on_token_creation(username, token_name, expiration_in_millis):
         'token_name': token_name,
         'expires': isodate,
         'api_tokens_url': api_tokens_url,
-        'support_email': config.get('email_to'),
+        'support_email': config.get('ckanext.restricted.admin_email'),
     }
 
     rendered_text = MAIL_TEXT_TEMPLATE.format(**token_info)
