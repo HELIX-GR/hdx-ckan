@@ -1,5 +1,6 @@
 import ckan.logic as logic
 import ckan.model as model
+import ckan.plugins as plugins
 from six.moves.urllib.parse import parse_qs, urlparse
 from ckan.common import _, c, g, request
 import ckan.lib.helpers as h
@@ -91,6 +92,9 @@ def _get_default_facet_titles():
 
 
 def has_permission(username_or_id):
+    # Permissions reads UserExtra, which is only mapped when hdx_user_extra is loaded
+    if not plugins.plugin_loaded('hdx_user_extra'):
+        return False
     try:
         from ckanext.hdx_users.helpers.permissions import Permissions
         result = Permissions(username_or_id).has_permission(Permissions.PERMISSION_MANAGE_CRISIS)
