@@ -716,7 +716,15 @@ def add_public_doi(context, datasets):
             try:
                 helpers.publishDataciteDoi(dataset, doi)
             except Exception as ex:
-                log.error("DataCite publish failed for dataset %s, DOI %s - "
+                response = getattr(ex, 'response', None)
+                status = getattr(response, 'status_code', None)
+                if status is None or status >= 500:
+                    # On timeout / connection error / 5xx: DataCite may well have registered the DOI already,
+                    # so keep it on the dataset instead of leaving it registered but unassigned.
+                    log.error("DataCite publish outcome unknown for dataset %s, DOI %s - "
+                              "keeping the saved DOI, check it at DataCite: %s", id, doi, ex)
+                    continue
+                log.error("DataCite publish rejected for dataset %s, DOI %s - "
                           "reverting the saved DOI so it can be retried: %s", id, doi, ex)
                 dataset['datacite_doi'] = ''
                 try:
