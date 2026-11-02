@@ -375,26 +375,12 @@
                                                                       </label>
                                                               
                                                                       <div class="controls">
-                                                                        <select
+                                                                        <input type="hidden"
                                                                           id="resource<%= position %>-allowed_users"
                                                                           name="allowed_users"
                                                                           class="form-control"
-                                                                          data-module="input-select2-subject"
                                                                           data-module-placeholder="{{ _('A list of allowed users') }}"
-                                                                          data-module-minimumresultsforsearch="0"
-                                                                          data-module-minimuminputlength="0"
-                                                                          multiple
-                                                                        >
-                                                                          {% for user in h.get_user_list() %}
-                                                                            <option value="{{ user.name }}"
-                                                                              <% if (allowed_users && allowed_users.indexOf('{{ user.name }}') !== -1) { %>
-                                                                                selected="selected"
-                                                                              <% } %>
-                                                                            >
-                                                                              {{ user.name }}
-                                                                            </option>
-                                                                          {% endfor %}
-                                                                        </select>
+                                                                          value="<%- (allowed_users || []).join(',') %>">
                                                                       </div>
                                                                     </div>
                                                                   </div>

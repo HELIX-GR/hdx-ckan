@@ -214,6 +214,15 @@
   font-size: 14px;
   color: #333333;
 }
+.hdx-form .allowed-users-wrapper .form-control.select2-container-multi {
+  max-width: 400px;
+}
+.hdx-form .allowed-users-wrapper .form-control.select2-container-multi .select2-choices {
+  min-height: 34px;
+}
+.hdx-form .allowed-users-wrapper .form-control.select2-container-multi .select2-choices .select2-search-field input {
+  height: 32px;
+}
 .hdx-form .mb-3 .form-control.select2-container-multi.choices-orange .select2-choices .select2-search-choice {
   background-color: #f2645a;
 }

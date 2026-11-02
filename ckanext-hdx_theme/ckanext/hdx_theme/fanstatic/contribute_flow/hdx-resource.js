@@ -20,29 +20,50 @@ $(function(){
     // MODELS
 
     function initAllowedUsersSelect($root) {
-        var $sel = $root.find('select[name=allowed_users]');
+        var $sel = $root.find('input[name=allowed_users]');
         if (!$sel.length) return;
-      
+
         if (!$.fn.select2) {
           console.warn('select2 is not loaded');
           return;
         }
-      
-        // If already initialized, destroy first (covers the hidden-init/broken-init case)
+
+        // If already initialized, destroy first
         try {
-          if ($sel.data('select2') || $sel.hasClass('select2-hidden-accessible') || $sel.hasClass('select2-offscreen')) {
+          if ($sel.data('select2')) {
             $sel.select2('destroy');
           }
         } catch (e) {}
-      
+
+        // Users are fetched from the autocomplete API once 3 characters are typed,
+        // instead of rendering the whole user list into the page.
         $sel.select2({
-          width: 'element',
+          width: '100%',
+          multiple: true,
           placeholder: $sel.attr('data-module-placeholder') || null,
-          minimumResultsForSearch: 0,
-          minimumInputLength: 0
+          minimumInputLength: 3,
+          ajax: {
+            url: '/api/2/util/user/autocomplete',
+            dataType: 'json',
+            quietMillis: 250,
+            data: function (term) {
+              return { q: term, limit: 20 };
+            },
+            results: function (data) {
+              return {
+                results: (data || []).map(function (u) {
+                  return { id: u.name, text: u.fullname || u.name };
+                })
+              };
+            }
+          },
+          initSelection: function (element, callback) {
+            var names = (element.val() || '').split(',').filter(Boolean);
+            callback(names.map(function (n) { return { id: n, text: n }; }));
+          }
         });
       }
-      
+
 
     var Resource = Backbone.Model.extend({
 
@@ -415,7 +436,7 @@ $(function(){
             'change input[type=checkbox][name=pii]': 'onPiiChange',
             'change input[type=checkbox][name=microdata]': 'onMicrodataChange',
             'change input[type=checkbox][name=restricted]': 'onRestrictedChange',
-            'change select[name=allowed_users]': 'onAllowedUsersChange',
+            'change input[name=allowed_users]': 'onAllowedUsersChange',
             'change .source-file-fields .form-control': 'onFieldEdit',
             'click .dropbox a': 'onDropboxBtn',
             'click .googledrive a': 'onGoogleDriveBtn',
@@ -510,9 +531,7 @@ $(function(){
             var html = this.template(template_data);
             this.$el.html(html);
 
-            var s = this.$('select[name=allowed_users]');
-            console.log('multiple?', s.prop('multiple'));
-            console.log('select2?', !!s.data('select2'));
+            initAllowedUsersSelect(this.$el);
 
 
             this._setUpDragAndDrop();
@@ -553,7 +572,7 @@ $(function(){
         },
 
         onAllowedUsersChange: function (e) {
-            var vals = $(e.currentTarget).val() || [];
+            var vals = ($(e.currentTarget).val() || '').split(',').filter(Boolean);
             this.model.set({ allowed_users: vals });
           },
 
@@ -615,35 +634,13 @@ $(function(){
               return;
             }
           
-            const $select = $wrapper.find('select[name=allowed_users]');
+            const $select = $wrapper.find('input[name=allowed_users]');
           
             if (checked) {
               $wrapper.show();
           
               if ($select.length) {
-                try {
-                  if (
-                    $select.data('select2') ||
-                    $select.hasClass('select2-hidden-accessible') ||
-                    $select.hasClass('select2-offscreen')
-                  ) {
-                    $select.select2('destroy');
-                  }
-                } catch (err) {}
-          
-                if ($.fn.select2) {
-                  $select.select2({
-                    width: 'element',
-                    placeholder: $select.attr('data-module-placeholder') || null,
-                    minimumResultsForSearch: 0,
-                    minimumInputLength: 0
-                  });
-                } else {
-                  // fallback: try CKAN module initialization
-                  $wrapper.find('[data-module]').each(function (i, el) {
-                    ckan.module.initializeElement(el);
-                  });
-                }
+                initAllowedUsersSelect($wrapper);
               }
           
             } else {
@@ -655,10 +652,10 @@ $(function(){
           
               // clear UI selection too (and update select2 if present)
               if ($select.length) {
-                $select.val([]);
+                $select.val('');
                 try {
-                  if ($select.data('select2') || $select.hasClass('select2-hidden-accessible')) {
-                    $select.trigger('change');
+                  if ($select.data('select2')) {
+                    $select.select2('val', '');
                   }
                 } catch (err) {}
               }
@@ -727,6 +724,13 @@ $(function(){
             var form_data = { format: 'txt' };
           
             update_form_array.forEach(function (x) {
+              // hidden select2 input holds a comma separated list
+              if (x.name === 'allowed_users') {
+                var names = (x.value || '').split(',').filter(Boolean);
+                if (names.length) { form_data[x.name] = names; }
+                return;
+              }
+
               // Keep restricted as boolean (from model), not "on"/missing
               if (x.name === 'restricted') {
                 form_data[x.name] = this.model.get('restricted');
