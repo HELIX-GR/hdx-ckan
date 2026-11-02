@@ -6331,6 +6331,9 @@ msgstr "Περιορίστε την αναζήτησή σας"
 msgid "Open Science quickstart"
 msgstr "Οδηγός Open Science"
 
+msgid "User guide"
+msgstr "Οδηγός χρήσης"
+
 msgid "Tags"
 msgstr "Ετικέτες"
 
