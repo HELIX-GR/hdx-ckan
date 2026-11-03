@@ -323,7 +323,8 @@ def package_create(
 def _notify_org_admins_of_private_dataset(pkg):
     '''
     Members can only create private datasets. Let the organisation's admins know, so that they can review and publish
-    them. Datasets created by users who can publish them anyway (editors, admins, sysadmins) are skipped.
+    them. If the organisation has no admins, the ``admin_email`` from the ini file is notified instead.
+    Datasets created by users who can publish them anyway (editors, admins, sysadmins) are skipped.
     A failure to send the email never prevents the dataset from being created.
     '''
     try:
@@ -332,9 +333,15 @@ def _notify_org_admins_of_private_dataset(pkg):
             return
 
         from ckanext.hdx_org_group.actions.create import get_organization_admins
-        recipients = get_organization_admins(pkg.owner_org)
+        recipients = [r for r in get_organization_admins(pkg.owner_org) if r.get('email')]
         if not recipients:
-            return
+            # no organisation admin to review it: fall back to the site admin from the ini file
+            admin_email = tk.config.get('admin_email')
+            if not admin_email:
+                log.warning('No admins in organisation %s and no admin_email configured, '
+                            'nobody was notified about the new private dataset %s', pkg.owner_org, pkg.id)
+                return
+            recipients = [{'display_name': 'Διαχειριστής', 'email': admin_email}]
 
         org = model.Group.get(pkg.owner_org)
         email_data = {
@@ -344,7 +351,7 @@ def _notify_org_admins_of_private_dataset(pkg):
             'dataset_title': pkg.title or pkg.name,
             'dataset_url': tk.h.url_for('dataset.read', id=pkg.name, qualified=True),
         }
-        hdx_mailer.mail_recipient(recipients, u'New private dataset to review: {}'.format(email_data['dataset_title']),
+        hdx_mailer.mail_recipient(recipients, u'Νέο ιδιωτικό σύνολο δεδομένων προς έλεγχο: {}'.format(email_data['dataset_title']),
                                   email_data, snippet='email/content/new_private_dataset_to_admins.html')
     except Exception:
         log.exception('Could not notify the admins of organisation %s about the new private dataset %s',
