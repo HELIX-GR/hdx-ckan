@@ -2524,7 +2524,7 @@ msgstr "Είστε σίγουροι ότι θέλετε να διαγράψετ�
 
 #: ckan/templates/group/edit.html:11 ckan/templates/group/edit.html:14
 msgid "Edit Group"
-msgstr "Επεξεργασία Ομάδας:"
+msgstr "Επεξεργασία Ομάδας"
 
 #: ckan/templates/group/edit_base.html:14
 msgid "View group"
@@ -2569,7 +2569,7 @@ msgstr "Ομάδες Συνόλων Δεδομένων"
 #: ckan/templates/user/dashboard_groups.html:7
 #: ckan/templates_legacy/js_strings.html:16
 msgid "Add Group"
-msgstr "Προσθήκη ομάδας."
+msgstr "Προσθήκη ομάδας"
 
 #: ckan/templates/group/index.html:20
 msgid "Search groups..."
@@ -2801,7 +2801,7 @@ msgstr ""
 "κοινότητας (για παράδειγμα, τα δεδομένα Πολιτικής Ελευθερίας) ή μιας θεματικής  "
 "(π.χ. μεταφορές, υγεία, περιβάλλον), ώστε να είναι ευκολότερο για τους χρήστες "
 "να περιηγηθούν στα σύνολα δεδομένων ανά θέμα. Τα σύνολα δεδομένων μπορούν να "
-"είναι μέρος μιας ομάδας, αλλά δεν ανήκουν στην ομάδα όσον αφορά την ε[εξεργασία "
+"είναι μέρος μιας ομάδας, αλλά δεν ανήκουν στην ομάδα όσον αφορά την επεξεργασία "
 "ή τα δικαιώματα.</p> "
 
 #: ckan/templates/group/snippets/history_revisions.html:10
@@ -4801,7 +4801,7 @@ msgstr "Λίστα Ομάδων"
 
 #: ckan/templates_legacy/group/layout.html:35
 msgid "Login to Add a Group"
-msgstr "Συνθεθείτε για να Προσθέσετε μια Ομάδα"
+msgstr "Συνδεθείτε για να Προσθέσετε μια Ομάδα"
 
 #: ckan/templates_legacy/group/new.html:5 ckan/templates_legacy/group/new.html:6
 msgid "Add A Group"
@@ -6350,7 +6350,7 @@ msgid "Thematic Groups"
 msgstr "Θεματικές Ομάδες"
 
 msgid "Thematic group"
-msgstr "Θεματικές Ομάδα"
+msgstr "Θεματική Ομάδα"
 
 msgid "Data deposition policy"
 msgstr "Πολιτική Απόθεσης"
