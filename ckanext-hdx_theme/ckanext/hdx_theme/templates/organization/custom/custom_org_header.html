@@ -25,15 +25,13 @@
             <a href="{{ org_meta.org_dict.org_url }}" target="_blank">{{ _('Visit Website') }}</a>
             {{ h.hdx_follow_button('group', org_meta.id, follow_extra_text=' ' ) }}
 
+            {# Request Membership disabled
             {% if org_meta.allow_req_membership %}
               <a href="{{ h.url_for('hdx_org_join.find_organisation', selected=org_meta.id) }}" class="">
                 {{ _("Request Membership") }}
               </a>
-
-              {#                    <a href="#" data-bs-toggle="modal" data-bs-target="#req-membership-div">#}
-              {#                        {{ _("Request Membership") }}#}
-              {#                    </a>#}
             {% endif %}
+            #}
           </div>
 
         </div>
@@ -57,7 +55,7 @@
                             <ul class="mainLinks org-info-links">
                                 <li>
                                     <a
-                                        {% if org_meta.allow_basic_user_info %}
+                                        {% if org_meta.allow_basic_user_info and h.user_in_org_or_group(org_meta.org_dict.id) %}
                                             href="{{ h.url_for('hdx_members.members', id=org_meta.id) }}"
                                         {% else %}
                                             href="#" class="disabled"

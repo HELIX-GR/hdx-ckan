@@ -241,7 +241,6 @@ class SearchLogic(object):
             facets = self._generate_facet_name_to_title_map(package_type)
             #adding site_id to facets to facilitate totals counts in case of batch/collapse
             facet_keys = ['{!ex=batch}site_id'] + list(facets)
-            log.info(f"FACET KEYS: {facet_keys}")
             self._performing_search(q, fq, facet_keys, limit, page, sort_by, search_extras,
                                     self._get_pager_function(package_type), context,
                                     fq_list=fq_list, expand=solr_expand)

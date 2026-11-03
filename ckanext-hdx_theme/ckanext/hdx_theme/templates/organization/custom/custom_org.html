@@ -37,8 +37,8 @@
             <ul class="nav nav-tabs paddingLeftHack paddingRightHack">
                {% block content_primary_nav %}
                     {{ h.bs5_build_nav_icon('hdx_org.read', _('Datasets'), id=data.org_info.name, class_='nav-link hdx-tab-button') }}
-                    {{ h.bs5_build_nav_icon('hdx_org.activity', _('Activity Stream'), id=data.org_info.name, class_='nav-link hdx-tab-button') }}
-                    {% if c.user %}
+                    {% if c.user and h.user_in_org_or_group(data.org_info.id) %}
+                        {{ h.bs5_build_nav_icon('hdx_org.activity', _('Activity Stream'), id=data.org_info.name, class_='nav-link hdx-tab-button') }}
                         {{ h.bs5_build_nav_icon('hdx_members.members', _('Members'), id=data.org_info.name, class_='nav-link hdx-tab-button') }}
                     {% endif %}
                     {% if h.check_access('organization_update', {'id': data.org_info.id}) %}

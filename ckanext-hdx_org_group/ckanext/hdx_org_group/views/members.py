@@ -63,6 +63,9 @@ def members(id):
         org_meta = org_meta_dao.OrgMetaDao(id, g.user, g.userobj)
         org_meta.fetch_all()
 
+        if not h.user_in_org_or_group(org_meta.org_dict['id']):
+            raise NotAuthorized('Only members of the organisation can see the list of members')
+
         try:
             member_list = get_action('member_list')(
                 context, {'id': id, 'object_type': 'user',

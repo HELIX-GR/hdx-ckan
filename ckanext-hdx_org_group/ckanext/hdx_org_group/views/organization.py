@@ -348,6 +348,9 @@ def activity_offset(id, offset=0):
     org_dict = org_meta.org_dict
     # org_dict['group_message_info'] = org_meta.group_message_info
 
+    if not h.user_in_org_or_group(org_dict['id']):
+        abort(403, _('Only members of the organisation can see its activity stream'))
+
     #helper.org_add_last_updated_field([org_dict])
 
     # Add the group's activity stream (already rendered to HTML) to the
